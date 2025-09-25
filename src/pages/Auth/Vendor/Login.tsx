@@ -59,7 +59,7 @@ const VendorSignin = () => {
       onSubmit,
     });
 
-  const text = "Welcome to ashoBox Elevate Your Fashion Business";
+  const text = "Welcome to AshoBox Elevate Your Fashion Business";
 
   const container = {
     hidden: { opacity: 0 },
