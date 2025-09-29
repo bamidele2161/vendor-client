@@ -13,12 +13,30 @@ import { useGetAllOrdersByVendorsQuery } from "../../service/product";
 import { useAppSelector } from "../../hooks";
 import { selectAuth } from "../../store/slice/authSlice";
 
+// Define proper types
+interface Order {
+  id: string;
+  createdAt: string;
+  totalAmount: number;
+}
+
+interface OrdersResponse {
+  data: Order[];
+}
+
+interface SalesData {
+  month: string;
+  sales: number;
+}
+
 const SalesChart = () => {
   const { userInfo } = useAppSelector(selectAuth);
   const { data: orders } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id);
   const [, setSelectedMonth] = useState<string | null>(null);
 
-  const aggregateSalesByMonth = (orders: any) => {
+  const aggregateSalesByMonth = (
+    orders: OrdersResponse | undefined
+  ): SalesData[] => {
     if (!orders?.data) return [];
 
     const salesByMonth: { [key: string]: number } = {};
@@ -31,13 +49,13 @@ const SalesChart = () => {
       Jun: 5,
       Jul: 6,
       Aug: 7,
-      Sep: 8,
+      Sept: 8,
       Oct: 9,
       Nov: 10,
       Dec: 11,
     };
 
-    orders.data.forEach((order: any) => {
+    orders.data.forEach((order: Order) => {
       const month = new Date(order.createdAt).toLocaleString("default", {
         month: "short",
       });
@@ -48,22 +66,29 @@ const SalesChart = () => {
     return Object.keys(salesByMonth)
       .sort((a, b) => monthOrder[a] - monthOrder[b])
       .map((month) => ({
-        name: month,
+        month: month,
         sales: salesByMonth[month],
       }));
   };
 
-  const salesData = aggregateSalesByMonth(orders);
-
+  const salesData = aggregateSalesByMonth(orders) || [];
+  console.log(salesData);
   // Calculate total sales and growth
   const totalSales = salesData.reduce((sum, item) => sum + item.sales, 0);
-  const previousMonthSales =
-    salesData.length > 1 ? salesData[salesData.length - 2]?.sales || 0 : 0;
+
+  // Get current month (most recent) and previous month sales
   const currentMonthSales =
     salesData.length > 0 ? salesData[salesData.length - 1]?.sales || 0 : 0;
-  const growthPercentage = previousMonthSales
-    ? ((currentMonthSales - previousMonthSales) / previousMonthSales) * 100
-    : 0;
+  const previousMonthSales =
+    salesData.length > 1 ? salesData[salesData.length - 2]?.sales || 0 : 0;
+
+  // Calculate growth percentage with proper handling of edge cases
+  const growthPercentage =
+    previousMonthSales > 0
+      ? ((currentMonthSales - previousMonthSales) / previousMonthSales) * 100
+      : currentMonthSales > 0
+      ? 100
+      : 0;
 
   // Format currency
   const formatCurrency = (value: number) => {
@@ -99,7 +124,7 @@ const SalesChart = () => {
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-semibold text-gray-800">
+            <h2 className="text-xl font-semibold text-gray-800">
               Sales Overview
             </h2>
             <p className="text-sm text-gray-500">Monthly sales performance</p>
@@ -168,33 +193,32 @@ const SalesChart = () => {
                 </linearGradient>
               </defs>
               <XAxis
-                dataKey="name"
+                dataKey="month"
                 axisLine={false}
                 tickLine={false}
                 tickMargin={10}
-                padding={{ left: 10, right: 10 }}
-                stroke="#94a3b8"
+                className="text-xs"
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
                 tickMargin={10}
+                className="text-xs"
                 tickFormatter={(value) => formatCurrency(value)}
-                stroke="#94a3b8"
               />
               <Tooltip content={<CustomTooltip />} cursor={false} />
               <Area
                 type="monotone"
                 dataKey="sales"
-                stroke="#80BBEB"
+                stroke="#092547"
                 strokeWidth={3}
                 fillOpacity={1}
                 fill="url(#salesGradient)"
                 activeDot={{
                   r: 6,
                   strokeWidth: 2,
-                  fill: "white",
-                  stroke: "#80BBEB",
+                  fill: "#80BBEB",
+                  stroke: "#ffffff",
                 }}
               />
             </AreaChart>

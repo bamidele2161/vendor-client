@@ -18,7 +18,12 @@ const Order = () => {
   const { userInfo } = useAppSelector(selectAuth);
   const [updateOrderStatus, { isLoading }] = useUpdateOrderStatusMutation();
   const [statusOrderStatus, setStatusOrderStatus] = useState("");
-  const { data, refetch } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id);
+  const { data, refetch } = useGetAllOrdersByVendorsQuery(
+    userInfo?.Vendor?.id,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const handleSearch = (e: any) => {
     setSearchTerm(e.target.value);
   };

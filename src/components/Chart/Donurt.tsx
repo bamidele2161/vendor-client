@@ -101,7 +101,7 @@ const SalesDonut = () => {
     <div className="w-full bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="p-6">
         <div className="mb-6 flex flex-col justify-start items-start">
-          <h2 className="text-2xl font-semibold text-gray-800">Order Status</h2>
+          <h2 className="text-xl font-semibold text-gray-800">Order Status</h2>
           <p className="text-sm text-gray-500">
             Distribution of orders by status
           </p>
@@ -115,7 +115,7 @@ const SalesDonut = () => {
                   data={statusData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={70}
+                  innerRadius={80}
                   outerRadius={90}
                   paddingAngle={2}
                   dataKey="value"

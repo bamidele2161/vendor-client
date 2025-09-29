@@ -306,6 +306,11 @@ export const productApi = createApi({
 
       invalidatesTags: [{ type: "Product", id: "Product" }],
     }),
+
+    getTransactions: builder.query<any, number>({
+      query: (vendorId) => `/transactions/vendor/${vendorId}`,
+      providesTags: [{ type: "Product", id: "Product" }],
+    }),
   }),
 });
 
@@ -334,4 +339,5 @@ export const {
   useIncrementViewsMutation,
   useGetAllMostViewedProductsQuery,
   useEditproductMutation,
+  useGetTransactionsQuery,
 } = productApi;

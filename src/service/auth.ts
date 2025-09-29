@@ -52,6 +52,48 @@ export const authApi = createApi({
       }),
     }),
 
+    // Password reset endpoints
+    requestPasswordReset: builder.mutation<
+      any,
+      {
+        email: string;
+      }
+    >({
+      query: (body) => ({
+        url: "/users/request-password-reset",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    verifyOtp: builder.mutation<
+      { resetToken: string },
+      {
+        email: string;
+        otp: string;
+      }
+    >({
+      query: (body) => ({
+        url: "/users/verify-otp",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    resetPassword: builder.mutation<
+      any,
+      {
+        resetToken: string;
+        newPassword: string;
+      }
+    >({
+      query: (body) => ({
+        url: "/users/reset-password",
+        method: "POST",
+        body,
+      }),
+    }),
+
     getAllUsers: builder.query<any, void>({
       query: () => `/users`,
       providesTags: [{ type: "Auth", id: "Auth" }],
@@ -63,5 +105,8 @@ export const {
   useLoginMutation,
   useRegisterVendorMutation,
   useGoogleAuthMutation,
+  useRequestPasswordResetMutation,
+  useVerifyOtpMutation,
+  useResetPasswordMutation,
   useGetAllUsersQuery,
 } = authApi;

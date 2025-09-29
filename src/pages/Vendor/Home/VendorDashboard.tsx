@@ -33,15 +33,15 @@ const VendorDashboard = () => {
             <QuickActions />
           </div>
         </div>
-        <div className="flex justify-center gap-10">
-          <div className="w-1/2">
+        <div className="flex justify-center gap-6">
+          <div className="w-[75%]">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">
               Sales Performance
             </h2>
             <SalesChart />
           </div>
 
-          <div className="w-1/2">
+          <div className="w-[35%]">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Sales</h2>
             <SalesDonut />
           </div>

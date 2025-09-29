@@ -3,63 +3,23 @@ import Navbar from "../../../components/Navbar/Navbar";
 import { ChevronDown } from "lucide-react";
 import { tableCustomStyles } from "../../../util";
 import DataTable from "react-data-table-component";
+import { useGetTransactionsQuery } from "../../../service/product";
 
 const Transaction = () => {
   const [dateFilter, setDateFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [searchTerm, setSearchTerm] = useState("");
+  const { data } = useGetTransactionsQuery(1);
 
+  console.log(data);
   const handleSearch = (e: any) => {
     setSearchTerm(e.target.value);
   };
 
-  const sampleTransactions = [
-    {
-      id: 1012,
-      createdAt: "2025-09-18T10:24:00.000Z",
-      amount: 5000,
-      totalAmount: 5000,
-      account: "1234567890 - GTBank",
-      status: "Paid",
-    },
-    {
-      id: 1013,
-      createdAt: "2025-09-17T15:12:00.000Z",
-      amount: 7500,
-      totalAmount: 7500,
-      account: "0987654321 - Access Bank",
-      status: "Failed",
-    },
-    {
-      id: 1014,
-      createdAt: "2025-09-16T08:45:00.000Z",
-      amount: 12000,
-      totalAmount: 12000,
-      account: "4455667788 - UBA",
-      status: "Paid",
-    },
-    {
-      id: 1015,
-      createdAt: "2025-09-15T19:30:00.000Z",
-      amount: 10000,
-      totalAmount: 10000,
-      account: "2233445566 - Zenith Bank",
-      status: "Paid",
-    },
-    {
-      id: 1016,
-      createdAt: "2025-09-14T14:00:00.000Z",
-      amount: 2000,
-      totalAmount: 2000,
-      account: "1122334455 - First Bank",
-      status: "Paid",
-    },
-  ];
-
   const columns = [
     {
       name: "Payment ID",
-      selector: (row: any) => `PAY-${row.id}`,
+      selector: (row: any) => `PAY-${row.paymentReference}`,
       sortable: true,
     },
 
@@ -71,7 +31,7 @@ const Transaction = () => {
     {
       name: "Amount",
       selector: (row: any) => row.amount,
-      format: (row: any) => `₦${row.totalAmount?.toFixed(2)}`,
+      format: (row: any) => `₦${row.amount?.toFixed(2)}`,
       sortable: true,
     },
     {
@@ -197,7 +157,7 @@ const Transaction = () => {
           <div className="flex w-full flex-col rounded-md border">
             <DataTable
               columns={columns}
-              data={sampleTransactions}
+              data={data?.data || []}
               pagination
               customStyles={tableCustomStyles}
               highlightOnHover

@@ -13,6 +13,19 @@ import home2 from "../assets/home2.jpg";
 import { type RowDataProps } from "../interfaces/Global";
 import { useCookies } from "../hooks/cookiesHook";
 import { persistor } from "../store/store";
+import { toast } from "react-toastify";
+
+export const errorHandler = (error: unknown) => {
+  if (error instanceof Error) {
+    toast.error(error?.message);
+  } else if (typeof error === "object" && error && "data" in error) {
+    const apiError = error as { data?: { message?: string } };
+    toast.error(apiError.data?.message || "An unexpected error occurred");
+  } else {
+    toast.error("An unexpected error occurred");
+  }
+};
+
 export const brands = [
   {
     id: 1,

@@ -25,23 +25,28 @@ const VendorSignin = () => {
     password: string;
     emailOrPhoneNumber: string;
   }) => {
-    const requiredData = {
-      password: formData.password,
-      emailOrPhoneNumber: formData.emailOrPhoneNumber.toLowerCase().trim(),
-    };
-    const response = await login(requiredData).unwrap();
-    console.log("Vendor Login", response);
-    if (response?.error) {
-      toast.error(response?.message);
-    } else {
-      if (response?.data?.role === "VENDOR") {
-        dispatch(saveUserInfo(response?.data));
-        setCookies("ashoboxToken", response?.data?.access_token);
-        toast.success(response?.message);
-        navigate("/dashboard");
+    try {
+      const requiredData = {
+        password: formData.password,
+        emailOrPhoneNumber: formData.emailOrPhoneNumber.toLowerCase().trim(),
+      };
+      const response = await login(requiredData).unwrap();
+
+      if (response?.error) {
+        toast.error(response?.data?.message);
       } else {
-        toast.error("You are not authorized as a Vendor!");
+        if (response?.data?.role === "VENDOR") {
+          dispatch(saveUserInfo(response?.data));
+          setCookies("ashoboxToken", response?.data?.access_token);
+          toast.success(response?.message);
+          navigate("/dashboard");
+        } else {
+          toast.error("You are not authorized as a Vendor!");
+        }
       }
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Login failed");
+      console.log("Login error", error);
     }
   };
 
