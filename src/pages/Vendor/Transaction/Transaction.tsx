@@ -90,9 +90,18 @@ const Transaction = () => {
       sortable: true,
     },
     {
-      name: "Recipient Type",
-      selector: (row: PayoutData) => row.recipientType,
-      format: (row: PayoutData) => row.recipientType,
+      name: "View Receipt",
+      selector: (row: PayoutData) => (
+        <a
+          href={row.receiptUrl as string}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 text-sm text-pryColor hover:text-secColor underline cursor-pointer"
+        >
+          View Receipt
+        </a>
+      ),
+
       sortable: true,
     },
     {
