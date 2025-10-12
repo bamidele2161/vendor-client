@@ -16,11 +16,9 @@ const AddPayout = () => {
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Get vendor info from auth state
   const { userInfo } = useAppSelector(selectAuth);
   const vendorId = userInfo?.Vendor?.id;
-  console.log(userInfo);
-  // API hooks
+
   const {
     data: bankDetails,
     isLoading: isLoadingBankDetails,
