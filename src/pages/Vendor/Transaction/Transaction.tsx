@@ -71,7 +71,6 @@ const Transaction = () => {
   //   });
   // }, [payoutData?.data, searchTerm, statusFilter]);
 
-  console.log(payoutData, reportsData);
   const columns = [
     {
       name: "Payment ID",
@@ -91,7 +90,7 @@ const Transaction = () => {
     },
     {
       name: "View Receipt",
-      selector: (row: PayoutData) => (
+      cell: (row: PayoutData) => (
         <a
           href={row.receiptUrl as string}
           target="_blank"
@@ -101,8 +100,7 @@ const Transaction = () => {
           View Receipt
         </a>
       ),
-
-      sortable: true,
+      sortable: false,
     },
     {
       name: "Status",
@@ -113,10 +111,6 @@ const Transaction = () => {
             row.status === "PENDING"
               ? "bg-processing text-white"
               : row.status === "PAID"
-              ? "bg-pryColor text-white"
-              : row.status === "SHIPPED"
-              ? "bg-secColor text-white"
-              : row.status === "DELIVERED"
               ? "bg-positive text-white"
               : "bg-negative text-white"
           }`}
@@ -127,7 +121,7 @@ const Transaction = () => {
       sortable: true,
     },
   ];
-  console.log(currentVendorReport, "frull re");
+
   const totalPayoutValue = currentVendorReport?.totalRevenue || 0;
   const totalSalesCount = currentVendorReport?.totalOrders || 0;
   const dailyPayout = currentVendorReport?.totalEarnings || 0;
@@ -156,7 +150,7 @@ const Transaction = () => {
   return (
     <div className="">
       <Navbar
-        title="Transaction Management"
+        title="Payout Management"
         subtitle="Manage your transactions here"
       />
 
