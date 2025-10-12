@@ -37,7 +37,7 @@ const HomePage = () => {
                 <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                   Welcome to{" "}
                   <span className="bg-pryColor bg-clip-text text-transparent">
-                    Ashobox
+                    ashobox
                   </span>
                 </h2>
                 <h3 className="text-2xl lg:text-3xl font-semibold text-muted-foreground">

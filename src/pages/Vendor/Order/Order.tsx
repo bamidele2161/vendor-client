@@ -80,7 +80,7 @@ const Order = () => {
   // Calculate order statistics
   const totalOrders = filteredOrders?.length;
   const totalRevenue = filteredOrders?.reduce(
-    (sum: number, order: any) => sum + order?.totalAmount,
+    (sum: number, order: any) => sum + order?.orderSubtotal,
     0
   );
 
@@ -105,8 +105,8 @@ const Order = () => {
     },
     {
       name: "Total",
-      selector: (row: any) => row.totalAmount,
-      format: (row: any) => `#${row.totalAmount?.toFixed(2)}`,
+      selector: (row: any) => row.orderSubtotal,
+      format: (row: any) => `#${row.orderSubtotal?.toFixed(2)}`,
       sortable: true,
     },
     {

@@ -844,9 +844,9 @@ export const fashionMaterials = [
 export const faqs = [
   {
     id: 1,
-    question: "What is AshoBox?",
+    question: "What is ashobox?",
     answer:
-      "AshoBox is a fashion marketplace where customers can browse, shop, and order wears, while vendors can showcase and sell their products.",
+      "ashobox is a fashion marketplace where customers can browse, shop, and order wears, while vendors can showcase and sell their products.",
   },
   {
     id: 2,
@@ -856,9 +856,9 @@ export const faqs = [
   },
   {
     id: 3,
-    question: "Can I sell my products on AshoBox?",
+    question: "Can I sell my products on ashobox?",
     answer:
-      "Yes, vendors can create a store on AshoBox, upload their wears, manage orders, and track their sales directly from their dashboard.",
+      "Yes, vendors can create a store on ashobox, upload their wears, manage orders, and track their sales directly from their dashboard.",
   },
   {
     id: 4,
@@ -870,7 +870,7 @@ export const faqs = [
     id: 5,
     question: "What payment methods are accepted?",
     answer:
-      "AshoBox supports secure online payments, including debit/credit cards, bank transfers, and other local payment options.",
+      "ashobox supports secure online payments, including debit/credit cards, bank transfers, and other local payment options.",
   },
   {
     id: 6,
@@ -886,9 +886,9 @@ export const faqs = [
   },
   {
     id: 8,
-    question: "Is there a fee for selling on AshoBox?",
+    question: "Is there a fee for selling on ashobox?",
     answer:
-      "AshoBox charges a small commission on each sale to help maintain the platform and provide secure transactions.",
+      "ashobox charges a small commission on each sale to help maintain the platform and provide secure transactions.",
   },
   {
     id: 9,
@@ -900,6 +900,6 @@ export const faqs = [
     id: 10,
     question: "How do I contact customer support?",
     answer:
-      "You can reach AshoBox support via the in-app help center, email, or chat. Our support team is always ready to assist you.",
+      "You can reach ashobox support via the in-app help center, email, or chat. Our support team is always ready to assist you.",
   },
 ];

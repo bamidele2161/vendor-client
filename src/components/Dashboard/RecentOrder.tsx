@@ -23,8 +23,8 @@ const RecentOrders = () => {
     },
     {
       name: "Total",
-      selector: (row: any) => row.totalAmount,
-      format: (row: any) => `#${row.totalAmount?.toFixed(2)}`,
+      selector: (row: any) => row.orderSubtotal,
+      format: (row: any) => `#${row.orderSubtotal?.toFixed(2)}`,
       sortable: true,
     },
     {

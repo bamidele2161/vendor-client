@@ -17,7 +17,7 @@ import { selectAuth } from "../../store/slice/authSlice";
 interface Order {
   id: string;
   createdAt: string;
-  totalAmount: number;
+  orderSubtotal: number;
 }
 
 interface OrdersResponse {
@@ -59,7 +59,7 @@ const SalesChart = () => {
       const month = new Date(order.createdAt).toLocaleString("default", {
         month: "short",
       });
-      salesByMonth[month] = (salesByMonth[month] || 0) + order.totalAmount;
+      salesByMonth[month] = (salesByMonth[month] || 0) + order.orderSubtotal;
     });
 
     // Sort months chronologically

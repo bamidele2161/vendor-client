@@ -14,8 +14,10 @@ export default function OverviewCards() {
   const { data: orders } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id);
 
   const subtotal =
-    orders?.data?.reduce((acc: any, item: any) => acc + item.totalAmount, 0) ||
-    0;
+    orders?.data?.reduce(
+      (acc: any, item: any) => acc + item.orderSubtotal,
+      0
+    ) || 0;
 
   const stats = [
     {

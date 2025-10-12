@@ -35,7 +35,7 @@ const OrderOverview = () => {
     // In a real application, this would generate a CSV/Excel file with the orders
     alert("Orders exported successfully!");
   };
-
+  console.log(data);
   // Get date range for filtering
   const getDateRange = () => {
     const today = new Date();
@@ -75,7 +75,7 @@ const OrderOverview = () => {
   // Calculate order statistics
   const totalOrders = filteredOrders?.length;
   const totalRevenue = filteredOrders?.reduce(
-    (sum: number, order: any) => sum + order?.totalAmount,
+    (sum: number, order: any) => sum + order?.orderSubtotal,
     0
   );
 
@@ -109,8 +109,8 @@ const OrderOverview = () => {
     },
     {
       name: "Total",
-      selector: (row: any) => row.totalAmount,
-      format: (row: any) => `#${row.totalAmount?.toFixed(2)}`,
+      selector: (row: any) => row.orderSubtotal,
+      format: (row: any) => `#${row.orderSubtotal?.toFixed(2)}`,
       sortable: true,
     },
     {
@@ -422,7 +422,7 @@ const OrderOverview = () => {
               <div className="flex justify-between">
                 <p className="font-semibold">Total</p>
                 <p className="font-bold">
-                  ₦{selectedOrder.totalAmount.toFixed(2)}
+                  ₦{selectedOrder.orderSubtotal.toFixed(2)}
                 </p>
               </div>
             </div>

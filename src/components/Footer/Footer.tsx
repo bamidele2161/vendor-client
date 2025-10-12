@@ -197,7 +197,7 @@ const Footer: React.FC<FooterProp> = ({ value }) => {
           <div className="bg-secColor text-white mt-8 py-4">
             <div className="text-center">
               <p className="text-sm">
-                &copy; {new Date().getFullYear()} Ashobox. All Rights Reserved.
+                &copy; {new Date().getFullYear()} ashobox. All Rights Reserved.
               </p>
             </div>
           </div>
