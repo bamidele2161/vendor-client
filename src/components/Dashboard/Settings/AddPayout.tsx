@@ -66,7 +66,7 @@ const AddPayout = () => {
     try {
       await updateBankDetails({
         vendorId,
-        body: data,
+        bankDetails: data,
       }).unwrap();
 
       toast.success(

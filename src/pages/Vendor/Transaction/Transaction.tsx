@@ -1,58 +1,113 @@
-import { useState } from "react";
+import { useMemo } from "react";
+// import type { ChangeEvent } from "react";
 import Navbar from "../../../components/Navbar/Navbar";
 import { ChevronDown } from "lucide-react";
 import { tableCustomStyles } from "../../../util";
 import DataTable from "react-data-table-component";
-import { useGetTransactionsQuery } from "../../../service/product";
+import {
+  useGetVendorPayoutsQuery,
+  useGetVendorReportsQuery,
+  type PayoutData,
+  type VendorReportData,
+} from "../../../service/vendor";
+import { useAppSelector } from "../../../hooks";
+import { selectAuth } from "../../../store/slice/authSlice";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const Transaction = () => {
-  const [dateFilter, setDateFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("ALL");
-  const [searchTerm, setSearchTerm] = useState("");
-  const { data } = useGetTransactionsQuery(1);
+  // const [dateFilter, setDateFilter] = useState("all");
+  // const [statusFilter, setStatusFilter] = useState("ALL");
+  // const [searchTerm, setSearchTerm] = useState("");
 
-  console.log(data);
-  const handleSearch = (e: any) => {
-    setSearchTerm(e.target.value);
-  };
+  // Get vendor info from auth state
+  const { userInfo } = useAppSelector(selectAuth);
+  const vendorId = userInfo?.Vendor?.id;
 
+  // API calls
+  const {
+    data: payoutData,
+    isLoading: isLoadingPayouts,
+    error: payoutError,
+  } = useGetVendorPayoutsQuery(
+    { vendorId: vendorId || "" },
+    { skip: !vendorId }
+  );
+
+  const {
+    data: reportsData,
+    isLoading: isLoadingReports,
+    error: reportsError,
+  } = useGetVendorReportsQuery({});
+
+  // Filter vendor reports to match current vendor's business name
+  const currentVendorReport = useMemo(() => {
+    if (!reportsData?.data?.vendors || !userInfo?.Vendor?.businessName)
+      return null;
+
+    return reportsData.data.vendors.find(
+      (vendor: VendorReportData) =>
+        vendor.businessName === userInfo?.Vendor?.businessName
+    );
+  }, [reportsData, userInfo?.Vendor?.businessName]);
+
+  // const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setSearchTerm(e.target.value);
+  // };
+
+  // Filter payouts based on search term and status
+  // const filteredPayouts = useMemo(() => {
+  //   if (!payoutData?.data) return [];
+
+  //   return payoutData.data.filter((payout: PayoutData) => {
+  //     const matchesSearch =
+  //       searchTerm === "" ||
+  //       payout.reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       payout.amount.toString().includes(searchTerm);
+
+  //     const matchesStatus =
+  //       statusFilter === "ALL" || payout.status === statusFilter;
+
+  //     return matchesSearch && matchesStatus;
+  //   });
+  // }, [payoutData?.data, searchTerm, statusFilter]);
+
+  console.log(payoutData, reportsData);
   const columns = [
     {
       name: "Payment ID",
-      selector: (row: any) => `PAY-${row.paymentReference}`,
+      selector: (row: PayoutData) => row.reference,
       sortable: true,
     },
-
     {
       name: "Date",
-      selector: (row: any) => row.createdAt.slice(0, 10),
+      selector: (row: PayoutData) => row.createdAt.slice(0, 10),
       sortable: true,
     },
     {
       name: "Amount",
-      selector: (row: any) => row.amount,
-      format: (row: any) => `₦${row.amount?.toFixed(2)}`,
+      selector: (row: PayoutData) => row.amount,
+      format: (row: PayoutData) => `₦${row.amount?.toFixed(2)}`,
       sortable: true,
     },
     {
-      name: "Credit Account",
-      selector: (row: any) => row.account,
-      format: (row: any) => row.account,
+      name: "Recipient Type",
+      selector: (row: PayoutData) => row.recipientType,
+      format: (row: PayoutData) => row.recipientType,
       sortable: true,
     },
     {
       name: "Status",
-      selector: (row: any) => row.status,
-      cell: (row: any) => (
+      selector: (row: PayoutData) => row.status,
+      cell: (row: PayoutData) => (
         <span
           className={`px-2 py-1 rounded-full text-xs ${
-            row.status === "Pending"
+            row.status === "PENDING"
               ? "bg-processing text-white"
-              : row.status === "Paid"
+              : row.status === "PAID"
               ? "bg-pryColor text-white"
-              : row.status === "Shipped"
+              : row.status === "SHIPPED"
               ? "bg-secColor text-white"
-              : row.status === "Delivered"
+              : row.status === "DELIVERED"
               ? "bg-positive text-white"
               : "bg-negative text-white"
           }`}
@@ -63,6 +118,31 @@ const Transaction = () => {
       sortable: true,
     },
   ];
+  console.log(currentVendorReport, "frull re");
+  const totalPayoutValue = currentVendorReport?.totalRevenue || 0;
+  const totalSalesCount = currentVendorReport?.totalOrders || 0;
+  const dailyPayout = currentVendorReport?.totalEarnings || 0;
+  const payoutCompleted = payoutData?.data
+    ?.filter((payout: PayoutData) => payout.status === "PAID")
+    .reduce((sum: number, payout: PayoutData) => sum + payout.amount, 0);
+
+  if (isLoadingPayouts || isLoadingReports) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (payoutError || reportsError) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="text-red-500">
+          Error loading data. Please try again later.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="">
@@ -82,16 +162,20 @@ const Transaction = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-pryColor-Light p-4 rounded-lg">
               <h3 className="text-sm font-medium text-greyColr">
-                Total Payout Value
+                Total Revenue Value
               </h3>
-              <div className="text-2xl font-bold text-pryColor mt-2"> ₦1M</div>
+              <div className="text-2xl font-bold text-pryColor mt-2">
+                ₦{totalPayoutValue.toLocaleString()}
+              </div>
             </div>
 
             <div className="bg-secColor-Light p-4 rounded-lg">
               <h3 className="text-sm font-medium text-greyColr">
                 Total Sales Count
               </h3>
-              <div className="text-2xl font-bold text-secColor mt-2">500</div>
+              <div className="text-2xl font-bold text-secColor mt-2">
+                {totalSalesCount?.toString()}
+              </div>
             </div>
 
             <div className="bg-positive-Light p-4 rounded-lg">
@@ -99,7 +183,7 @@ const Transaction = () => {
                 Payout Completed
               </h3>
               <div className="text-2xl font-bold text-positive mt-2">
-                ₦29,000.00
+                ₦{payoutCompleted?.toLocaleString()}
               </div>
             </div>
 
@@ -108,13 +192,13 @@ const Transaction = () => {
                 Pending Payouts
               </h3>
               <div className="text-2xl font-bold text-negative mt-2">
-                ₦500,000.00
+                ₦{dailyPayout?.toLocaleString()}
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between mb-6">
-            <div className="flex flex-wrap gap-4 mb-4 md:mb-0">
+          {/* <div className="flex flex-col md:flex-row justify-between mb-6">
+            {/* <div className="flex flex-wrap gap-4 mb-4 md:mb-0">
               <div className="w-full md:w-auto">
                 <select
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pryColor"
@@ -126,24 +210,9 @@ const Transaction = () => {
                   <option value="last90">Last 90 Days</option>
                 </select>
               </div>
+            </div> */}
 
-              <div className="w-full md:w-auto">
-                <select
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pryColor"
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                  <option value="ALL">All Statuses</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Paid">Paid</option>
-                  <option value="Shipped">Shipped</option>
-                  <option value="Delivered">Delivered</option>
-                  <option value="Canceled">Canceled</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="w-full md:w-64">
+          {/* <div className="w-full md:w-64">
               <input
                 type="text"
                 placeholder="Search payments..."
@@ -152,17 +221,22 @@ const Transaction = () => {
                 onChange={handleSearch}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className="flex w-full flex-col rounded-md border">
             <DataTable
               columns={columns}
-              data={data?.data || []}
+              data={payoutData?.data as PayoutData[]}
               pagination
               customStyles={tableCustomStyles}
               highlightOnHover
               responsive
               sortIcon={<ChevronDown size={16} />}
+              noDataComponent={
+                <div className="text-center py-4 text-gray-500">
+                  No payout data available
+                </div>
+              }
             />
           </div>
         </div>
