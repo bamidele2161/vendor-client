@@ -22,6 +22,7 @@ import { authApi } from "../service/auth";
 import { authSlice } from "./slice/authSlice";
 import { productApi } from "../service/product";
 import { adminApi } from "../service/admin";
+import { vendorApi } from "../service/vendor";
 
 const rootReducers = combineReducers({
   global: globalSlice.reducer,
@@ -30,6 +31,7 @@ const rootReducers = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
   [adminApi.reducerPath]: adminApi.reducer,
+  [vendorApi.reducerPath]: vendorApi.reducer,
 });
 
 const persistConfig = {
@@ -51,7 +53,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, productApi.middleware, adminApi.middleware),
+    }).concat(authApi.middleware, productApi.middleware, adminApi.middleware, vendorApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
