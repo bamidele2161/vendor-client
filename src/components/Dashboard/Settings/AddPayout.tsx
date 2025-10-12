@@ -87,11 +87,6 @@ const AddPayout = () => {
     }
   };
 
-  const handleEdit = () => {
-    setIsEditing(true);
-    setShowModal(true);
-  };
-
   const handleDelete = async () => {
     if (!vendorId) {
       toast.error("Vendor ID not found");
@@ -115,7 +110,11 @@ const AddPayout = () => {
   };
 
   const handleAddNew = () => {
-    setIsEditing(false);
+    if (bankDetails) {
+      setIsEditing(true);
+    } else {
+      setIsEditing(false);
+    }
     setShowModal(true);
   };
 
