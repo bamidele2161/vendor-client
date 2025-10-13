@@ -125,7 +125,6 @@ const Transaction = () => {
     },
   ];
 
-  const totalPayoutValue = currentVendorReport?.totalRevenue || 0;
   const totalRevenue = data?.data?.reduce(
     (sum: number, order: any) => sum + order?.orderSubtotal,
     0
