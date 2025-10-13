@@ -13,6 +13,7 @@ import {
 import { useAppSelector } from "../../../hooks";
 import { selectAuth } from "../../../store/slice/authSlice";
 import Spinner from "../../../components/Spinner/Spinner";
+import { useGetAllOrdersByVendorsQuery } from "../../../service/product";
 
 const Transaction = () => {
   // const [dateFilter, setDateFilter] = useState("all");
@@ -38,7 +39,9 @@ const Transaction = () => {
     isLoading: isLoadingReports,
     error: reportsError,
   } = useGetVendorReportsQuery({});
-
+  const { data } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id, {
+    refetchOnMountOrArgChange: true,
+  });
   // Filter vendor reports to match current vendor's business name
   const currentVendorReport = useMemo(() => {
     if (!reportsData?.data?.vendors || !userInfo?.Vendor?.businessName)
@@ -123,6 +126,10 @@ const Transaction = () => {
   ];
 
   const totalPayoutValue = currentVendorReport?.totalRevenue || 0;
+  const totalRevenue = data?.data?.reduce(
+    (sum: number, order: any) => sum + order?.orderSubtotal,
+    0
+  );
   const totalSalesCount = currentVendorReport?.totalOrders || 0;
   const dailyPayout = currentVendorReport?.totalEarnings || 0;
   const payoutCompleted = payoutData?.data
@@ -168,7 +175,7 @@ const Transaction = () => {
                 Total Revenue Value
               </h3>
               <div className="text-2xl font-bold text-pryColor mt-2">
-                ₦{totalPayoutValue.toLocaleString()}
+                ₦{totalRevenue.toLocaleString()}
               </div>
             </div>
 
