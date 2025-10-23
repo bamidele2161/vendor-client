@@ -31,7 +31,11 @@ interface SalesData {
 
 const SalesChart = () => {
   const { userInfo } = useAppSelector(selectAuth);
-  const { data: orders } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id);
+  const { data: orders } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  });
   const [, setSelectedMonth] = useState<string | null>(null);
 
   const aggregateSalesByMonth = (

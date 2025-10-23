@@ -10,8 +10,16 @@ import { useAppSelector } from "../../hooks";
 
 export default function OverviewCards() {
   const { userInfo } = useAppSelector(selectAuth);
-  const { data } = useGetAllVendorProductsQuery(userInfo?.Vendor?.id);
-  const { data: orders } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id);
+  const { data } = useGetAllVendorProductsQuery(userInfo?.Vendor?.id, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true
+  });
+  const { data: orders } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true
+  });
 
   const subtotal =
     orders?.data?.reduce(

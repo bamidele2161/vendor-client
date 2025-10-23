@@ -23,8 +23,16 @@ const Product = () => {
   const [rejectionReason, setRejectionReason] = useState("");
   const { userInfo } = useAppSelector(selectAuth);
   const [archive] = useArchiveProductMutation();
-  const { data } = useGetAllVendorProductsQuery(userInfo?.Vendor?.id);
-  const { data: categories } = useGetAllProductCategoryQuery();
+  const { data } = useGetAllVendorProductsQuery(userInfo?.Vendor?.id, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true
+  });
+  const { data: categories } = useGetAllProductCategoryQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true
+  });
   const navigate = useNavigate();
   const handleSearch = (e: any) => {
     setSearchTerm(e.target.value);

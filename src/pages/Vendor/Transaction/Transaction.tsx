@@ -31,16 +31,30 @@ const Transaction = () => {
     error: payoutError,
   } = useGetVendorPayoutsQuery(
     { vendorId: vendorId || "" },
-    { skip: !vendorId }
+    {
+      skip: !vendorId,
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    }
   );
 
   const {
     data: reportsData,
     isLoading: isLoadingReports,
     error: reportsError,
-  } = useGetVendorReportsQuery({});
+  } = useGetVendorReportsQuery(
+    {},
+    {
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    }
+  );
   const { data } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id, {
     refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
   });
   // Filter vendor reports to match current vendor's business name
   const currentVendorReport = useMemo(() => {
@@ -174,7 +188,7 @@ const Transaction = () => {
                 Total Revenue Value
               </h3>
               <div className="text-2xl font-bold text-pryColor mt-2">
-                ₦{totalRevenue.toLocaleString()}
+                ₦{totalRevenue?.toLocaleString()}
               </div>
             </div>
 

@@ -22,6 +22,8 @@ const Order = () => {
     userInfo?.Vendor?.id,
     {
       refetchOnMountOrArgChange: true,
+      refetchOnFocus: true,
+      refetchOnReconnect: true
     }
   );
   const handleSearch = (e: any) => {

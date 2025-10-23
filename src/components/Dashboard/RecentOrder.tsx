@@ -5,7 +5,11 @@ import { useAppSelector } from "../../hooks";
 
 const RecentOrders = () => {
   const { userInfo } = useAppSelector(selectAuth);
-  const { data } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id);
+  const { data } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true
+  });
 
   const recentOrders = data?.data?.slice(0, 5);
 

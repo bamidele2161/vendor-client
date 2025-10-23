@@ -16,23 +16,27 @@ import { selectAuth } from "../../store/slice/authSlice";
 
 const SalesDonut = () => {
   const { userInfo } = useAppSelector(selectAuth);
-  const { data: orders } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id);
+  const { data: orders } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  });
 
   // Process orders by status
   const getOrdersByStatus = (orders: any) => {
     if (!orders?.data) return [];
 
     const statusCounts = {
-      pending: 0,
+      shipped: 0,
       delivered: 0,
       paid: 0,
     };
 
     orders?.data?.forEach((order: any) => {
-      const status = order?.status?.toLowerCase() || "pending";
+      const status = order?.status?.toLowerCase() || "shipped";
 
-      if (status.includes("pending")) {
-        statusCounts.pending += 1;
+      if (status.includes("shipped")) {
+        statusCounts.shipped += 1;
       } else if (status.includes("delivered")) {
         statusCounts.delivered += 1;
       } else if (status.includes("paid")) {
@@ -41,7 +45,7 @@ const SalesDonut = () => {
     });
 
     return [
-      { name: "Pending", value: statusCounts.pending, color: "#f59e0b" },
+      { name: "Shipped", value: statusCounts.shipped, color: "#f59e0b" },
       { name: "Delivered", value: statusCounts.delivered, color: "#3b82f6" },
       { name: "Paid", value: statusCounts.paid, color: "#10b981" },
     ];
