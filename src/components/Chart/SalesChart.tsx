@@ -41,9 +41,6 @@ const SalesChart = () => {
   const aggregateSalesByMonth = (
     orders: OrdersResponse | undefined
   ): SalesData[] => {
-    if (!orders?.data) return [];
-
-    const salesByMonth: { [key: string]: number } = {};
     const monthOrder: { [key: string]: number } = {
       Jan: 0,
       Feb: 1,
@@ -53,21 +50,38 @@ const SalesChart = () => {
       Jun: 5,
       Jul: 6,
       Aug: 7,
-      Sept: 8,
+      Sep: 8,
       Oct: 9,
       Nov: 10,
       Dec: 11,
     };
 
-    orders.data.forEach((order: Order) => {
-      const month = new Date(order.createdAt).toLocaleString("default", {
-        month: "short",
-      });
-      salesByMonth[month] = (salesByMonth[month] || 0) + order.orderSubtotal;
+    // Initialize all months with 0 sales for the current year
+    const currentYear = new Date().getFullYear();
+    const salesByMonth: { [key: string]: number } = {};
+
+    // Initialize all months to 0
+    Object.keys(monthOrder).forEach((month) => {
+      salesByMonth[month] = 0;
     });
 
-    // Sort months chronologically
-    return Object.keys(salesByMonth)
+    // If we have orders data, aggregate the actual sales
+    if (orders?.data) {
+      orders.data.forEach((order: Order) => {
+        const orderDate = new Date(order.createdAt);
+        const month = orderDate.toLocaleString("default", {
+          month: "short",
+        });
+        // Only include orders from current year
+        if (orderDate.getFullYear() === currentYear) {
+          salesByMonth[month] =
+            (salesByMonth[month] || 0) + order.orderSubtotal;
+        }
+      });
+    }
+
+    // Return all months sorted chronologically, showing last 12 months
+    return Object.keys(monthOrder)
       .sort((a, b) => monthOrder[a] - monthOrder[b])
       .map((month) => ({
         month: month,
@@ -192,8 +206,9 @@ const SalesChart = () => {
             >
               <defs>
                 <linearGradient id="salesGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#80BBEB" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#80BBEB" stopOpacity={0.1} />
+                  <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.8} />
+                  <stop offset="50%" stopColor="#60A5FA" stopOpacity={0.4} />
+                  <stop offset="100%" stopColor="#DBEAFE" stopOpacity={0.1} />
                 </linearGradient>
               </defs>
               <XAxis
@@ -214,15 +229,22 @@ const SalesChart = () => {
               <Area
                 type="monotone"
                 dataKey="sales"
-                stroke="#092547"
-                strokeWidth={3}
+                stroke="#254A76"
+                strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#salesGradient)"
+                connectNulls={false}
                 activeDot={{
-                  r: 6,
+                  r: 5,
                   strokeWidth: 2,
-                  fill: "#80BBEB",
+                  fill: "#3B82F6",
                   stroke: "#ffffff",
+                }}
+                dot={{
+                  fill: "#3B82F6",
+                  strokeWidth: 2,
+                  stroke: "#ffffff",
+                  r: 3,
                 }}
               />
             </AreaChart>

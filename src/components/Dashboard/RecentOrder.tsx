@@ -8,7 +8,7 @@ const RecentOrders = () => {
   const { data } = useGetAllOrdersByVendorsQuery(userInfo?.Vendor?.id, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
-    refetchOnReconnect: true
+    refetchOnReconnect: true,
   });
 
   const recentOrders = data?.data?.slice(0, 5);
@@ -28,7 +28,13 @@ const RecentOrders = () => {
     {
       name: "Total",
       selector: (row: any) => row.orderSubtotal,
-      format: (row: any) => `#${row.orderSubtotal?.toFixed(2)}`,
+      format: (row: any) =>
+        `${new Intl.NumberFormat("en-NG", {
+          style: "currency",
+          currency: "NGN",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(row?.orderSubtotal)}`,
       sortable: true,
     },
     {
@@ -37,10 +43,8 @@ const RecentOrders = () => {
       cell: (row: any) => (
         <span
           className={`px-2 py-1 rounded-full text-xs ${
-            row.status === "Pending"
+            row.status === "Paid"
               ? "bg-processing text-white"
-              : row.status === "Paid"
-              ? "bg-pryColor text-white"
               : row.status === "Shipped"
               ? "bg-secColor text-white"
               : row.status === "Delivered"

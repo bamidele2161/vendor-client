@@ -23,7 +23,7 @@ const Order = () => {
     {
       refetchOnMountOrArgChange: true,
       refetchOnFocus: true,
-      refetchOnReconnect: true
+      refetchOnReconnect: true,
     }
   );
   const handleSearch = (e: any) => {
@@ -108,7 +108,13 @@ const Order = () => {
     {
       name: "Total",
       selector: (row: any) => row.orderSubtotal,
-      format: (row: any) => `#${row.orderSubtotal?.toFixed(2)}`,
+      format: (row: any) =>
+        `${new Intl.NumberFormat("en-NG", {
+          style: "currency",
+          currency: "NGN",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(row?.orderSubtotal)}`,
       sortable: true,
     },
     {
@@ -238,7 +244,14 @@ const Order = () => {
                 Total Revenue
               </h3>
               <div className="text-2xl font-bold text-secColor mt-2">
-                ₦{totalRevenue?.toFixed(2)}
+                {/* ₦{totalRevenue?.toFixed(2)} */}
+
+                {new Intl.NumberFormat("en-NG", {
+                  style: "currency",
+                  currency: "NGN",
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(totalRevenue)}
               </div>
             </div>
 

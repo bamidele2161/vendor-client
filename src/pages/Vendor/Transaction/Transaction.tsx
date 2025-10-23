@@ -102,7 +102,13 @@ const Transaction = () => {
     {
       name: "Amount",
       selector: (row: PayoutData) => row.amount,
-      format: (row: PayoutData) => `₦${row.amount?.toFixed(2)}`,
+      format: (row: PayoutData) =>
+        `${new Intl.NumberFormat("en-NG", {
+          style: "currency",
+          currency: "NGN",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(row?.amount)}`,
       sortable: true,
     },
     {
@@ -188,7 +194,12 @@ const Transaction = () => {
                 Total Revenue Value
               </h3>
               <div className="text-2xl font-bold text-pryColor mt-2">
-                ₦{totalRevenue?.toLocaleString()}
+                {new Intl.NumberFormat("en-NG", {
+                  style: "currency",
+                  currency: "NGN",
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(totalRevenue)}
               </div>
             </div>
 
@@ -206,7 +217,12 @@ const Transaction = () => {
                 Payout Completed
               </h3>
               <div className="text-2xl font-bold text-positive mt-2">
-                ₦{payoutCompleted?.toLocaleString()}
+                {new Intl.NumberFormat("en-NG", {
+                  style: "currency",
+                  currency: "NGN",
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(payoutCompleted as number)}
               </div>
             </div>
 
@@ -215,7 +231,12 @@ const Transaction = () => {
                 Pending Payouts
               </h3>
               <div className="text-2xl font-bold text-negative mt-2">
-                ₦{dailyPayout?.toLocaleString()}
+                {new Intl.NumberFormat("en-NG", {
+                  style: "currency",
+                  currency: "NGN",
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(dailyPayout as number)}
               </div>
             </div>
           </div>

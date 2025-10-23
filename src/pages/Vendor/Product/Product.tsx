@@ -26,12 +26,12 @@ const Product = () => {
   const { data } = useGetAllVendorProductsQuery(userInfo?.Vendor?.id, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
-    refetchOnReconnect: true
+    refetchOnReconnect: true,
   });
   const { data: categories } = useGetAllProductCategoryQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
-    refetchOnReconnect: true
+    refetchOnReconnect: true,
   });
   const navigate = useNavigate();
   const handleSearch = (e: any) => {
@@ -103,7 +103,13 @@ const Product = () => {
     {
       name: "Price",
       selector: (row: any) => row.price,
-      format: (row: any) => `₦${row.price}`,
+      format: (row: any) =>
+        `${new Intl.NumberFormat("en-NG", {
+          style: "currency",
+          currency: "NGN",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(row?.price)}`,
       sortable: true,
     },
     {
