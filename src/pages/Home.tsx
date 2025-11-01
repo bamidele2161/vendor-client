@@ -168,7 +168,7 @@ const HomePage = () => {
                   onClick={() => navigate("/signup")}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <span className="relative flex items-center gap-2">
+                  <span className="relative flex items-center gap-2 justify-center">
                     Start Selling Today
                     <svg
                       className="w-5 h-5 group-hover:translate-x-1 transition-transform"
@@ -192,7 +192,7 @@ const HomePage = () => {
                   className="group px-8 py-4 bg-white/80 backdrop-blur-sm text-pryColor font-semibold rounded-2xl shadow-lg hover:shadow-xl border border-pryColor/20 hover:border-pryColor/40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-pryColor focus:ring-offset-2"
                   onClick={() => navigate("/signin")}
                 >
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-2 justify-center">
                     Sign In
                     <svg
                       className="w-5 h-5 group-hover:translate-x-1 transition-transform"
@@ -414,7 +414,7 @@ const HomePage = () => {
                       onClick={() => navigate("/signup")}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <span className="relative flex items-center gap-2">
+                      <span className="relative flex items-center gap-2 justify-center">
                         Get Started Free
                         <svg
                           className="w-5 h-5 group-hover:translate-x-1 transition-transform"
@@ -435,9 +435,10 @@ const HomePage = () => {
                     <motion.button
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.98 }}
+                      onClick={() => navigate("/signup")}
                       className="group px-8 py-4 bg-white/80 backdrop-blur-sm text-pryColor font-semibold rounded-2xl shadow-lg hover:shadow-xl border border-pryColor/20 hover:border-pryColor/40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-pryColor focus:ring-offset-2"
                     >
-                      <span className="flex items-center gap-2">
+                      <span className="flex items-center gap-2 justify-center">
                         Learn More
                         <svg
                           className="w-5 h-5 group-hover:translate-x-1 transition-transform"
