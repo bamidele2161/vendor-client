@@ -12,7 +12,9 @@ import {
   Star,
   CheckCircle,
 } from "lucide-react";
-
+import home1 from "../assets/home1.jpg";
+import home2 from "../assets/home2.jpg";
+import home3 from "../assets/home3.jpg";
 const HomePage = () => {
   const navigate = useNavigate();
 
@@ -259,7 +261,7 @@ const HomePage = () => {
                   className="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white/20"
                 >
                   <img
-                    src="/src/assets/home1.jpg"
+                    src={home1}
                     alt="Vendor Dashboard"
                     className="w-full h-80 lg:h-96 object-cover"
                   />
@@ -274,7 +276,7 @@ const HomePage = () => {
                   className="absolute -top-6 -right-4 md:-right-6 w-32 h-32 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-white/20"
                 >
                   <img
-                    src="/src/assets/home2.jpg"
+                    src={home2}
                     alt="Analytics"
                     className="w-full h-full object-cover"
                   />
@@ -287,7 +289,7 @@ const HomePage = () => {
                   className="absolute -bottom-8 -left-4 md:-left-8 w-28 h-28 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-white/20"
                 >
                   <img
-                    src="/src/assets/home3.jpg"
+                    src={home3}
                     alt="Products"
                     className="w-full h-full object-cover"
                   />
