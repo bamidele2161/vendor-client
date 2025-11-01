@@ -29,7 +29,7 @@ export const authApi = createApi({
     registerVendor: builder.mutation<
       any,
       {
-        emailOrPhoneNumber: string;
+        email: string;
         password: string;
         fullName: string;
         address: string;
