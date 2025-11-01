@@ -15,7 +15,7 @@ const VerifyOTP = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
-  
+
   const email = location.state?.email;
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const VerifyOTP = () => {
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
   const initialValues = {
@@ -49,23 +49,24 @@ const VerifyOTP = () => {
 
   const onSubmit = async (formData: { otp: string }) => {
     try {
-      const response = await verifyOtp({ 
-        email: email, 
-        otp: formData.otp.trim() 
+      const response = await verifyOtp({
+        email: email,
+        otp: formData.otp.trim(),
       }).unwrap();
-      
+
       toast.success("OTP verified successfully");
       // Navigate to reset password page with reset token
-      navigate("/forgot-password/reset-password", { 
-        state: { 
+      navigate("/forgot-password/reset-password", {
+        state: {
           resetToken: response?.resetToken,
-          email: email 
-        } 
+          email: email,
+        },
       });
     } catch (error: unknown) {
-      const errorMessage = error && typeof error === 'object' && 'data' in error 
-        ? (error.data as { message?: string })?.message || "Invalid OTP"
-        : "Invalid OTP";
+      const errorMessage =
+        error && typeof error === "object" && "data" in error
+          ? (error.data as { message?: string })?.message || "Invalid OTP"
+          : "Invalid OTP";
       toast.error(errorMessage);
       console.log("OTP verification error", error);
     }
@@ -105,7 +106,7 @@ const VerifyOTP = () => {
           <BrandIcon className="lg:h-12 md:h-10 w-auto hidden md:block" />
           <BrandMobileIcon className="h-10 w-auto md:hidden" />
           <h1 className="font-bold text-2xl text-pryColor hidden md:block">
-            ashoBox
+            ashobox
           </h1>
         </motion.div>
 
@@ -119,13 +120,14 @@ const VerifyOTP = () => {
             <h1 className="text-pryColor font-bold text-4xl lg:text-5xl xl:text-6xl leading-tight">
               Verify Your Email
             </h1>
-            
+
             <h2 className="text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-gray-700 to-gray-600 bg-clip-text text-transparent">
               Check Your Inbox
             </h2>
 
             <p className="text-gray-600 text-lg leading-relaxed md:pr-20">
-              We've sent a 6-digit verification code to <span className="font-semibold text-pryColor">{email}</span>. 
+              We've sent a 6-digit verification code to{" "}
+              <span className="font-semibold text-pryColor">{email}</span>.
               Enter the code below to continue.
             </p>
           </motion.div>
@@ -141,7 +143,7 @@ const VerifyOTP = () => {
               "Code expires in 5 minutes",
               "Secure verification process",
               "One-time use only",
-              "Account protection active"
+              "Account protection active",
             ].map((feature, index) => (
               <motion.div
                 key={index}
@@ -205,11 +207,15 @@ const VerifyOTP = () => {
             <p className="text-gray-600 text-lg">
               Please enter the 6-digit code we sent to your email address.
             </p>
-            
+
             {/* Timer */}
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-500">Code expires in:</span>
-              <span className={`font-mono font-semibold ${timeLeft < 60 ? 'text-red-500' : 'text-pryColor'}`}>
+              <span
+                className={`font-mono font-semibold ${
+                  timeLeft < 60 ? "text-red-500" : "text-pryColor"
+                }`}
+              >
                 {formatTime(timeLeft)}
               </span>
             </div>
@@ -240,7 +246,13 @@ const VerifyOTP = () => {
               type="submit"
               disabled={isLoading || timeLeft === 0}
             >
-              {isLoading ? <Spinner /> : timeLeft === 0 ? "Code Expired" : "Verify Code"}
+              {isLoading ? (
+                <Spinner />
+              ) : timeLeft === 0 ? (
+                "Code Expired"
+              ) : (
+                "Verify Code"
+              )}
             </motion.button>
           </motion.form>
 
@@ -260,7 +272,7 @@ const VerifyOTP = () => {
                 Resend Code
               </motion.span>
             </p>
-            
+
             <p className="text-gray-600">
               Wrong email?{" "}
               <motion.span

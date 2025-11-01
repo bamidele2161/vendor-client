@@ -45,9 +45,10 @@ const VendorSignin = () => {
         }
       }
     } catch (error: unknown) {
-      const errorMessage = error && typeof error === 'object' && 'data' in error 
-        ? (error.data as { message?: string })?.message || "Login failed"
-        : "Login failed";
+      const errorMessage =
+        error && typeof error === "object" && "data" in error
+          ? (error.data as { message?: string })?.message || "Login failed"
+          : "Login failed";
       toast.error(errorMessage);
       console.log("Login error", error);
     }
@@ -67,7 +68,7 @@ const VendorSignin = () => {
       onSubmit,
     });
 
-  const text = "Welcome Back to ashoBox";
+  const text = "Welcome Back to ashobox";
 
   return (
     <main className="min-h-screen w-full flex flex-col lg:flex-row overflow-hidden bg-gradient-to-br from-slate-50 via-white to-secColor-Light/30">
@@ -89,7 +90,7 @@ const VendorSignin = () => {
           <BrandIcon className="lg:h-12 md:h-10 w-auto hidden md:block" />
           <BrandMobileIcon className="h-10 w-auto md:hidden" />
           <h1 className="font-bold text-2xl text-pryColor hidden md:block">
-            ashoBox
+            ashobox
           </h1>
         </motion.div>
 
@@ -103,14 +104,14 @@ const VendorSignin = () => {
             <h1 className="text-pryColor font-bold text-4xl lg:text-5xl xl:text-6xl leading-tight">
               {text}
             </h1>
-            
+
             <h2 className="text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-gray-700 to-gray-600 bg-clip-text text-transparent">
               Continue Your Fashion Journey
             </h2>
 
             <p className="text-gray-600 text-lg leading-relaxed md:pr-20">
-              Access your vendor dashboard to manage your store, track sales, and 
-              deliver exceptional fashion experiences to your customers.
+              Access your vendor dashboard to manage your store, track sales,
+              and deliver exceptional fashion experiences to your customers.
             </p>
           </motion.div>
 
@@ -169,7 +170,9 @@ const VendorSignin = () => {
             <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pryColor to-secColor bg-clip-text text-transparent">
               Sign In
             </h1>
-            <p className="text-gray-600 text-lg">Welcome back! Please sign in to your account.</p>
+            <p className="text-gray-600 text-lg">
+              Welcome back! Please sign in to your account.
+            </p>
           </motion.div>
 
           <motion.form

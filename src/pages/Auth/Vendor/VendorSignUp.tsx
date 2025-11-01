@@ -94,7 +94,7 @@ const VendorSignup = () => {
     onSubmit,
   });
 
-  const text = "Join ashoBox Today";
+  const text = "Join ashobox Today";
 
   const handleAddressSelect = (selectedAddress: { label: string } | null) => {
     if (selectedAddress && selectedAddress.label) {
@@ -125,7 +125,7 @@ const VendorSignup = () => {
           <BrandIcon className="lg:h-12 md:h-10 w-auto hidden md:block" />
           <BrandMobileIcon className="h-10 w-auto md:hidden" />
           <h1 className="font-bold text-2xl text-pryColor hidden md:block">
-            ashoBox
+            ashobox
           </h1>
         </motion.div>
 
@@ -145,7 +145,7 @@ const VendorSignup = () => {
             </h2>
 
             <p className="text-gray-600 text-lg leading-relaxed md:pr-20">
-              Join thousands of successful vendors who trust ashoBox to grow
+              Join thousands of successful vendors who trust ashobox to grow
               their fashion business. Create your account and start selling
               today.
             </p>

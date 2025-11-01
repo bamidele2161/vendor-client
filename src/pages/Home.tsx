@@ -95,7 +95,7 @@ const HomePage = () => {
                 <BrandIcon className="lg:h-12 md:h-10 w-auto hidden md:block" />
                 <BrandMobileIcon className="h-10 w-auto md:hidden" />
                 <h1 className="font-bold text-2xl text-pryColor hidden md:block">
-                  ashoBox
+                  ashobox
                 </h1>
               </div>
             </div>
@@ -129,7 +129,7 @@ const HomePage = () => {
                   <span className="bg-gradient-to-r from-pryColor to-secColor bg-clip-text text-transparent">
                     Business
                   </span>{" "}
-                  with ashoBox
+                  with ashobox
                 </h2>
 
                 <h3 className="text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-gray-700 to-gray-600 bg-clip-text text-transparent">
@@ -401,7 +401,7 @@ const HomePage = () => {
                     </h3>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                       Join thousands of successful vendors who have already
-                      transformed their business with ashoBox. Start your
+                      transformed their business with ashobox. Start your
                       journey today!
                     </p>
                   </div>

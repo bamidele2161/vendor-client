@@ -92,7 +92,7 @@ const ResetPassword = () => {
           <BrandIcon className="lg:h-12 md:h-10 w-auto hidden md:block" />
           <BrandMobileIcon className="h-10 w-auto md:hidden" />
           <h1 className="font-bold text-2xl text-pryColor hidden md:block">
-            ashoBox
+            ashobox
           </h1>
         </motion.div>
 
