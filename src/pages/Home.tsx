@@ -79,7 +79,7 @@ const HomePage = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="max-w-7xl mx-auto"
+          className="max-w-7xl mx-auto px-6 md:px-0"
         >
           {/* Header */}
           <motion.header
@@ -271,7 +271,7 @@ const HomePage = () => {
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.6 }}
-                  className="absolute -top-6 -right-6 w-32 h-32 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-white/20"
+                  className="absolute -top-6 -right-4 md:-right-6 w-32 h-32 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-white/20"
                 >
                   <img
                     src="/src/assets/home2.jpg"
@@ -284,7 +284,7 @@ const HomePage = () => {
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
-                  className="absolute -bottom-8 -left-8 w-28 h-28 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-white/20"
+                  className="absolute -bottom-8 -left-4 md:-left-8 w-28 h-28 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden border border-white/20"
                 >
                   <img
                     src="/src/assets/home3.jpg"
@@ -303,7 +303,7 @@ const HomePage = () => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="absolute top-1/2 -left-12 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-4 border border-white/20"
+                  className="absolute top-1/2 -left-4 md:-left-12 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-4 border border-white/20"
                 >
                   <div className="text-center">
                     <div className="text-2xl font-bold text-pryColor">40%</div>
@@ -457,9 +457,21 @@ const HomePage = () => {
                   {/* Stats */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12">
                     {[
-                      { number: "1k+", label: "Active Vendors", icon: "👥" },
-                      { number: "99.9%", label: "Uptime", icon: "⚡" },
-                      { number: "24/7", label: "Support", icon: "🛟" },
+                      {
+                        number: "1k+",
+                        label: "Active Vendors",
+                        icon: <Users className="w-8 h-8" />,
+                      },
+                      {
+                        number: "99.9%",
+                        label: "Uptime",
+                        icon: <Zap className="w-8 h-8" />,
+                      },
+                      {
+                        number: "24/7",
+                        label: "Support",
+                        icon: <Shield className="w-8 h-8" />,
+                      },
                     ].map((stat, index) => (
                       <motion.div
                         key={index}
@@ -468,9 +480,11 @@ const HomePage = () => {
                         transition={{ delay: 0.6 + index * 0.1 }}
                         viewport={{ once: true }}
                         whileHover={{ scale: 1.05 }}
-                        className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300"
+                        className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 justify-center items-center flex flex-col shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300"
                       >
-                        <div className="text-3xl mb-2">{stat.icon}</div>
+                        <div className="w-16 h-16 bg-gradient-to-br from-pryColor to-secColor rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300">
+                          {stat.icon}
+                        </div>
                         <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pryColor to-secColor bg-clip-text text-transparent mb-2">
                           {stat.number}
                         </div>
