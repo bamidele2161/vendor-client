@@ -1,204 +1,340 @@
-// ECommerceFooter.tsx
 import React from "react";
+import { motion } from "framer-motion";
 import {
-  BiLogoFacebook,
-  BiLogoInstagram,
-  BiLogoTwitter,
-  BiLogoWhatsapp,
-} from "react-icons/bi";
+  Facebook,
+  Instagram,
+  Twitter,
+  MessageCircle,
+  Mail,
+  MapPin,
+  Phone,
+  ArrowRight,
+} from "lucide-react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Separator } from "../ui/separator";
 import { Value } from "../Values/Value";
+import { designTokens } from "../../styles/designTokens";
 
 interface FooterProp {
   value?: boolean;
 }
+
 const Footer: React.FC<FooterProp> = ({ value }) => {
+  const footerLinks = {
+    company: [
+      { name: "About Us", href: "/about-us" },
+      { name: "Contact", href: "/contact" },
+      { name: "Blog", href: "/blog" },
+      { name: "Careers", href: "/careers" },
+    ],
+    customerService: [
+      { name: "Help Center", href: "/help" },
+      { name: "Returns & Exchanges", href: "/returns" },
+      { name: "Order Tracking", href: "/tracking" },
+      { name: "FAQ", href: "/faq" },
+    ],
+    shop: [
+      { name: "Men's Clothing", href: "/products?category=men" },
+      { name: "Women's Clothing", href: "/products?category=women" },
+      { name: "Accessories", href: "/products?category=accessories" },
+      { name: "Sale", href: "/products?sale=true" },
+    ],
+    legal: [
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms of Service", href: "/terms" },
+      { name: "Cookie Policy", href: "/cookies" },
+      { name: "Refund Policy", href: "/refund" },
+    ],
+  };
+
+  const socialLinks = [
+    {
+      name: "Facebook",
+      icon: Facebook,
+      href: "https://www.facebook.com/share/18sQ1aLHjo/?mibextid=kFxxJD",
+    },
+    {
+      name: "Twitter",
+      icon: Twitter,
+      href: "https://x.com/ashobox",
+    },
+    {
+      name: "Instagram",
+      icon: Instagram,
+      href: "https://www.instagram.com/ashobox?igsh=MXJ4aDZ2OTdxem92ag%3D%3D&utm_source=qr",
+    },
+    {
+      name: "WhatsApp",
+      icon: MessageCircle,
+      href: "#",
+    },
+  ];
+
+  const contactInfo = [
+    {
+      icon: MapPin,
+      text: "123 Fashion Street, Lagos, Nigeria",
+    },
+    {
+      icon: Phone,
+      text: "+234 (0) 123 456 7890",
+    },
+    {
+      icon: Mail,
+      text: "hello@ashobox.com",
+    },
+  ];
+
   return (
     <>
       {value && <Value />}
 
-      <footer className="bg-pryColor text-white pt-12">
+      <footer
+        className={`${designTokens.colors.background.primary} text-white`}
+      >
         <div className="w-full">
-          {/* Main Footer Links */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 px-10">
-            <div className="flex flex-col justify-center items-center">
-              <h5 className="text-xl font-semibold mb-4">Company</h5>
-              <ul className="space-y-2 flex flex-col justify-center items-center">
-                <li>
-                  <a
-                    href="/about-us"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    About Us
-                  </a>
-                </li>
-                {/* <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Careers
-                  </a>
-                </li> */}
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div className="flex flex-col justify-center items-center">
-              <h5 className="text-xl font-semibold mb-4">Customer Service</h5>
-              <ul className="space-y-2 flex flex-col justify-center items-center">
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Returns & Exchanges
-                  </a>
-                </li>
-                {/* <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Shipping Info
-                  </a>
-                </li> */}
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Order Tracking
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div className="flex flex-col justify-center items-center">
-              <h5 className="text-xl font-semibold mb-4">Shop</h5>
-              <ul className="space-y-2 flex flex-col justify-center items-center">
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Men's Clothing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Women's Clothing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Accessories
-                  </a>
-                </li>
-                {/* <li>
-                  <a
-                    href="#"
-                    className="text-sm hover:text-secColor transition-colors"
-                  >
-                    Sale
-                  </a>
-                </li> */}
-              </ul>
-            </div>
-          </div>
-
-          {/* Bottom Section */}
-          <div className="pt-8 border-t border-gray-700 px-10">
-            <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-              {/* Social Icons */}
-              <div className="flex space-x-6">
-                <a
-                  href="https://www.facebook.com/share/18sQ1aLHjo/?mibextid=kFxxJD"
-                  className="text-gray-300 hover:text-secColor transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
+          {/* Main Footer Content */}
+          <div
+            className={`${designTokens.spacing.paddingX.lg} ${designTokens.spacing.paddingY.xl}`}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+              {/* Brand Section */}
+              <div className="xl:col-span-2 space-y-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
                 >
-                  <BiLogoFacebook size={24} />
-                </a>
-                <a
-                  href="https://x.com/ashobox"
-                  className="text-gray-300 hover:text-secColor transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <BiLogoTwitter size={24} />
-                </a>
-                <a
-                  href="https://www.instagram.com/ashobox?igsh=MXJ4aDZ2OTdxem92ag%3D%3D&utm_source=qr"
-                  className="text-gray-300 hover:text-secColor transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <BiLogoInstagram size={24} />
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secColor transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <BiLogoWhatsapp size={24} />
-                </a>
-              </div>
+                  <h3
+                    className={`${designTokens.typography.heading.h3} text-white mb-4`}
+                  >
+                    AshoBox
+                  </h3>
+                  <p
+                    className={`${designTokens.typography.body.base} text-gray-300 leading-relaxed mb-6`}
+                  >
+                    Discover your unique style with our curated collection of
+                    premium fashion. From trendy streetwear to elegant formal
+                    wear, we bring you the best in contemporary fashion.
+                  </p>
+                </motion.div>
 
-              {/* Newsletter */}
-              <div className="w-full lg:w-auto">
-                <p className="text-sm mb-2 text-center lg:text-left">
-                  Subscribe to our newsletter
-                </p>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="px-4 py-2 rounded-md sm:rounded-l-md sm:rounded-r-none border-2 border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 w-full"
-                  />
-                  <button className="px-6 py-2 bg-secColor text-white rounded-md sm:rounded-r-md sm:rounded-l-none hover:bg-gray-700 transition-colors whitespace-nowrap">
-                    Subscribe
-                  </button>
+                {/* Contact Info */}
+                <div className="space-y-3">
+                  {contactInfo.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex items-center space-x-3"
+                    >
+                      <item.icon className="h-4 w-4 text-secColor" />
+                      <span
+                        className={`${designTokens.typography.body.sm} text-gray-300`}
+                      >
+                        {item.text}
+                      </span>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
+
+              {/* Company Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <h5
+                  className={`${designTokens.typography.heading.h5} text-white mb-6`}
+                >
+                  Company
+                </h5>
+                <ul className="space-y-3">
+                  {footerLinks.company.map((link, index) => (
+                    <li key={index}>
+                      <a
+                        href={link.href}
+                        className={`${designTokens.typography.body.sm} text-gray-300 hover:text-secColor ${designTokens.animation.transition.base} group flex items-center`}
+                      >
+                        <span>{link.name}</span>
+                        <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-200" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* Customer Service Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <h5
+                  className={`${designTokens.typography.heading.h5} text-white mb-6`}
+                >
+                  Customer Service
+                </h5>
+                <ul className="space-y-3">
+                  {footerLinks.customerService.map((link, index) => (
+                    <li key={index}>
+                      <a
+                        href={link.href}
+                        className={`${designTokens.typography.body.sm} text-gray-300 hover:text-secColor ${designTokens.animation.transition.base} group flex items-center`}
+                      >
+                        <span>{link.name}</span>
+                        <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-200" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* Shop Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <h5
+                  className={`${designTokens.typography.heading.h5} text-white mb-6`}
+                >
+                  Shop
+                </h5>
+                <ul className="space-y-3">
+                  {footerLinks.shop.map((link, index) => (
+                    <li key={index}>
+                      <a
+                        href={link.href}
+                        className={`${designTokens.typography.body.sm} text-gray-300 hover:text-secColor ${designTokens.animation.transition.base} group flex items-center`}
+                      >
+                        <span>{link.name}</span>
+                        <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-200" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+
+            <Separator className="my-8 bg-gray-700" />
+
+            {/* Newsletter Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+            >
+              <div>
+                <h4
+                  className={`${designTokens.typography.heading.h4} text-white mb-2`}
+                >
+                  Stay Updated
+                </h4>
+                <p
+                  className={`${designTokens.typography.body.sm} text-gray-300`}
+                >
+                  Subscribe to our newsletter for the latest fashion trends,
+                  exclusive offers, and style tips.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Input
+                  type="email"
+                  placeholder="Enter your email address"
+                  className="flex-1 bg-white/10 border-gray-600 text-white placeholder:text-gray-400 focus:border-secColor"
+                />
+                <Button
+                  className={`${designTokens.colors.background.secondary} hover:bg-secColor/90 text-white px-6 whitespace-nowrap`}
+                >
+                  Subscribe
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </div>
+            </motion.div>
+
+            <Separator className="my-8 bg-gray-700" />
+
+            {/* Bottom Section */}
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+              {/* Social Links */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="flex items-center space-x-4"
+              >
+                <span
+                  className={`${designTokens.typography.body.sm} text-gray-300 mr-2`}
+                >
+                  Follow us:
+                </span>
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-2 rounded-full bg-white/10 text-gray-300 hover:text-white hover:bg-secColor ${designTokens.animation.transition.base} ${designTokens.animation.hover.scale}`}
+                  >
+                    <social.icon className="h-5 w-5" />
+                  </a>
+                ))}
+              </motion.div>
+
+              {/* Legal Links */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                viewport={{ once: true }}
+                className="flex flex-wrap justify-center lg:justify-end gap-4"
+              >
+                {footerLinks.legal.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className={`${designTokens.typography.body.xs} text-gray-400 hover:text-secColor ${designTokens.animation.transition.base}`}
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </motion.div>
             </div>
           </div>
 
-          {/* Copyright */}
-          <div className="bg-secColor text-white mt-8 py-4">
-            <div className="text-center">
-              <p className="text-sm">
-                &copy; {new Date().getFullYear()} ashobox. All Rights Reserved.
-              </p>
+          {/* Copyright Section */}
+          <div className={`${designTokens.colors.background.secondary} py-4`}>
+            <div className={`${designTokens.spacing.paddingX.lg}`}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                viewport={{ once: true }}
+                className="flex flex-col sm:flex-row justify-between items-center gap-4"
+              >
+                <p
+                  className={`${designTokens.typography.body.sm} text-white text-center sm:text-left`}
+                >
+                  &copy; {new Date().getFullYear()} AshoBox. All rights
+                  reserved.
+                </p>
+                {/* <p className={`${designTokens.typography.body.xs} text-gray-300 text-center sm:text-right`}>
+                  Made with ❤️ in Nigeria
+                </p> */}
+              </motion.div>
             </div>
           </div>
         </div>

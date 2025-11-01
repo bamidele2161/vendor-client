@@ -3,61 +3,66 @@ import FormInput from "../../../components/FormInput";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { useLoginMutation } from "../../../service/auth";
-import { saveUserInfo } from "../../../store/slice/authSlice";
-import { useAppDispatch } from "../../../hooks";
-import { useNavigate } from "react-router-dom";
+import { useResetPasswordMutation } from "../../../service/auth";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BrandIcon, BrandMobileIcon } from "../../../assets/svg/Product";
-import { useCookies } from "../../../hooks/cookiesHook";
+import { BackArrowIcon } from "../../../assets/svg/CustomSVGs";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
-const VendorSignin = () => {
-  const dispatch = useAppDispatch();
-  const [login, { isLoading }] = useLoginMutation();
+const ResetPassword = () => {
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
   const navigate = useNavigate();
-  const { setCookies } = useCookies();
+  const location = useLocation();
+
+  const resetToken = location.state?.resetToken;
+  const email = location.state?.email;
+
+  useEffect(() => {
+    if (!resetToken || !email) {
+      navigate("/forgot-password");
+      return;
+    }
+  }, [resetToken, email, navigate]);
+
   const initialValues = {
-    password: "",
-    emailOrPhoneNumber: "",
+    newPassword: "",
+    confirmPassword: "",
   };
 
   const onSubmit = async (formData: {
-    password: string;
-    emailOrPhoneNumber: string;
+    newPassword: string;
+    confirmPassword: string;
   }) => {
     try {
-      const requiredData = {
-        password: formData.password,
-        emailOrPhoneNumber: formData.emailOrPhoneNumber.toLowerCase().trim(),
-      };
-      const response = await login(requiredData).unwrap();
+      await resetPassword({
+        resetToken: resetToken,
+        newPassword: formData.newPassword,
+      }).unwrap();
 
-      if (response?.error) {
-        toast.error(response?.data?.message);
-      } else {
-        if (response?.data?.role === "VENDOR") {
-          dispatch(saveUserInfo(response?.data));
-          setCookies("ashoboxToken", response?.data?.access_token);
-          toast.success(response?.message);
-          navigate("/dashboard");
-        } else {
-          toast.error("You are not authorized as a Vendor!");
-        }
-      }
+      toast.success(
+        "Password reset successfully! Please login with your new password."
+      );
+      // Navigate to login page
+      navigate("/signin");
     } catch (error: unknown) {
-      const errorMessage = error && typeof error === 'object' && 'data' in error 
-        ? (error.data as { message?: string })?.message || "Login failed"
-        : "Login failed";
+      const errorMessage =
+        error && typeof error === "object" && "data" in error
+          ? (error.data as { message?: string })?.message ||
+            "Failed to reset password"
+          : "Failed to reset password";
       toast.error(errorMessage);
-      console.log("Login error", error);
+      console.log("Password reset error", error);
     }
   };
 
   const formSchema = Yup.object().shape({
-    password: Yup.string().required("Password is required"),
-    emailOrPhoneNumber: Yup.string().required(
-      "Email or Phone number is required"
-    ),
+    newPassword: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("New password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("newPassword")], "Passwords must match")
+      .required("Please confirm your password"),
   });
 
   const { values, touched, errors, handleBlur, handleChange, handleSubmit } =
@@ -66,8 +71,6 @@ const VendorSignin = () => {
       validationSchema: formSchema,
       onSubmit,
     });
-
-  const text = "Welcome Back to ashoBox";
 
   return (
     <main className="min-h-screen w-full flex flex-col lg:flex-row overflow-hidden bg-gradient-to-br from-slate-50 via-white to-secColor-Light/30">
@@ -101,39 +104,43 @@ const VendorSignin = () => {
             className="space-y-6"
           >
             <h1 className="text-pryColor font-bold text-4xl lg:text-5xl xl:text-6xl leading-tight">
-              {text}
+              Create New Password
             </h1>
-            
+
             <h2 className="text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-gray-700 to-gray-600 bg-clip-text text-transparent">
-              Continue Your Fashion Journey
+              Almost Done!
             </h2>
 
             <p className="text-gray-600 text-lg leading-relaxed md:pr-20">
-              Access your vendor dashboard to manage your store, track sales, and 
-              deliver exceptional fashion experiences to your customers.
+              Your identity has been verified. Please create a new secure
+              password for your account.
             </p>
           </motion.div>
 
-          {/* Trust Indicators */}
+          {/* Security Features */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex items-center gap-8"
+            className="space-y-4"
           >
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 bg-gradient-to-br from-pryColor to-secColor rounded-full border-2 border-white shadow-sm"
-                  ></div>
-                ))}
-              </div>
-              <span className="text-sm text-gray-600 ml-2">
-                Trusted by 1000+ vendors
-              </span>
-            </div>
+            {[
+              "Minimum 6 characters required",
+              "Use a mix of letters and numbers",
+              "Avoid common passwords",
+              "Keep it secure and memorable",
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                className="flex items-center gap-3"
+              >
+                <div className="w-2 h-2 bg-gradient-to-r from-pryColor to-secColor rounded-full"></div>
+                <span className="text-gray-600">{feature}</span>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
 
@@ -144,15 +151,15 @@ const VendorSignin = () => {
           className="hidden lg:block space-y-3"
         >
           <p className="text-gray-500 text-sm">
-            Trusted by fashion entrepreneurs across the industry.
+            Your new password will be encrypted and stored securely.
           </p>
           <p className="text-gray-500 text-sm">
-            Your go-to platform for selling, scaling, and succeeding in fashion.
+            Make sure to remember your new password for future logins.
           </p>
         </motion.div>
       </section>
 
-      {/* Right Panel - Login Form */}
+      {/* Right Panel - Reset Form */}
       <motion.section
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
@@ -160,6 +167,21 @@ const VendorSignin = () => {
         className="relative z-10 w-full lg:w-1/2 bg-white/80 backdrop-blur-xl px-6 lg:px-12 xl:px-20 py-8 lg:py-0 flex items-center"
       >
         <div className="w-full max-w-lg mx-auto">
+          {/* Back Button */}
+          <motion.button
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-2 text-gray-600 hover:text-pryColor transition-colors mb-6"
+            onClick={() =>
+              navigate("/forgot-password/verify-otp", { state: { email } })
+            }
+          >
+            <BackArrowIcon className="w-5 h-5" />
+            <span>Back</span>
+          </motion.button>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -167,9 +189,12 @@ const VendorSignin = () => {
             className="mb-8 space-y-4"
           >
             <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pryColor to-secColor bg-clip-text text-transparent">
-              Sign In
+              Set New Password
             </h1>
-            <p className="text-gray-600 text-lg">Welcome back! Please sign in to your account.</p>
+            <p className="text-gray-600 text-lg">
+              Create a strong password that you'll remember. Your account
+              security is important to us.
+            </p>
           </motion.div>
 
           <motion.form
@@ -180,41 +205,28 @@ const VendorSignin = () => {
             onSubmit={handleSubmit}
           >
             <FormInput
-              placeholder="Email or phone number"
-              type="text"
-              id={"emailOrPhoneNumber"}
-              name="emailOrPhoneNumber"
+              placeholder="Enter new password"
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              error={touched.newPassword ? errors.newPassword : undefined}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              defaultValue={values?.newPassword}
+            />
+
+            <FormInput
+              placeholder="Confirm new password"
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
               error={
-                touched.emailOrPhoneNumber
-                  ? errors.emailOrPhoneNumber
-                  : undefined
+                touched.confirmPassword ? errors.confirmPassword : undefined
               }
               onBlur={handleBlur}
               onChange={handleChange}
-              defaultValue={values?.emailOrPhoneNumber}
+              defaultValue={values?.confirmPassword}
             />
-            <FormInput
-              placeholder="Password"
-              type="password"
-              id={"password"}
-              name="password"
-              error={touched.password ? errors.password : undefined}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              defaultValue={values?.password}
-            />
-
-            {/* Forgot Password Link */}
-            <div className="flex justify-end">
-              <motion.button
-                type="button"
-                whileHover={{ scale: 1.02 }}
-                className="text-pryColor hover:text-pryColor/80 text-sm font-medium transition-colors"
-                onClick={() => navigate("/forgot-password")}
-              >
-                Forgot Password?
-              </motion.button>
-            </div>
 
             <motion.button
               whileHover={{ scale: 1.02, y: -2 }}
@@ -223,7 +235,7 @@ const VendorSignin = () => {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? <Spinner /> : "Sign In"}
+              {isLoading ? <Spinner /> : "Reset Password"}
             </motion.button>
           </motion.form>
 
@@ -234,13 +246,13 @@ const VendorSignin = () => {
             className="mt-8 text-center"
           >
             <p className="text-gray-600">
-              Don't have an account?{" "}
+              Remember your password?{" "}
               <motion.span
                 whileHover={{ scale: 1.05 }}
                 className="text-pryColor cursor-pointer font-semibold hover:underline transition-all"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/signin")}
               >
-                Sign Up
+                Sign In
               </motion.span>
             </p>
           </motion.div>
@@ -250,4 +262,4 @@ const VendorSignin = () => {
   );
 };
 
-export default VendorSignin;
+export default ResetPassword;

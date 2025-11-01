@@ -7,6 +7,9 @@ import VendorDashboard from "../pages/Vendor/Home/VendorDashboard";
 import AddProduct from "../pages/Vendor/Product/AddProduct";
 import VendorSignup from "../pages/Auth/Vendor/VendorSignUp";
 import VendorSignin from "../pages/Auth/Vendor/Login";
+import ForgotPassword from "../pages/Auth/Vendor/ForgotPassword";
+import VerifyOTP from "../pages/Auth/Vendor/VerifyOTP";
+import ResetPassword from "../pages/Auth/Vendor/ResetPassword";
 import Transaction from "../pages/Vendor/Transaction/Transaction";
 import Discount from "../pages/Vendor/Discount/Discount";
 import EditProduct from "../pages/Vendor/Product/EditProduct";
@@ -27,6 +30,21 @@ const authRoutes: Route[] = [
     path: "/signin",
     name: "Vendor SignUp Page",
     element: <VendorSignin />,
+  },
+  {
+    path: "/forgot-password",
+    name: "Forgot Password Page",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/forgot-password/verify-otp",
+    name: "Verify OTP Page",
+    element: <VerifyOTP />,
+  },
+  {
+    path: "/forgot-password/reset-password",
+    name: "Reset Password Page",
+    element: <ResetPassword />,
   },
 ];
 
