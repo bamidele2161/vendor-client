@@ -58,7 +58,7 @@ const Product = () => {
     }
     setShowModal(false);
   };
-
+  console.log(selectedProduct, "checking productttt");
   const filteredProducts = data?.data?.filter((product: any) => {
     const matchesSearch = product?.name
       ?.toLowerCase()

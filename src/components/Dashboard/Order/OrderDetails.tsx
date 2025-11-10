@@ -14,6 +14,7 @@ const OrderDetails = ({ selectedRow }: DetailsProps) => {
   const handleClose = () => {
     handleShow(`order-details`);
   };
+  console.log(selectedRow, "full data");
 
   return (
     <PopUp id={"order-details"}>
