@@ -36,7 +36,7 @@ const customBaseQuery: BaseQueryFn<
     ) => {
       // const userToken = (getState() as RootState)?.auth?.userInfo
       //   ?.refresh_token;
-      const userToken = Cookies.get("ashoboxToken");
+      const userToken = Cookies.get("ashoboxVendorToken");
       if (userToken) {
         headers.set("Authorization", `Bearer ${userToken}`);
       }

@@ -77,7 +77,7 @@ const customBaseQuery: BaseQueryFn<
   const baseResult = await fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
-      const userToken = Cookies.get("ashoboxToken");
+      const userToken = Cookies.get("ashoboxVendorToken");
       if (userToken) {
         headers.set("Authorization", `Bearer ${userToken}`);
       }
@@ -96,24 +96,35 @@ export const vendorApi = createApi({
     getVendorBankDetails: builder.query<VendorBankDetailsResponse, string>({
       query: (vendorId) => `vendor-bank-details/${vendorId}`,
     }),
-    updateVendorBankDetails: builder.mutation<VendorBankDetailsResponse, { vendorId: string; bankDetails: VendorBankDetails }>({
+    updateVendorBankDetails: builder.mutation<
+      VendorBankDetailsResponse,
+      { vendorId: string; bankDetails: VendorBankDetails }
+    >({
       query: ({ vendorId, bankDetails }) => ({
         url: `vendor-bank-details/${vendorId}`,
-        method: 'PUT',
+        method: "PUT",
         body: bankDetails,
       }),
     }),
     deleteVendorBankDetails: builder.mutation<{ message: string }, string>({
       query: (vendorId) => ({
         url: `vendor-bank-details/${vendorId}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
     }),
-    getVendorPayouts: builder.query<PayoutResponse, { vendorId: string; page?: number; limit?: number }>({
-      query: ({ vendorId, page = 1, limit = 50 }) => `payouts/vendor/${vendorId}?page=${page}&limit=${limit}`,
+    getVendorPayouts: builder.query<
+      PayoutResponse,
+      { vendorId: string; page?: number; limit?: number }
+    >({
+      query: ({ vendorId, page = 1, limit = 50 }) =>
+        `payouts/vendor/${vendorId}?page=${page}&limit=${limit}`,
     }),
-    getVendorReports: builder.query<VendorReportsResponse, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 50 } = {}) => `reports/vendors?page=${page}&limit=${limit}`,
+    getVendorReports: builder.query<
+      VendorReportsResponse,
+      { page?: number; limit?: number }
+    >({
+      query: ({ page = 1, limit = 50 } = {}) =>
+        `reports/vendors?page=${page}&limit=${limit}`,
     }),
   }),
 });

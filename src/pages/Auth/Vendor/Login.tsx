@@ -37,7 +37,7 @@ const VendorSignin = () => {
       } else {
         if (response?.data?.role === "VENDOR") {
           dispatch(saveUserInfo(response?.data));
-          setCookies("ashoboxToken", response?.data?.access_token);
+          setCookies("ashoboxVendorToken", response?.data?.access_token);
           toast.success(response?.message);
           navigate("/dashboard");
         } else {

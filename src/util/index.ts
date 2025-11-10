@@ -732,10 +732,10 @@ export const formatTimestamp = (
 export const LogoutUser = (navigate: any) => {
   const { removeTokenCookie } = useCookies();
 
-  removeTokenCookie("ashoboxToken");
+  removeTokenCookie("ashoboxVendorToken");
   removeTokenCookie("_chatwoot_session");
 
-  localStorage.removeItem("persist:ashobox");
+  localStorage.removeItem("persist:ashobox-vendor");
   localStorage.clear();
   sessionStorage.clear();
 
@@ -748,10 +748,10 @@ export const LogoutUser = (navigate: any) => {
 export const LogoutAdmin = (navigate: any) => {
   const { removeTokenCookie } = useCookies();
 
-  removeTokenCookie("ashoboxToken");
+  removeTokenCookie("ashoboxVendorToken");
   removeTokenCookie("_chatwoot_session");
 
-  localStorage.removeItem("persist:ashobox");
+  localStorage.removeItem("persist:ashobox-vendor");
   localStorage.clear();
   sessionStorage.clear();
 
@@ -764,10 +764,10 @@ export const LogoutAdmin = (navigate: any) => {
 export const LogoutShopper = (navigate: any) => {
   const { removeTokenCookie } = useCookies();
 
-  removeTokenCookie("ashoboxToken");
+  removeTokenCookie("ashoboxVendorToken");
   removeTokenCookie("_chatwoot_session");
 
-  localStorage.removeItem("persist:ashobox");
+  localStorage.removeItem("persist:ashobox-vendor");
   localStorage.clear();
   sessionStorage.clear();
 

@@ -35,7 +35,7 @@ const rootReducers = combineReducers({
 });
 
 const persistConfig = {
-  key: "ashobox",
+  key: "ashobox-vendor",
   storage,
 };
 
@@ -53,7 +53,12 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, productApi.middleware, adminApi.middleware, vendorApi.middleware),
+    }).concat(
+      authApi.middleware,
+      productApi.middleware,
+      adminApi.middleware,
+      vendorApi.middleware
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
