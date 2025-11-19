@@ -46,7 +46,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         <aside
           className={`
             w-full overflow-y-auto bg-pryColor-Lighter transition-all duration-300
-            md:ml-${collapsed ? "20" : "64"} ml-0
+            ${collapsed ? "md:ml-20" : "md:ml-64"} ml-0
           `}
         >
           {children}
