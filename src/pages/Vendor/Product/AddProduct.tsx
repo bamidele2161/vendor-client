@@ -115,9 +115,8 @@ const AddProduct: React.FC = () => {
   return (
     <div className="">
       <Navbar title="Product Management" subtitle="Manage your products here" />
-
-      <div className="flex p-10">
-        <div className="container mx-auto p-10 bg-white rounded-lg shadow-default">
+      <div className="flex px-4 py-6 md:px-6 lg:px-10">
+        <div className="container mx-auto p-4 md:p-6 lg:p-10 bg-white rounded-lg shadow-default">
           <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">

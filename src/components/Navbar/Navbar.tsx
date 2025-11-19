@@ -8,7 +8,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
   const { userInfo } = useAppSelector(selectAuth);
   console.log(userInfo);
   return (
-    <div className="flex justify-between items-center px-10 py-5 bg-white shadow-default">
+    <div className="flex justify-between items-center px-6 md:px-10 py-5 bg-white shadow-default">
       {/* Mobile/Tablet Hamburger */}
       <div className="md:hidden mr-3">
         <button
@@ -23,14 +23,14 @@ const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <h3 className="text-pryColor font-semibold text-[32px] font-bricolage leading-6">
+        <h3 className="text-pryColor font-semibold text-[24px] md:text-[32px] font-bricolage leading-6">
           {title}
         </h3>
         <p className="text-lightGreyColor font-inter leading-4 font-normal text-sm">
           {subtitle}
         </p>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col-reverse md:flex-row items-center gap-4">
         {userInfo?.role === "VENDOR" && (
           <span
             className={`
@@ -62,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
               />
             ) : (
               <div className="flex items-center justify-center w-[48px] h-[48px] bg-[#f1f2f3] p-4 rounded-full">
-                <h3 className="text-pryColor font-semibold text-xl font-bricolage leading-6">
+                <h3 className="text-pryColor font-semibold text-base md:text-xl font-bricolage leading-6">
                   {userInfo?.Vendor?.businessName?.charAt(0) ||
                     userInfo?.businessName?.charAt(0) ||
                     userInfo?.fullName?.charAt(0)}
@@ -71,7 +71,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
             )}
           </div>
           <div className="flex flex-col">
-            <p className=" font-semibold text-sm font-inter text-greyColr">
+            <p className=" font-semibold text-xs md:text-sm font-inter text-greyColr">
               {userInfo?.fullName}
             </p>
             <div className="flex gap-1 items-center">

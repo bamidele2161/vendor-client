@@ -187,16 +187,16 @@ const Product = () => {
     <div className="">
       <Navbar title="Product Management" subtitle="Manage your products here" />
       <div className="flex flex-col w-full">
-        <div className="flex justify-end px-10">
+        <div className="flex justify-end px-4 md:px-10">
           <button
-            className=" px-4 bg-pryColor text-white py-3 mt-4 rounded-lg hover:bg-pryColor"
+            className="px-4 bg-pryColor text-white py-3 mt-4 rounded-lg hover:bg-pryColor"
             onClick={() => navigate("/product-management/add-product")}
           >
             + Add Product
           </button>
         </div>
 
-        <div className="flex p-10">
+        <div className="flex px-4 py-6 md:px-6 lg:px-10">
           <div className="bg-white p-6 rounded-lg shadow w-full">
             <div className="flex flex-col md:flex-row justify-between items-center mb-6">
               <h2 className="text-xl font-semibold text-greyColr mb-4 md:mb-0">
@@ -229,20 +229,22 @@ const Product = () => {
               </div>
             </div>
 
-            <DataTable
-              columns={columns}
-              data={filteredProducts}
-              pagination
-              customStyles={customStyles}
-              highlightOnHover
-              responsive
-              sortIcon={<ChevronDown size={16} />}
-            />
+            <div className="overflow-x-auto">
+              <DataTable
+                columns={columns}
+                data={filteredProducts}
+                pagination
+                customStyles={customStyles}
+                highlightOnHover
+                responsive
+                sortIcon={<ChevronDown size={16} />}
+              />
+            </div>
 
             {/* Modal */}
             {showModal && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white p-6 rounded-lg w-[700px]">
+                <div className="bg-white p-6 rounded-lg w-[90%] md:w-full max-w-2xl">
                   <h3 className="text-lg font-semibold mb-4 text-greyColr">
                     {modalAction === "view"
                       ? "Product Details"

@@ -1,7 +1,7 @@
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { useGetAllOrdersByVendorsQuery } from "../../../service/product";
-import { Eye, FileDown, ChevronDown, TrendingUp, Edit } from "lucide-react";
+import { Eye, ChevronDown, Edit } from "lucide-react";
 import Navbar from "../../../components/Navbar/Navbar";
 import { selectAuth } from "../../../store/slice/authSlice";
 import { useAppSelector } from "../../../hooks";
@@ -41,11 +41,11 @@ const Order = () => {
   };
 
   console.log(data);
-  const handleExportData = () => {
-    console.log("Exporting order data...");
-    // In a real application, this would generate a CSV/Excel file with the orders
-    alert("Orders exported successfully!");
-  };
+  // const handleExportData = () => {
+  //   console.log("Exporting order data...");
+  //   // In a real application, this would generate a CSV/Excel file with the orders
+  //   alert("Orders exported successfully!");
+  // };
 
   // Get date range for filtering
   const getDateRange = () => {
@@ -205,13 +205,13 @@ const Order = () => {
     <div className="">
       <Navbar title="Product Management" subtitle="Manage your products here" />
       <div className="flex flex-col w-full">
-        <div className="bg-white p-10 rounded-lg shadow">
+        <div className="bg-white p-4 md:p-6 lg:p-10 rounded-lg shadow">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <h2 className="text-xl font-semibold text-greyColr mb-4 md:mb-0">
               Order Overview
             </h2>
 
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <button
                 onClick={handleExportData}
                 className="px-4 py-2 bg-pryColor text-white rounded-md flex items-center hover:bg-opacity-90 mr-4"
@@ -227,7 +227,7 @@ const Order = () => {
                 <TrendingUp size={16} className="mr-2" />
                 <span>Sales Report</span>
               </a>
-            </div>
+            </div> */}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -331,7 +331,7 @@ const Order = () => {
           {/* Order Detail Modal */}
           {showModal && selectedOrder && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white p-6 rounded-lg w-full max-w-3xl">
+              <div className="bg-white p-6 rounded-lg w-[90%] md:w-full max-w-3xl">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-4">
                   <div>

@@ -44,8 +44,7 @@ const Settings = () => {
   return (
     <div className="">
       <Navbar title="Settings" subtitle="Manage your profile here" />
-
-      <div className="bg-gray-50 p-10 rounded-lg">
+      <div className="bg-gray-50 p-4 md:p-6 lg:p-10 rounded-lg">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800">Store Settings</h1>
           <p className="text-gray-500">

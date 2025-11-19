@@ -179,9 +179,8 @@ const Transaction = () => {
         title="Payout Management"
         subtitle="Manage your transactions here"
       />
-
       <div className="flex flex-col w-full">
-        <div className="bg-white p-10 rounded-lg shadow">
+        <div className="bg-white p-4 md:p-6 lg:p-10 rounded-lg shadow">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <h2 className="text-xl font-semibold text-greyColr mb-4 md:mb-0">
               Payout

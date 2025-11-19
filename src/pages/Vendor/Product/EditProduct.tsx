@@ -124,13 +124,13 @@ const EditProduct: React.FC = () => {
       <Navbar title="Product Management" subtitle="Manage your products here" />
       <div
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 border rounded-lg text-secColor border-secColor w-24 ml-10 cursor-pointer p-2 mt-6"
+        className="flex items-center gap-2 border rounded-lg text-secColor border-secColor w-24 ml-4 md:ml-10 cursor-pointer p-2 mt-4 md:mt-6"
       >
         <BackArrowIcon />
         Back
       </div>
-      <div className="flex p-10">
-        <div className="container mx-auto p-10 bg-white rounded-lg shadow-default">
+      <div className="flex px-4 py-6 md:px-6 lg:px-10">
+        <div className="container mx-auto p-4 md:p-6 lg:p-10 bg-white rounded-lg shadow-default">
           <h2 className="text-xl font-semibold mb-4">Edit New Product</h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">

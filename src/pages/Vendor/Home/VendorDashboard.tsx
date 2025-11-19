@@ -17,7 +17,7 @@ const VendorDashboard = () => {
         subtitle={`Good morning, ${userInfo?.fullName}`}
       />
 
-      <div className="p-10 flex flex-col gap-8">
+      <div className="px-4 py-6 md:px-6 lg:px-10 flex flex-col gap-6 md:gap-8">
         {/* Overview Cards */}
         <div>
           <h2 className="text-xl font-semibold text-gray-700 mb-4">Overview</h2>
@@ -25,7 +25,7 @@ const VendorDashboard = () => {
         </div>
 
         {/* Best Selling Products, Low Stock Alerts, Quick Actions */}
-        <div className="flex ">
+        <div className="flex flex-col">
           <div>
             <h2 className="text-xl font-semibold text-gray-700 mb-4">
               Quick Actions
@@ -33,15 +33,16 @@ const VendorDashboard = () => {
             <QuickActions />
           </div>
         </div>
-        <div className="flex justify-center gap-6">
-          <div className="w-[75%]">
+
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="w-full lg:w-2/3">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">
               Sales Performance
             </h2>
             <SalesChart />
           </div>
 
-          <div className="w-[35%]">
+          <div className="w-full lg:w-1/3">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Sales</h2>
             <SalesDonut />
           </div>
@@ -53,8 +54,6 @@ const VendorDashboard = () => {
           </h2>
           <RecentOrders />
         </div>
-
-        {/* Sales Chart */}
       </div>
     </div>
   );
