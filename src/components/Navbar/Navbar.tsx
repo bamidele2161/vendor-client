@@ -2,12 +2,26 @@
 import { useAppSelector } from "../../hooks";
 import { type NavbarProps } from "../../interfaces/Global";
 import { selectAuth } from "../../store/slice/authSlice";
+import { Menu } from "lucide-react";
 
 const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
   const { userInfo } = useAppSelector(selectAuth);
   console.log(userInfo);
   return (
     <div className="flex justify-between items-center px-10 py-5 bg-white shadow-default">
+      {/* Mobile/Tablet Hamburger */}
+      <div className="md:hidden mr-3">
+        <button
+          aria-label="Toggle sidebar"
+          onClick={() =>
+            window.dispatchEvent(new CustomEvent("toggle-sidebar"))
+          }
+          className="p-2 rounded-md border border-gray-200 hover:bg-gray-100 active:scale-[0.98]"
+        >
+          <Menu size={20} className="text-greyColr" />
+        </button>
+      </div>
+
       <div className="flex flex-col gap-4">
         <h3 className="text-pryColor font-semibold text-[32px] font-bricolage leading-6">
           {title}

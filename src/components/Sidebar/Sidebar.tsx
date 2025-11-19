@@ -21,11 +21,12 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, toggleSidebar }) => {
   return (
     <main
       className={`sidebar-container relative h-full flex flex-col transition-all duration-300 ease-in-out ${
-        collapsed ? "w-20" : "w-64"
-      } bg-gradient-to-b from-pryColor to-[#193c61] text-white rounded-r-2xl shadow-xl`}
+        collapsed ? "md:w-20" : "md:w-64"
+      } w-64 bg-gradient-to-b from-pryColor to-[#193c61] text-white rounded-r-2xl shadow-xl`}
     >
+      {/* Desktop-only collapse toggle */}
       <div
-        className="absolute -right-3 top-16 bg-secColor rounded-full p-1 cursor-pointer shadow-md hover:scale-105 transition-transform z-10"
+        className="absolute -right-3 top-16 bg-secColor rounded-full p-1 cursor-pointer shadow-md hover:scale-105 transition-transform z-10 hidden md:block"
         onClick={toggleSidebar}
       >
         {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
