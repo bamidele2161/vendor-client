@@ -95,7 +95,7 @@ const FormInput = ({
           ></textarea>
         ) : type === "tel" ? (
           <PhoneInput
-            country={defaultCountry || "us"}
+            country={defaultCountry || "ng"}
             value={telValue}
             onChange={handleTelChange}
             inputProps={{
