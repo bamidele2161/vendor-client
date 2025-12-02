@@ -128,10 +128,12 @@ const ProductPage = () => {
         }).format(row?.price)}`,
       sortable: true,
     },
+
     {
-      name: "Category",
-      selector: (row: any) => row.subCategoryItemName,
+      name: "Stock",
+      selector: (row: any) => row.stock,
       sortable: true,
+      width: "80px",
     },
     {
       name: "Status",
@@ -143,7 +145,7 @@ const ProductPage = () => {
               : "bg-yellow-100 text-yellow-800"
           }`}
         >
-          {row.status === "Approved" ? "Approved" : "Pending Approval"}
+          {row.status === "Approved" ? "Approved" : "Pending"}
         </span>
       ),
       sortable: true,
