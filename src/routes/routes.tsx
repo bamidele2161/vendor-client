@@ -1,7 +1,6 @@
 import { type Route } from "../interfaces/Global";
 import Customer from "../pages/Vendor/Customer/Customer";
 import Order from "../pages/Vendor/Order/Order";
-import Product from "../pages/Vendor/Product/Product";
 import Settings from "../pages/Vendor/Settings/Settings";
 import VendorDashboard from "../pages/Vendor/Home/VendorDashboard";
 import AddProduct from "../pages/Vendor/Product/AddProduct";
@@ -14,6 +13,7 @@ import Transaction from "../pages/Vendor/Transaction/Transaction";
 import Discount from "../pages/Vendor/Discount/Discount";
 import EditProduct from "../pages/Vendor/Product/EditProduct";
 import HomePage from "../pages/Home";
+import ProductPage from "../pages/Vendor/Product/Product";
 
 const authRoutes: Route[] = [
   {
@@ -50,7 +50,7 @@ const authRoutes: Route[] = [
 
 const vendorRoutes: Route[] = [
   { path: "/dashboard", name: "Home", element: <VendorDashboard /> },
-  { path: "/product-management", name: "Home", element: <Product /> },
+  { path: "/product-management", name: "Home", element: <ProductPage /> },
   {
     path: "/product-management/add-product",
     name: "Add Product",

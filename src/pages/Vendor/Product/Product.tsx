@@ -1,25 +1,31 @@
+// Function Product()
 import { useState } from "react";
 
 import Navbar from "../../../components/Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
-import DataTable from "react-data-table-component";
+import DataTable, { type TableColumn } from "react-data-table-component";
 import {
   useArchiveProductMutation,
   useGetAllProductCategoryQuery,
   useGetAllVendorProductsQuery,
 } from "../../../service/product";
 
-import { ChevronDown, Edit, Eye, X } from "lucide-react";
+import { ChevronDown, MoreVertical } from "lucide-react";
 import { useAppSelector } from "../../../hooks";
 import { selectAuth } from "../../../store/slice/authSlice";
 import { toast } from "react-toastify";
+import RowActionsMenu from "../../../components/ui/RowActionsMenu";
+import ProductDetailsModal from "../../../components/Product/ProductDetailsModal";
+import type { Product } from "../../../interfaces/Product";
 
-const Product = () => {
+const ProductPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("ALL");
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [modalAction, setModalAction] = useState("");
+  const [modalAction, setModalAction] = useState<"view" | "approve" | "reject">(
+    "view"
+  );
   const [rejectionReason, setRejectionReason] = useState("");
   const { userInfo } = useAppSelector(selectAuth);
   const [archive] = useArchiveProductMutation();
@@ -58,32 +64,42 @@ const Product = () => {
     }
     setShowModal(false);
   };
-  console.log(selectedProduct, "checking productttt");
-  const filteredProducts = data?.data?.filter((product: any) => {
-    const matchesSearch = product?.name
-      ?.toLowerCase()
-      ?.includes(searchTerm.toLowerCase());
 
-    const matchesCategory =
-      categoryFilter === "ALL" ||
-      product?.subCategoryItemName === categoryFilter;
+  const filteredProducts: Product[] | undefined = data?.data?.filter(
+    (product: Product) => {
+      const matchesSearch = product?.name
+        ?.toLowerCase()
+        ?.includes(searchTerm.toLowerCase());
+      const matchesCategory =
+        categoryFilter === "ALL" ||
+        product?.subCategoryItemName === categoryFilter;
+      return matchesSearch && matchesCategory;
+    }
+  );
 
-    return matchesSearch && matchesCategory;
-  });
-
-  const handleDelete = async (row: any) => {
+  const handleDelete = async (row: Product) => {
     try {
-      const response = await archive({
-        id: row.id,
-        vendorId: row.vendorId,
-      }).unwrap();
-
+      const response = (await archive({
+        id: row.id as number,
+        vendorId: row.vendorId as number,
+      }).unwrap()) as { message?: string };
       toast.success(response?.message);
-    } catch (error: any) {
-      toast.error(error?.data?.message);
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "Failed to delist product");
     }
   };
-  const columns = [
+
+  // Row actions dropdown state
+  const [showActionMenu, setShowActionMenu] = useState(false);
+  const [actionAnchorRect, setActionAnchorRect] = useState<{
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  } | null>(null);
+  // Function Product() -> columns definition
+  const columns: TableColumn<Product>[] = [
     {
       name: "Image",
       selector: (row: any) => row.thumbnails[0],
@@ -118,37 +134,49 @@ const Product = () => {
       sortable: true,
     },
     {
-      name: "Submitted",
-      selector: (row: any) => row.createdAt.slice(0, 10),
+      name: "Status",
+      cell: (row: Product) => (
+        <span
+          className={`px-2 py-1 rounded text-sm ${
+            row.status === "Approved"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }`}
+        >
+          {row.status === "Approved" ? "Approved" : "Pending Approval"}
+        </span>
+      ),
       sortable: true,
     },
     {
+      name: "Date Created",
+      selector: (row: any) => row.createdAt.slice(0, 10),
+      sortable: true,
+    },
+
+    {
       name: "Actions",
-      cell: (row: any) => (
-        <div className="flex justify-center items-center">
+      cell: (row: Product) => (
+        <div className="relative flex justify-center items-center">
           <button
-            onClick={() => handleView(row)}
-            className="p-1 rounded text-pryColor hover:bg-white"
+            onClick={(e) => {
+              setSelectedProduct(row);
+              const rect = (
+                e.currentTarget as HTMLElement
+              ).getBoundingClientRect();
+              setActionAnchorRect({
+                top: rect.bottom,
+                left: rect.left,
+                width: rect.width,
+                height: rect.height,
+              });
+              setShowActionMenu(true);
+            }}
+            className="p-1 rounded hover:bg-gray-100"
+            aria-label="More actions"
+            title="More actions"
           >
-            <Eye size={16} />
-          </button>
-
-          <button
-            onClick={() =>
-              navigate("/product-management/edit-product", {
-                state: { product: row },
-              })
-            }
-            className="p-1 rounded text-positive hover:bg-green-300"
-          >
-            <Edit size={16} />
-          </button>
-
-          <button
-            onClick={() => handleDelete(row)}
-            className="p-1 rounded text-negative hover:bg-red-300"
-          >
-            <X size={16} />
+            <MoreVertical size={18} className="text-greyColr" />
           </button>
         </div>
       ),
@@ -182,7 +210,7 @@ const Product = () => {
     .flatMap((category: any) => category.subCategories)
     .flatMap((subCategory: any) => subCategory.items)
     .map((item: any) => ({ id: item.id, name: item.name }));
-  console.log(selectedProduct);
+
   return (
     <div className="">
       <Navbar title="Product Management" subtitle="Manage your products here" />
@@ -232,7 +260,7 @@ const Product = () => {
             <div className="overflow-x-auto">
               <DataTable
                 columns={columns}
-                data={filteredProducts}
+                data={filteredProducts as Product[]}
                 pagination
                 customStyles={customStyles}
                 highlightOnHover
@@ -241,162 +269,43 @@ const Product = () => {
               />
             </div>
 
-            {/* Modal */}
-            {showModal && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white p-6 rounded-lg w-[90%] md:w-full max-w-2xl">
-                  <h3 className="text-lg font-semibold mb-4 text-greyColr">
-                    {modalAction === "view"
-                      ? "Product Details"
-                      : modalAction === "approve"
-                      ? "Approve Product"
-                      : "Reject Product"}
-                  </h3>
-
-                  <div className="mb-4">
-                    <div className="flex justify-center items-center w-full mb-4">
-                      <img
-                        src={selectedProduct?.thumbnails[0]}
-                        alt="Product Image"
-                        className="w-32 h-32 object-cover rounded"
-                      />
-                    </div>
-
-                    <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <p className="mb-2">
-                          <span className="font-semibold">Product:</span>{" "}
-                          {selectedProduct?.name}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-2">
-                          <span className="font-semibold">Price:</span>{" "}
-                          {selectedProduct?.price}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-2">
-                          <span className="font-semibold">Category:</span>{" "}
-                          {selectedProduct?.subCategoryItemName}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-2">
-                          <span className="font-semibold">Stock:</span>{" "}
-                          {selectedProduct?.stock}
-                        </p>
-                      </div>
-
-                      <div className="md:col-span-2">
-                        <p className="mb-2">
-                          <span className="font-semibold">Description:</span>{" "}
-                          {selectedProduct?.description}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-2">
-                          <span className="font-semibold">Views:</span>{" "}
-                          {selectedProduct?.views}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-2 flex gap-2">
-                          <span className="font-semibold">Status:</span>{" "}
-                          <p
-                            className={`
-                              px-3 py-1 rounded-full text-xs font-semibold w-20
-                              ${
-                                selectedProduct?.status === "Active"
-                                  ? "bg-green-100 text-green-700"
-                                  : "bg-orange-100 text-orange-700"
-                              }
-                            `}
-                          >
-                            {selectedProduct?.status === "Active"
-                              ? "Pending Approval"
-                              : selectedProduct?.status}
-                          </p>
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-2">
-                          <span className="font-semibold">Material:</span>{" "}
-                          {selectedProduct?.material}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-2">
-                          <span className="font-semibold">Submitted On:</span>{" "}
-                          {selectedProduct?.createdAt.slice(0, 10)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {modalAction === "reject" && (
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-lightGreyColor mb-1">
-                        Rejection Reason
-                      </label>
-                      <textarea
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pryColor"
-                        rows={3}
-                        value={rejectionReason}
-                        onChange={(e) => setRejectionReason(e.target.value)}
-                        placeholder="Please provide a reason for rejection..."
-                      />
-                    </div>
-                  )}
-
-                  {modalAction !== "view" && (
-                    <p className="mb-6 text-sm text-lightGreyColor">
-                      {modalAction === "approve"
-                        ? "Approving this product will make it visible to customers on the marketplace."
-                        : "The rejection reason will be sent to the vendor via email."}
-                    </p>
-                  )}
-
-                  <div className="flex justify-end space-x-3">
-                    {/* {selectedProduct?.status !== "Approved" && ( */}
-                    <button
-                      onClick={() =>
-                        navigate("/product-management/edit-product", {
-                          state: { product: selectedProduct },
-                        })
-                      }
-                      className="px-4 py-2 border rounded-md text-white hover:bg-secColor bg-pryColor"
-                    >
-                      {modalAction === "view" ? "Edit" : "Cancel"}
-                    </button>
-                    {/* )} */}
-                    <button
-                      onClick={() => setShowModal(false)}
-                      className="px-4 py-2 border border-gray-300 rounded-md text-lightGreyColor hover:bg-gray-100"
-                    >
-                      {modalAction === "view" ? "Close" : "Cancel"}
-                    </button>
-                    {modalAction !== "view" && (
-                      <button
-                        onClick={handleModalAction}
-                        className={`px-4 py-2 rounded-md text-white ${
-                          modalAction === "approve"
-                            ? "bg-positive hover:bg-opacity-90"
-                            : "bg-negative hover:bg-opacity-90"
-                        }`}
-                        disabled={
-                          modalAction === "reject" && !rejectionReason.trim()
-                        }
-                      >
-                        {modalAction === "approve"
-                          ? "Approve Product"
-                          : "Reject Product"}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
+            {/* Row actions dropdown menu */}
+            {showActionMenu && selectedProduct && (
+              <RowActionsMenu
+                anchorRect={actionAnchorRect}
+                onClose={() => setShowActionMenu(false)}
+                onView={() => {
+                  setShowActionMenu(false);
+                  handleView(selectedProduct);
+                }}
+                onEdit={() => {
+                  setShowActionMenu(false);
+                  navigate("/product-management/edit-product", {
+                    state: { product: selectedProduct },
+                  });
+                }}
+                onDelist={() => {
+                  setShowActionMenu(false);
+                  handleDelete(selectedProduct);
+                }}
+              />
             )}
+
+            {/* Product details modal */}
+            <ProductDetailsModal
+              open={showModal}
+              product={selectedProduct}
+              action={modalAction}
+              rejectionReason={rejectionReason}
+              onClose={() => setShowModal(false)}
+              onEdit={(p) =>
+                navigate("/product-management/edit-product", {
+                  state: { product: p },
+                })
+              }
+              onSubmitAction={handleModalAction}
+              onChangeRejectionReason={(val) => setRejectionReason(val)}
+            />
           </div>
         </div>
       </div>
@@ -404,4 +313,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default ProductPage;
