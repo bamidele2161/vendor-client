@@ -7,7 +7,6 @@ interface RowActionsMenuProps {
   anchorRect: AnchorRect | null;
   onView: () => void;
   onEdit: () => void;
-  onDelist: () => void;
   onClose: () => void;
 }
 
@@ -15,7 +14,6 @@ export default function RowActionsMenu({
   anchorRect,
   onView,
   onEdit,
-  onDelist,
   onClose,
 }: RowActionsMenuProps) {
   useEffect(() => {
@@ -40,7 +38,7 @@ export default function RowActionsMenu({
   return (
     <div className="fixed inset-0 z-50" onClick={onClose}>
       <div
-        className="fixed bg-white rounded-md shadow-lg border w-[150px] p-2"
+        className="fixed bg-white rounded-md shadow-lg border w-[220px] p-2"
         style={{ top, left }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -56,14 +54,7 @@ export default function RowActionsMenu({
             className="px-3 py-2 rounded hover:bg-gray-100 text-sm font-medium text-greyColr text-left"
             onClick={onEdit}
           >
-            Edit
-          </button>
-          <Separator className="my-1" />
-          <button
-            className="px-3 py-2 rounded hover:bg-red-50 text-sm font-medium text-negative text-left"
-            onClick={onDelist}
-          >
-            Delist
+            Update
           </button>
         </div>
       </div>
