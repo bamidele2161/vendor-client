@@ -290,6 +290,7 @@ const ProductPage = () => {
                   setShowActionMenu(false);
                   handleDelete(selectedProduct);
                 }}
+                product
               />
             )}
 

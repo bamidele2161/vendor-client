@@ -83,7 +83,7 @@ export default function ProductDetailsModal({
               <p className="mb-2 flex gap-2">
                 <span className="font-semibold">Status:</span>{" "}
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold w-20 ${
+                  className={`px-3 py-1 rounded-full text-xs font-semibold w-20 md:w-32 ${
                     product?.status === "Active"
                       ? "bg-green-100 text-green-700"
                       : "bg-orange-100 text-orange-700"
@@ -103,7 +103,7 @@ export default function ProductDetailsModal({
             </div>
             <div>
               <p className="mb-2">
-                <span className="font-semibold">Submitted On:</span>{" "}
+                <span className="font-semibold">Posted On :</span>{" "}
                 {product?.createdAt?.slice(0, 10)}
               </p>
             </div>

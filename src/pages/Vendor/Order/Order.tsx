@@ -211,7 +211,7 @@ function Order() {
   console.log(selectedOrder, "checking order");
   return (
     <div className="">
-      <Navbar title="Product Management" subtitle="Manage your products here" />
+      <Navbar title="Order Management" subtitle="Manage your order here" />
       <div className="flex flex-col w-full">
         <div className="bg-white p-4 md:p-6 lg:p-10 rounded-lg shadow">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">

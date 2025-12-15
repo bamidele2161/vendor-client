@@ -8,6 +8,8 @@ interface RowActionsMenuProps {
   onView: () => void;
   onEdit: () => void;
   onClose: () => void;
+  onDelist: () => void;
+  product?: boolean;
 }
 
 export default function RowActionsMenu({
@@ -15,6 +17,8 @@ export default function RowActionsMenu({
   onView,
   onEdit,
   onClose,
+  onDelist,
+  product,
 }: RowActionsMenuProps) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -38,24 +42,32 @@ export default function RowActionsMenu({
   return (
     <div className="fixed inset-0 z-50" onClick={onClose}>
       <div
-        className="fixed bg-white rounded-md shadow-lg border w-[220px] p-2"
+        className="fixed bg-white rounded-md shadow-lg border w-[170px] p-2"
         style={{ top, left }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col">
           <button
-            className="px-3 py-2 rounded hover:bg-gray-100 text-sm font-medium text-greyColr text-left"
+            className="px-3 py-1 rounded hover:bg-gray-100 text-sm font-medium text-greyColr text-left"
             onClick={onView}
           >
             View
           </button>
-          <Separator className="my-1" />
+
           <button
-            className="px-3 py-2 rounded hover:bg-gray-100 text-sm font-medium text-greyColr text-left"
+            className="px-3 py-1 rounded hover:bg-gray-100 text-sm font-medium text-greyColr text-left"
             onClick={onEdit}
           >
             Update
           </button>
+          {product && (
+            <button
+              className="px-3 py-1 rounded hover:bg-gray-100 text-sm font-medium text-negative text-left"
+              onClick={onDelist}
+            >
+              Delist
+            </button>
+          )}
         </div>
       </div>
     </div>

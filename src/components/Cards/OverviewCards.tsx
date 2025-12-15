@@ -1,4 +1,4 @@
-import { ShoppingCart, DollarSign, Package, Star } from "lucide-react";
+import { ShoppingCart, DollarSign, Package } from "lucide-react";
 import { Card } from "./Cards";
 
 import {
@@ -51,15 +51,15 @@ export default function OverviewCards() {
       icon: <Package size={28} className="text-purple-600" />,
       bgColor: "bg-purple-50",
     },
-    {
-      title: "Average Rating",
-      value: "4.8",
-      icon: <Star size={28} className="text-yellow-500" />,
-      bgColor: "bg-yellow-50",
-    },
+    // {
+    //   title: "Average Rating",
+    //   value: "4.8",
+    //   icon: <Star size={28} className="text-yellow-500" />,
+    //   bgColor: "bg-yellow-50",
+    // },
   ];
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
       {stats.map((stat, index) => (
         <Card
           key={index}

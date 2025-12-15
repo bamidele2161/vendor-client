@@ -165,22 +165,6 @@ const AddProduct: React.FC = () => {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
               <FormInput
-                id="material"
-                label="Product material"
-                name="material"
-                placeholder="Enter product material"
-                type="cSelect"
-                selectOptions={fashionMaterials}
-                keyPropertyName="name"
-                searchFunc
-                defaultValue={values.material}
-                valuePropertyName="name"
-                itemPropertyName="name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.material ? errors.material : undefined}
-              />
-              <FormInput
                 id="categoryId"
                 label="Product Category"
                 name="categoryId"
@@ -196,6 +180,22 @@ const AddProduct: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.categoryId ? errors.categoryId : undefined}
+              />
+              <FormInput
+                id="material"
+                label="Product material"
+                name="material"
+                placeholder="Enter product material"
+                type="cSelect"
+                selectOptions={fashionMaterials}
+                keyPropertyName="name"
+                searchFunc
+                defaultValue={values.material}
+                valuePropertyName="name"
+                itemPropertyName="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.material ? errors.material : undefined}
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
