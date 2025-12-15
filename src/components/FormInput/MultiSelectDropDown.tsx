@@ -55,7 +55,7 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
 
   return (
     <div className="flex flex-col gap-2" ref={dropdownRef}>
-      <label className="font-medium">
+      <label className="font-medium text-sm">
         {label} <span className="text-base text-red-500">*</span>
       </label>
 

@@ -190,6 +190,7 @@ const AddProduct: React.FC = () => {
                 selectOptions={fashionMaterials}
                 keyPropertyName="name"
                 searchFunc
+                required
                 defaultValue={values.material}
                 valuePropertyName="name"
                 itemPropertyName="name"
