@@ -1,7 +1,7 @@
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { useGetAllOrdersByVendorsQuery } from "../../../service/product";
-import { Eye, ChevronDown, Edit, MoreVertical } from "lucide-react";
+import { ChevronDown, MoreVertical } from "lucide-react";
 import Navbar from "../../../components/Navbar/Navbar";
 import { selectAuth } from "../../../store/slice/authSlice";
 import { useAppSelector } from "../../../hooks";
@@ -13,7 +13,7 @@ import type { Order } from "../../../interfaces/Order";
 import UpdateOrderStatusModal from "../../../components/Order/UpdateOrderStatusModal";
 
 // Remove the inline modal block and keep export clean
-function Order() {
+function OrderPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [dateFilter, setDateFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("ALL");
@@ -349,4 +349,4 @@ function Order() {
   );
 }
 
-export default Order;
+export default OrderPage;

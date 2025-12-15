@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Separator } from "./separator";
 
 type AnchorRect = { top: number; left: number; width: number; height: number };
 
@@ -8,7 +7,7 @@ interface RowActionsMenuProps {
   onView: () => void;
   onEdit: () => void;
   onClose: () => void;
-  onDelist: () => void;
+  onDelist?: () => void;
   product?: boolean;
 }
 

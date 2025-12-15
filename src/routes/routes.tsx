@@ -1,6 +1,6 @@
 import { type Route } from "../interfaces/Global";
 import Customer from "../pages/Vendor/Customer/Customer";
-import Order from "../pages/Vendor/Order/Order";
+import OrderPage from "../pages/Vendor/Order/Order";
 import Settings from "../pages/Vendor/Settings/Settings";
 import VendorDashboard from "../pages/Vendor/Home/VendorDashboard";
 import AddProduct from "../pages/Vendor/Product/AddProduct";
@@ -61,7 +61,7 @@ const vendorRoutes: Route[] = [
     name: "Edit Product",
     element: <EditProduct />,
   },
-  { path: "/order-management", name: "Home", element: <Order /> },
+  { path: "/order-management", name: "Home", element: <OrderPage /> },
   { path: "/customer-management", name: "Home", element: <Customer /> },
   { path: "/settings", name: "Home", element: <Settings /> },
   { path: "/transactions", name: "Transaction", element: <Transaction /> },
