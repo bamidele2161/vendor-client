@@ -69,6 +69,18 @@ export interface VendorReportsResponse {
   };
 }
 
+export interface VendorProfile {
+  id: number;
+  businessName: string;
+  status: string;
+  businessLogo?: string;
+  User?: {
+    fullName: string;
+    email: string;
+    phoneNumber?: string;
+  };
+}
+
 const customBaseQuery: BaseQueryFn<
   string | FetchArgs,
   unknown,
@@ -91,8 +103,12 @@ const customBaseQuery: BaseQueryFn<
 export const vendorApi = createApi({
   reducerPath: "vendorApi",
   baseQuery: customBaseQuery,
-  tagTypes: ["VendorBankDetails"],
+  tagTypes: ["VendorBankDetails", "Vendor"],
   endpoints: (builder) => ({
+    getVendorById: builder.query<VendorProfile, string>({
+      query: (vendorId) => `/vendors/${vendorId}`,
+      providesTags: ["Vendor"],
+    }),
     getVendorBankDetails: builder.query<VendorBankDetailsResponse, string>({
       query: (vendorId) => `vendor-bank-details/${vendorId}`,
     }),
@@ -130,6 +146,7 @@ export const vendorApi = createApi({
 });
 
 export const {
+  useGetVendorByIdQuery,
   useGetVendorBankDetailsQuery,
   useUpdateVendorBankDetailsMutation,
   useDeleteVendorBankDetailsMutation,

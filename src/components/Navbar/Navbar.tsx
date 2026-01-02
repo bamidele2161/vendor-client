@@ -3,10 +3,30 @@ import { useAppSelector } from "../../hooks";
 import { type NavbarProps } from "../../interfaces/Global";
 import { selectAuth } from "../../store/slice/authSlice";
 import { Menu } from "lucide-react";
+import { useGetVendorByIdQuery } from "../../service/vendor";
 
 const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
   const { userInfo } = useAppSelector(selectAuth);
-  console.log(userInfo);
+  const { data: vendorData } = useGetVendorByIdQuery(
+    userInfo?.Vendor?.id || "",
+    {
+      skip: !userInfo?.Vendor?.id,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+      refetchOnMountOrArgChange: true,
+    }
+  );
+
+  const vendor = vendorData;
+
+  const status = vendor?.status || userInfo?.Vendor?.status;
+  const businessName =
+    vendor?.businessName ||
+    userInfo?.Vendor?.businessName ||
+    userInfo?.businessName;
+  const fullName = vendor?.User?.fullName || userInfo?.fullName;
+  const businessLogo = vendor?.businessLogo || userInfo?.Vendor?.businessLogo;
+
   return (
     <div className="flex justify-between items-center px-6 md:px-10 py-5 bg-white shadow-default">
       {/* Mobile/Tablet Hamburger */}
@@ -31,52 +51,40 @@ const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
         </p>
       </div>
       <div className="flex flex-col-reverse md:flex-row items-center gap-4">
-        {userInfo?.role === "VENDOR" && (
+        {userInfo?.role === "VENDOR" && status === "APPROVED" && (
           <span
             className={`
          px-3 py-1 rounded-full text-xs font-semibold
-         ${
-           userInfo?.Vendor?.status === "PENDING"
-             ? "bg-yellow-50 text-yellow-700"
-             : userInfo?.Vendor?.status === "APPROVED"
-             ? "bg-green-50 text-green-700"
-             : userInfo?.Vendor?.status === "REJECTED"
-             ? "bg-orange-50 text-orange-700"
-             : userInfo?.Vendor?.status === "INACTIVE"
-             ? "bg-red-50 text-red-700"
-             : "bg-gray-50 text-gray-700"
-         }
+         bg-green-50 text-green-700
        `}
           >
-            {userInfo?.Vendor?.status || "Unknown"}
+            {status}
           </span>
         )}
 
         <div className="flex gap-4 items-center">
           <div className="image">
-            {userInfo?.Vendor?.businessLogo ? (
+            {businessLogo ? (
               <img
-                src={""}
+                src={businessLogo}
                 alt="Uploaded Preview"
                 className="w-12 h-12 rounded-full mr-4"
               />
             ) : (
               <div className="flex items-center justify-center w-[48px] h-[48px] bg-[#f1f2f3] p-4 rounded-full">
                 <h3 className="text-pryColor font-semibold text-base md:text-xl font-bricolage leading-6">
-                  {userInfo?.Vendor?.businessName?.charAt(0) ||
-                    userInfo?.businessName?.charAt(0) ||
-                    userInfo?.fullName?.charAt(0)}
+                  {businessName?.charAt(0) || fullName?.charAt(0)}
                 </h3>
               </div>
             )}
           </div>
           <div className="flex flex-col">
             <p className=" font-semibold text-xs md:text-sm font-inter text-greyColr">
-              {userInfo?.fullName}
+              {fullName}
             </p>
             <div className="flex gap-1 items-center">
               <p className="text-lightGreyColor font-medium font-inter text-xs">
-                {userInfo?.Vendor?.businessName || userInfo?.businessName}
+                {businessName}
               </p>
             </div>
           </div>
