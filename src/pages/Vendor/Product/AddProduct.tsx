@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import FormInput from "../../../components/FormInput";
 import Navbar from "../../../components/Navbar/Navbar";
 import {
-  fashionColors,
+  VENDOR_COLORS,
   fashionMaterials,
   fashionSizes,
   gender,
@@ -207,7 +207,7 @@ const AddProduct: React.FC = () => {
               />
               <MultiSelectDropdown
                 label="Colors"
-                options={fashionColors}
+                options={VENDOR_COLORS}
                 onChange={(values) => setColors(values as string[])}
               />
             </div>
