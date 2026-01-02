@@ -777,22 +777,105 @@ export const LogoutShopper = (navigate: any) => {
   window.location.reload();
 };
 
-export const fashionColors = [
+export const VENDOR_COLORS = [
+  // Basics
   "Black",
   "White",
-  "Red",
-  "Blue",
-  "Green",
-  "Yellow",
-  "Purple",
-  "Orange",
-  "Pink",
   "Gray",
-  "Brown",
+  "Light Gray",
+  "Dark Gray",
+  "Charcoal",
+
+  // Neutrals
+  "Off White",
+  "Ivory",
+  "Cream",
   "Beige",
+  "Taupe",
+  "Sand",
+  "Stone",
+  "Camel",
+  "Khaki",
+
+  // Blues
+  "Blue",
+  "Light Blue",
+  "Dark Blue",
   "Navy",
+  "Sky Blue",
+  "Baby Blue",
+  "Royal Blue",
+  "Cobalt",
+  "Denim",
   "Teal",
+  "Turquoise",
+  "Aqua",
+
+  // Reds & Pinks
+  "Red",
+  "Dark Red",
+  "Wine",
+  "Burgundy",
   "Maroon",
+  "Crimson",
+  "Scarlet",
+  "Pink",
+  "Light Pink",
+  "Hot Pink",
+  "Blush",
+  "Rose",
+  "Coral",
+  "Salmon",
+
+  // Greens
+  "Green",
+  "Light Green",
+  "Dark Green",
+  "Olive",
+  "Forest Green",
+  "Emerald",
+  "Mint",
+  "Lime",
+  "Sage",
+  "Sea Green",
+
+  // Yellows & Oranges
+  "Yellow",
+  "Mustard",
+  "Gold",
+  "Amber",
+  "Orange",
+  "Burnt Orange",
+  "Peach",
+  "Apricot",
+
+  // Purples
+  "Purple",
+  "Lavender",
+  "Lilac",
+  "Violet",
+  "Plum",
+  "Eggplant",
+  "Magenta",
+
+  // Browns
+  "Brown",
+  "Dark Brown",
+  "Chocolate",
+  "Coffee",
+  "Mocha",
+  "Tan",
+  "Chestnut",
+
+  // Metallics
+  "Silver",
+  "Bronze",
+  "Copper",
+  "Rose Gold",
+
+  // Special
+  "Multicolor",
+  "Transparent",
 ];
 
 export const fashionSizes = [
