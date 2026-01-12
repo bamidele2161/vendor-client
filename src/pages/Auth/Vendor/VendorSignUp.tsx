@@ -41,7 +41,7 @@ const VendorSignup = () => {
         fullName: formData.fullName,
         businessName: formData.businessName,
         password: formData.password,
-        email: formData.email,
+        email: formData.email.toLowerCase().trim(),
         address: formData.address,
         phoneNumber: formData.phoneNumber,
         city: formData.city,
