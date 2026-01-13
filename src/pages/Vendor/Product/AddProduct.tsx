@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../../../components/FormInput";
@@ -28,7 +28,23 @@ const AddProduct: React.FC = () => {
   const [sizes, setSizes] = useState<string[]>([]);
   // const [mainImage, setMainImage] = useState<string>("");
   const [thumbnails, setThumbnails] = useState<string[]>([]);
+  const [colorsError, setColorsError] = useState<string>("");
+  const [sizesError, setSizesError] = useState<string>("");
+  const [thumbnailsError, setThumbnailsError] = useState<string>("");
   const { data } = useGetAllProductCategoryQuery();
+
+  useEffect(() => {
+    if (colors.length > 0) setColorsError("");
+  }, [colors]);
+
+  useEffect(() => {
+    if (sizes.length > 0) setSizesError("");
+  }, [sizes]);
+
+  useEffect(() => {
+    if (thumbnails.length > 0) setThumbnailsError("");
+  }, [thumbnails]);
+
   const initialValues = {
     name: "",
     description: "",
@@ -48,6 +64,22 @@ const AddProduct: React.FC = () => {
     material: string;
     stock: number;
   }) => {
+    let isValid = true;
+    if (sizes.length === 0) {
+      setSizesError("Please select at least one size");
+      isValid = false;
+    }
+    if (colors.length === 0) {
+      setColorsError("Please select at least one color");
+      isValid = false;
+    }
+    if (thumbnails.length === 0) {
+      setThumbnailsError("Please upload at least one image");
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
     try {
       const requiredData = {
         name: formData.name,
@@ -89,7 +121,9 @@ const AddProduct: React.FC = () => {
       .positive("Price must be a positive number"),
     categoryId: Yup.string().required("Product category is required"),
     material: Yup.string(),
-    stock: Yup.number().required("Stock number is required"),
+    stock: Yup.number()
+      .required("Stock number is required")
+      .positive("Stock number must be a positive number"),
   });
 
   const {
@@ -200,16 +234,32 @@ const AddProduct: React.FC = () => {
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              <MultiSelectDropdown
-                label="Sizes"
-                options={fashionSizes}
-                onChange={(values) => setSizes(values as string[])}
-              />
-              <MultiSelectDropdown
-                label="Colors"
-                options={VENDOR_COLORS}
-                onChange={(values) => setColors(values as string[])}
-              />
+              <div>
+                <MultiSelectDropdown
+                  label="Sizes"
+                  options={fashionSizes}
+                  onChange={(values) => {
+                    setSizes(values as string[]);
+                    if (values.length > 0) setSizesError("");
+                  }}
+                />
+                {sizesError && (
+                  <p className="text-red-500 text-xs mt-1">{sizesError}</p>
+                )}
+              </div>
+              <div>
+                <MultiSelectDropdown
+                  label="Colors"
+                  options={VENDOR_COLORS}
+                  onChange={(values) => {
+                    setColors(values as string[]);
+                    if (values.length > 0) setColorsError("");
+                  }}
+                />
+                {colorsError && (
+                  <p className="text-red-500 text-xs mt-1">{colorsError}</p>
+                )}
+              </div>
             </div>
             {/* <ImageUpload
               setDocument={setMainImage}
@@ -221,6 +271,9 @@ const AddProduct: React.FC = () => {
                 Product Images <span className="text-base text-red-500">*</span>
               </p>
               <MultipleUpload images={thumbnails} setImages={setThumbnails} />
+              {thumbnailsError && (
+                <p className="text-red-500 text-xs mt-1">{thumbnailsError}</p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
@@ -234,7 +287,7 @@ const AddProduct: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 defaultValue={values.stock}
-                error={touched.price ? errors.price : undefined}
+                error={touched.stock ? errors.stock : undefined}
               />
 
               <FormInput
