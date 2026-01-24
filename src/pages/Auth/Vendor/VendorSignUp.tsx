@@ -330,7 +330,6 @@ const VendorSignup = () => {
 
               <FormInput
                 id="city"
-                label="Area"
                 name="city"
                 placeholder="Enter your business area"
                 type="cSelect"
