@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { CheckCircle, MapPin } from "lucide-react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { useState } from "react";
+import { areas } from "../../../util";
 
 interface FormData {
   fullName: string;
@@ -328,6 +329,23 @@ const VendorSignup = () => {
               />
 
               <FormInput
+                id="city"
+                label="Area"
+                name="city"
+                placeholder="Enter your business area"
+                type="cSelect"
+                selectOptions={areas}
+                keyPropertyName="name"
+                defaultValue={values.city}
+                valuePropertyName="name"
+                required
+                itemPropertyName="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.city ? errors.city : undefined}
+              />
+
+              {/* <FormInput
                 placeholder="City"
                 type="text"
                 id="city"
@@ -336,7 +354,7 @@ const VendorSignup = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 defaultValue={values?.city}
-              />
+              /> */}
             </div>
 
             <FormInput

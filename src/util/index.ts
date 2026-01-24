@@ -694,6 +694,37 @@ export const gender = [
   { id: 2, name: "Female" },
   { id: 3, name: "Unisex" },
 ];
+export const areas = [
+  { id: 1, name: "Isale Eko" },
+  { id: 2, name: "Marina" },
+  { id: 3, name: "Ikoyi" },
+  { id: 4, name: "Victoria Island (VI)" },
+  { id: 5, name: "Lekki" },
+  { id: 6, name: "Ajah" },
+  { id: 7, name: "Ibeju-Lekki" },
+  { id: 8, name: "Ikeja" },
+  { id: 9, name: "Maryland" },
+  { id: 10, name: "Surulere" },
+  { id: 11, name: "Yaba" },
+  { id: 12, name: "Gbagada" },
+  { id: 13, name: "Oshodi" },
+  { id: 14, name: "Mushin" },
+  { id: 15, name: "Somolu" },
+  { id: 16, name: "Alimosho" },
+  { id: 17, name: "Agege" },
+  { id: 18, name: "Abule Egba" },
+  { id: 19, name: "Ifako-Ijaiye" },
+  { id: 20, name: "Ogba" },
+  { id: 21, name: "Kosofe" },
+  { id: 22, name: "Ogudu" },
+  { id: 23, name: "Ojodu-Berger" },
+  { id: 24, name: "Festac Town" },
+  { id: 25, name: "Satellite Town" },
+  { id: 26, name: "Ojo" },
+  { id: 27, name: "Ikorodu" },
+  { id: 28, name: "Badagry" },
+  { id: 29, name: "Epe" },
+];
 
 export const shopProgressBar = [
   { id: 1, title: "Cart" },
@@ -703,7 +734,7 @@ export const shopProgressBar = [
 ];
 export const formatTimestamp = (
   timestamp: string,
-  includeTime: boolean = true
+  includeTime: boolean = true,
 ): string => {
   const date = new Date(timestamp);
 
