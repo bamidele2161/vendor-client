@@ -20,8 +20,12 @@ import {
 import Spinner from "../../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
 import MultiSelectDropdown from "../../../components/FormInput/MultiSelectDropDown";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, PackagePlus } from "lucide-react";
+import { Button } from "../../../components/ui/button";
 
 const AddProduct: React.FC = () => {
+  const navigate = useNavigate();
   const [addProduct, { isLoading }] = useAddProductMutation();
   const { userInfo } = useAppSelector(selectAuth);
   const [colors, setColors] = useState<string[]>([]);
@@ -149,12 +153,15 @@ const AddProduct: React.FC = () => {
   return (
     <div className="">
       <Navbar title="Product Management" subtitle="Manage your products here" />
-      <div className="flex px-4 py-6 md:px-6 lg:px-10">
-        <div className="container mx-auto p-4 md:p-6 lg:p-10 bg-white rounded-lg shadow-default">
-          <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
+      <div className="mx-auto max-w-[1500px] px-4 py-6 md:px-8 md:py-8 lg:px-10">
+        <button onClick={() => navigate(-1)} className="mb-5 inline-flex items-center gap-2 text-xs font-semibold text-[#566170] hover:text-[#151A22]"><ArrowLeft size={15}/> Back to products</button>
+        <div className="overflow-hidden rounded-[2rem] border border-[#151A22]/[.07] bg-[#F8F7F3]">
+          <div className="flex flex-col justify-between gap-4 bg-[#151A22] p-6 text-white md:flex-row md:items-end md:p-8">
+            <div><p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#AEBCC7]">New catalogue item</p><h2 className="mt-2 font-spaceGrotesk text-3xl font-semibold tracking-[-.04em]">Add a product</h2><p className="mt-2 max-w-xl text-sm leading-6 text-white/55">Build a complete product listing with clear details, options, inventory and imagery.</p></div><PackagePlus className="hidden text-white/25 md:block" size={46}/>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <form onSubmit={handleSubmit} className="space-y-8 p-5 md:p-8">
+            <section className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-white p-5 md:p-6"><div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#6F8294]">01 · Essentials</p><h3 className="mt-1 font-spaceGrotesk text-xl font-semibold">Product information</h3></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <FormInput
                 id="name"
                 label="Product Name"
@@ -185,7 +192,7 @@ const AddProduct: React.FC = () => {
               />
             </div>
 
-            <FormInput
+            <div className="mt-5"><FormInput
               id="description"
               label="Product Description"
               type="textarea"
@@ -196,8 +203,8 @@ const AddProduct: React.FC = () => {
               defaultValue={values.description}
               onBlur={handleBlur}
               error={touched.description ? errors.description : undefined}
-            />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            /></div></section>
+            <section className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#EEF1F3] p-5 md:p-6"><div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#6F8294]">02 · Classification</p><h3 className="mt-1 font-spaceGrotesk text-xl font-semibold">Category & variants</h3></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <FormInput
                 id="categoryId"
                 label="Product Category"
@@ -232,8 +239,7 @@ const AddProduct: React.FC = () => {
                 onBlur={handleBlur}
                 error={touched.material ? errors.material : undefined}
               />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            </div><div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
               <div>
                 <MultiSelectDropdown
                   label="Sizes"
@@ -260,13 +266,13 @@ const AddProduct: React.FC = () => {
                   <p className="text-red-500 text-xs mt-1">{colorsError}</p>
                 )}
               </div>
-            </div>
+            </div></section>
             {/* <ImageUpload
               setDocument={setMainImage}
               isBase64={true}
               title="Main Image"
             /> */}
-            <div className="flex flex-col">
+            <section className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-white p-5 md:p-6"><div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#6F8294]">03 · Presentation</p><h3 className="mt-1 font-spaceGrotesk text-xl font-semibold">Product imagery</h3></div><div className="flex flex-col">
               <p className="font-medium text-[#15191E] text-sm flex gap-2 items-center">
                 Product Images <span className="text-base text-red-500">*</span>
               </p>
@@ -274,9 +280,9 @@ const AddProduct: React.FC = () => {
               {thumbnailsError && (
                 <p className="text-red-500 text-xs mt-1">{thumbnailsError}</p>
               )}
-            </div>
+            </div></section>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <section className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#DCE4E8] p-5 md:p-6"><div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#566170]">04 · Commerce</p><h3 className="mt-1 font-spaceGrotesk text-xl font-semibold">Inventory & pricing</h3></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <FormInput
                 id="stock"
                 label="Stock"
@@ -301,15 +307,14 @@ const AddProduct: React.FC = () => {
                 onBlur={handleBlur}
                 error={touched.price ? errors.price : undefined}
               />
-            </div>
+            </div></section>
 
-            <button
+            <Button size="lg"
               type="submit"
-              //   disabled={isLoading}
-              className=" py-2 px-4 bg-pryColor text-white font-semibold rounded-lg hover:bg-secColor transition disabled:bg-gray-300"
+              disabled={isLoading}
             >
-              {isLoading ? <Spinner /> : "    Add Product"}
-            </button>
+              {isLoading ? <Spinner /> : "Add product"}
+            </Button>
           </form>
         </div>
       </div>

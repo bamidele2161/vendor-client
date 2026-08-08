@@ -6,14 +6,24 @@
 
 /* @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sofia&display=swap"); */
 
-@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: "Figtree", sans-serif;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: #151a22;
+  background: #ece9e1;
+  font-family: "Inter", sans-serif;
 }
+
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid rgba(111, 130, 148, .45); outline-offset: 2px; }
+::selection { background: #dce4e8; color: #151a22; }
 
 :root {
   font-synthesis: none;
@@ -22,12 +32,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --pryColor: #2c3e50;
+  --pryColor: #151a22;
   --white: #fff;
-  --secColor: #80bbeb;
+  --secColor: #6f8294;
   --black: #000000;
-  --Grey1: #352f36;
-  --Grey2: #777777;
+  --Grey1: #242b35;
+  --Grey2: #566170;
   --positive: #00c46c;
   --negative: #ee443f;
 }
@@ -105,24 +115,11 @@ body {
   justify-content: start;
 }
 
-.form-controls {
-  display: block;
-  width: 100%;
-  padding: 0.77em 1em;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #f1f2f3;
-  background-clip: padding-box;
-  border: none;
-  border-radius: 12px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
 /*google place*/
 
 .css-13cymwt-control {
-  padding-block: 5px;
-  border-radius: 10px !important;
-  border-color: #2c3e50 !important;
+  min-height: 48px !important;
+  border-radius: 12px !important;
+  border-color: rgba(21,26,34,.1) !important;
+  box-shadow: none !important;
 }

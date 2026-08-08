@@ -22,25 +22,25 @@ export const SidebarData = [
   {
     id: "tab2",
     icon: Package,
-    title: "Product",
+    title: "Products",
     url: "/product-management",
   },
   {
     id: "tab3",
     icon: ShoppingCart,
-    title: "Order",
+    title: "Orders",
     url: "/order-management",
   },
   {
     id: "tab4",
     icon: CreditCard,
-    title: "Transaction",
+    title: "Transactions",
     url: "/transactions",
   },
   {
     id: "tab5",
     icon: Tag,
-    title: "Discounts Coupons",
+    title: "Discounts",
     url: "/discount",
   },
   {

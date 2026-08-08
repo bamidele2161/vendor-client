@@ -90,7 +90,6 @@ const SalesChart = () => {
   };
 
   const salesData = aggregateSalesByMonth(orders) || [];
-  console.log(salesData);
   // Calculate total sales and growth
   const totalSales = salesData.reduce((sum, item) => sum + item.sales, 0);
 
@@ -126,7 +125,7 @@ const SalesChart = () => {
   }: TooltipProps<number, string>) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 shadow-lg rounded-lg border border-gray-100">
+        <div className="rounded-xl border border-[#151A22]/10 bg-white p-3 shadow-lg">
           <p className="text-sm font-medium text-gray-600">{label}</p>
           <p className="text-lg font-bold text-gray-900">
             {formatCurrency(payload[0].value as number)}
@@ -138,11 +137,12 @@ const SalesChart = () => {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="w-full overflow-hidden rounded-[1.75rem] border border-[#151A22]/[0.07] bg-[#F8F7F3]">
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#6F8294]">Performance</p>
+            <h2 className="font-spaceGrotesk text-xl font-semibold tracking-tight text-[#151A22]">
               Sales Overview
             </h2>
             <p className="text-sm text-gray-500">Monthly sales performance</p>
@@ -206,9 +206,9 @@ const SalesChart = () => {
             >
               <defs>
                 <linearGradient id="salesGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.8} />
-                  <stop offset="50%" stopColor="#60A5FA" stopOpacity={0.4} />
-                  <stop offset="100%" stopColor="#DBEAFE" stopOpacity={0.1} />
+                  <stop offset="0%" stopColor="#6F8294" stopOpacity={0.55} />
+                  <stop offset="55%" stopColor="#DCE4E8" stopOpacity={0.35} />
+                  <stop offset="100%" stopColor="#DCE4E8" stopOpacity={0.05} />
                 </linearGradient>
               </defs>
               <XAxis
@@ -229,7 +229,7 @@ const SalesChart = () => {
               <Area
                 type="monotone"
                 dataKey="sales"
-                stroke="#254A76"
+                stroke="#151A22"
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#salesGradient)"
@@ -237,11 +237,11 @@ const SalesChart = () => {
                 activeDot={{
                   r: 5,
                   strokeWidth: 2,
-                  fill: "#3B82F6",
+                  fill: "#6F8294",
                   stroke: "#ffffff",
                 }}
                 dot={{
-                  fill: "#3B82F6",
+                  fill: "#6F8294",
                   strokeWidth: 2,
                   stroke: "#ffffff",
                   r: 3,

@@ -18,7 +18,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <main className="w-full gap-8 flex flex-col bg-white">
+    <main className="min-h-screen w-full bg-[#ECE9E1]">
       <div className="flex">
         {/* Mobile overlay */}
         {isSidebarOpenMobile && (
@@ -32,7 +32,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         <section
           className={`
             fixed left-0 top-0 z-50 h-screen transition-transform duration-300
-            bg-[#254A76] border-r
+            bg-[#151A22]
             ${
               isSidebarOpenMobile ? "translate-x-0" : "-translate-x-full"
             } md:translate-x-0
@@ -45,7 +45,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         {/* Content */}
         <aside
           className={`
-            w-full overflow-y-auto bg-pryColor-Lighter transition-all duration-300
+            min-h-screen w-full overflow-y-auto bg-[#ECE9E1] transition-all duration-300
             ${collapsed ? "md:ml-20" : "md:ml-64"} ml-0
           `}
         >

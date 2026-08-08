@@ -1,4 +1,4 @@
-import { ShoppingCart, DollarSign, Package } from "lucide-react";
+import { ShoppingBag, WalletCards, Package } from "lucide-react";
 import { Card } from "./Cards";
 
 import {
@@ -31,8 +31,7 @@ export default function OverviewCards() {
     {
       title: "Total Orders",
       value: orders?.data?.length || 0,
-      icon: <ShoppingCart size={28} className="text-blue-600" />,
-      bgColor: "bg-blue-50",
+      icon: ShoppingBag,
     },
     {
       title: "Total Revenue",
@@ -42,14 +41,12 @@ export default function OverviewCards() {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       }).format(subtotal)}`,
-      icon: <DollarSign size={28} className="text-green-600" />,
-      bgColor: "bg-green-50",
+      icon: WalletCards,
     },
     {
       title: "Products Listed",
       value: data?.data?.length || 0,
-      icon: <Package size={28} className="text-purple-600" />,
-      bgColor: "bg-purple-50",
+      icon: Package,
     },
     // {
     //   title: "Average Rating",
@@ -59,23 +56,15 @@ export default function OverviewCards() {
     // },
   ];
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[1.35rem] border border-white/10 bg-white/10 sm:grid-cols-3">
       {stats.map((stat, index) => (
         <Card
           key={index}
-          className={`flex items-center bg-${stat.bgColor} shadow-default`}
+          className="rounded-none bg-white/[0.045] p-5 backdrop-blur-sm md:p-6"
         >
-          <div
-            className={`${stat.bgColor} p-4 rounded-xl`}
-            style={{ backgroundColor: stat.bgColor }}
-          >
-            <div className={`p-3 rounded-full ${stat.bgColor}`}>
-              {stat.icon}
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">{stat.title}</p>
-              <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
-            </div>
+          <div className="flex items-start justify-between gap-4">
+            <div><p className="text-xs font-semibold text-white/50">{stat.title}</p><p className="mt-3 font-spaceGrotesk text-2xl font-semibold tracking-[-0.04em] text-white md:text-3xl">{stat.value}</p></div>
+            <div className="rounded-full border border-white/10 bg-white/10 p-2.5"><stat.icon size={18} className="text-[#DCE4E8]" /></div>
           </div>
         </Card>
       ))}

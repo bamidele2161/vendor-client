@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { BadgePercent, Search, Plus, X, Check } from "lucide-react";
+import { Search, Plus, X } from "lucide-react";
 import CouponForm from "../../../components/Vendor/CouponForm";
 import CouponList from "../../../components/Vendor/CouponList";
 
 import Navbar from "../../../components/Navbar/Navbar";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
 
 const initialCoupons = [
   {
@@ -113,80 +115,68 @@ const Discount = () => {
         title="Discount Management"
         subtitle="Manage special offers for your customers"
       />
-      <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center mb-6">
+      <div className="min-h-screen px-4 py-6 md:px-8 md:py-8 lg:px-10">
+        <div className="mx-auto max-w-[1500px]">
+          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Coupons & Discounts
-              </h1>
+              <p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#6F8294]">Promotion workspace</p>
+              <h1 className="font-spaceGrotesk text-3xl font-semibold tracking-[-.04em] text-[#151A22]">Coupons & discounts</h1>
               {/* <p className="text-sm text-gray-600 mt-1">
                 Manage special offers for your customers
               </p> */}
             </div>
-            <button
+            <Button
               onClick={handleAddCoupon}
-              className="flex items-center px-4 py-2 bg-pryColor text-white rounded-md hover:bg-secColor transition-colors"
             >
-              <Plus size={16} className="mr-2" />
-              Create Coupon
-            </button>
+              <Plus size={16} /> Create coupon
+            </Button>
           </div>
 
           {/* Dashboard cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-              <div className="flex items-center">
-                <div className="p-3 rounded-full bg-secColor-Light text-pryColor mr-4">
-                  <BadgePercent size={24} />
-                </div>
+          <div className="mb-6 grid grid-cols-3 gap-px overflow-hidden rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#151A22]/[.07]">
+            <div className="bg-[#151A22] p-5 text-white md:p-6">
+              <div>
                 <div>
-                  <p className="text-sm font-medium text-gray-500">
+                  <p className="text-xs font-medium text-white/55">
                     Total Coupons
                   </p>
-                  <p className="text-2xl font-semibold">{coupons.length}</p>
+                  <p className="mt-3 font-spaceGrotesk text-2xl font-semibold">{coupons.length}</p>
                 </div>
               </div>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-              <div className="flex items-center">
-                <div className="p-3 rounded-full bg-green-100 text-green-600 mr-4">
-                  <Check size={24} />
-                </div>
+            <div className="bg-[#DCE4E8] p-5 md:p-6">
+              <div>
                 <div>
-                  <p className="text-sm font-medium text-gray-500">
+                  <p className="text-xs font-medium text-[#566170]">
                     Active Coupons
                   </p>
-                  <p className="text-2xl font-semibold">{activeCoupons}</p>
+                  <p className="mt-3 font-spaceGrotesk text-2xl font-semibold">{activeCoupons}</p>
                 </div>
               </div>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-              <div className="flex items-center">
-                <div className="p-3 rounded-full bg-red-100 text-red-600 mr-4">
-                  <X size={24} />
-                </div>
+            <div className="bg-[#F8F7F3] p-5 md:p-6">
+              <div>
                 <div>
-                  <p className="text-sm font-medium text-gray-500">
+                  <p className="text-xs font-medium text-[#566170]">
                     Expired Coupons
                   </p>
-                  <p className="text-2xl font-semibold">{expiredCoupons}</p>
+                  <p className="mt-3 font-spaceGrotesk text-2xl font-semibold">{expiredCoupons}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Search and filter */}
-          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6">
+          <div className="mb-4 rounded-[1.25rem] border border-[#151A22]/[.07] bg-[#F8F7F3] p-3">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div className="relative flex-1">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Search size={18} className="text-gray-400" />
                 </div>
-                <input
+                <Input
                   type="text"
                   placeholder="Search coupons..."
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-pryColor focus:border-transparent"
+                  className="pl-10"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -196,7 +186,7 @@ const Discount = () => {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pryColor focus:border-transparent"
+                  className="h-12 rounded-xl border border-[#151A22]/10 bg-white px-4 text-sm outline-none focus:border-[#6F8294] focus:ring-4 focus:ring-[#6F8294]/10"
                 >
                   <option value="all">All</option>
                   <option value="active">Active</option>
@@ -215,15 +205,15 @@ const Discount = () => {
 
           {/* Coupon form modal */}
           {isFormOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-screen overflow-y-auto">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#151A22]/65 p-4 backdrop-blur-sm">
+              <div className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-[1.75rem] bg-[#F8F7F3] p-5 shadow-2xl md:p-7">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">
+                  <h2 className="font-spaceGrotesk text-2xl font-semibold tracking-tight">
                     {editingCoupon ? "Edit Coupon" : "Create New Coupon"}
                   </h2>
                   <button
                     onClick={() => setIsFormOpen(false)}
-                    className="text-gray-500 hover:text-gray-700"
+                    className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-[#EEF1F3]"
                   >
                     <X size={24} />
                   </button>

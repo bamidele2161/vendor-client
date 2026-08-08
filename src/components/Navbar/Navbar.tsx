@@ -28,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
   const businessLogo = vendor?.businessLogo || userInfo?.Vendor?.businessLogo;
 
   return (
-    <div className="flex justify-between items-center px-6 md:px-10 py-5 bg-white shadow-default">
+    <header className="sticky top-0 z-30 flex min-h-[92px] items-center justify-between border-b border-[#151A22]/[0.07] bg-[#ECE9E1]/90 px-4 py-4 backdrop-blur-xl md:px-8 lg:px-10">
       {/* Mobile/Tablet Hamburger */}
       <div className="md:hidden mr-3">
         <button
@@ -36,26 +36,27 @@ const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
           onClick={() =>
             window.dispatchEvent(new CustomEvent("toggle-sidebar"))
           }
-          className="p-2 rounded-md border border-gray-200 hover:bg-gray-100 active:scale-[0.98]"
+          className="p-2.5 rounded-full border border-[#151A22]/10 bg-white/50 hover:bg-white active:scale-[0.98]"
         >
           <Menu size={20} className="text-greyColr" />
         </button>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <h3 className="text-pryColor font-semibold text-[24px] md:text-[32px] font-bricolage leading-6">
+      <div className="flex min-w-0 flex-col gap-1">
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#6F8294]">Vendor workspace</p>
+        <h3 className="truncate font-spaceGrotesk text-[26px] font-semibold leading-tight tracking-[-0.035em] text-[#151A22] md:text-[32px]">
           {title}
         </h3>
-        <p className="text-lightGreyColor font-inter leading-4 font-normal text-sm">
+        <p className="hidden text-sm leading-5 text-[#566170] sm:block">
           {subtitle}
         </p>
       </div>
-      <div className="flex flex-col-reverse md:flex-row items-center gap-4">
+      <div className="flex items-center gap-3 md:gap-4">
         {userInfo?.role === "VENDOR" && status === "APPROVED" && (
           <span
             className={`
-         px-3 py-1 rounded-full text-xs font-semibold
-         bg-green-50 text-green-700
+         hidden px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.12em]
+         bg-emerald-50 text-emerald-700 sm:inline-flex
        `}
           >
             {status}
@@ -68,29 +69,29 @@ const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {
               <img
                 src={businessLogo}
                 alt="Uploaded Preview"
-                className="w-12 h-12 rounded-full mr-4"
+                className="h-11 w-11 rounded-full border border-[#151A22]/10 object-cover"
               />
             ) : (
-              <div className="flex items-center justify-center w-[48px] h-[48px] bg-[#f1f2f3] p-4 rounded-full">
-                <h3 className="text-pryColor font-semibold text-base md:text-xl font-bricolage leading-6">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#DCE4E8]">
+                <h3 className="font-spaceGrotesk text-base font-semibold text-[#151A22]">
                   {businessName?.charAt(0) || fullName?.charAt(0)}
                 </h3>
               </div>
             )}
           </div>
-          <div className="flex flex-col">
-            <p className=" font-semibold text-xs md:text-sm font-inter text-greyColr">
+          <div className="hidden flex-col sm:flex">
+            <p className="text-sm font-semibold text-[#242B35]">
               {fullName}
             </p>
             <div className="flex gap-1 items-center">
-              <p className="text-lightGreyColor font-medium font-inter text-xs">
+              <p className="text-xs font-medium text-[#6F8294]">
                 {businessName}
               </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

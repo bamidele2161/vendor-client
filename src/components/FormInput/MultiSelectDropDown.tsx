@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Check, ChevronDown, Search, X } from "lucide-react";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 interface MultiSelectDropdownProps {
   label: string;
@@ -54,23 +57,23 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   );
 
   return (
-    <div className="flex flex-col gap-2" ref={dropdownRef}>
-      <label className="font-medium text-sm">
+    <div className="grid gap-2" ref={dropdownRef}>
+      <Label>
         {label} <span className="text-base text-red-500">*</span>
-      </label>
+      </Label>
 
       <div className="relative">
-        <div
-          className="border border-pryColor py-3 px-4 rounded-lg cursor-pointer flex flex-wrap gap-2 min-h-[40px] items-center"
+        <div role="button" tabIndex={0}
+          className="flex min-h-12 w-full cursor-pointer flex-wrap items-center gap-2 rounded-xl border border-[#151A22]/10 bg-white px-4 py-2 text-left text-sm shadow-sm transition focus-visible:border-[#6F8294] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#6F8294]/10"
           onClick={toggleDropdown}
         >
           {selectedValues.length === 0 ? (
-            <span className="text-gray-400">Select options...</span>
+            <span className="text-[#6F8294]">Select options...</span>
           ) : (
             selectedValues.map((value, index) => (
               <span
                 key={index}
-                className="bg-secColor-Light px-3 py-1 rounded flex items-center text-sm"
+                className="flex items-center rounded-full bg-[#DCE4E8] px-2.5 py-1 text-xs font-semibold"
               >
                 {value}
                 <button
@@ -78,24 +81,24 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
                     e.stopPropagation();
                     handleRemoveValue(value);
                   }}
-                  className="ml-2 text-red-500"
+                  type="button" aria-label={`Remove ${value}`} className="ml-1.5 rounded-full text-[#566170] hover:text-red-600"
                 >
-                  ✕
+                  <X size={12}/>
                 </button>
               </span>
             ))
-          )}
+          )}<ChevronDown size={16} className={`ml-auto text-[#6F8294] transition ${isOpen ? "rotate-180" : ""}`}/>
         </div>
 
         {isOpen && (
-          <div className="absolute z-10 mt-1 w-full border rounded bg-white shadow max-h-60 overflow-auto">
-            <div className="p-2">
-              <input
+          <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-[#151A22]/10 bg-white p-1.5 shadow-[0_20px_55px_rgba(21,26,34,.14)]">
+            <div className="relative mb-1.5"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6F8294]"/>
+              <Input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search..."
-                className="w-full border px-2 py-1 rounded"
+                className="h-10 pl-9"
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
@@ -107,11 +110,14 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
                   <div
                     key={index}
                     onClick={() => handleOptionClick(option)}
-                    className={`p-2 cursor-pointer hover:bg-gray-100 ${
-                      selectedValues.includes(option) ? "bg-secColor-Light" : ""
+                    className={`flex cursor-pointer items-center justify-between rounded-lg p-2.5 text-sm hover:bg-[#EEF1F3] ${
+                      selectedValues.includes(option) ? "bg-[#EEF1F3]" : ""
                     }`}
                   >
-                    {option}
+                    <span>{option}</span>
+                    {selectedValues.includes(option) && (
+                      <Check size={14}/>
+                    )}
                   </div>
                 ))
               ) : (

@@ -1,6 +1,7 @@
 import React from "react";
 import { Edit2, Trash2 } from "lucide-react";
 import DataTable from "react-data-table-component";
+import { tableCustomStyles } from "../../util";
 
 interface Coupon {
   id: string;
@@ -45,8 +46,8 @@ const CouponList: React.FC<CouponListProps> = ({
       sortable: true,
       cell: (row: Coupon) => (
         <div>
-          <div className="font-medium">{row.code}</div>
-          <div className="text-sm text-gray-500">{row.description}</div>
+          <div className="font-semibold text-[#151A22]">{row.code}</div>
+          <div className="text-xs text-[#6F8294]">{row.description}</div>
         </div>
       ),
     },
@@ -98,9 +99,9 @@ const CouponList: React.FC<CouponListProps> = ({
       sortable: true,
       cell: (row: Coupon) => (
         <span
-          className={`px-2 py-1 text-xs font-semibold rounded-full ${
+          className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[.08em] ${
             row.status === "active"
-              ? "bg-green-100 text-green-800"
+              ? "bg-emerald-100 text-emerald-800"
               : "bg-red-100 text-red-800"
           }`}
         >
@@ -111,16 +112,16 @@ const CouponList: React.FC<CouponListProps> = ({
     {
       name: "Actions",
       cell: (row: Coupon) => (
-        <div className="flex space-x-2">
+        <div className="flex gap-1">
           <button
             onClick={() => onEdit(row)}
-            className="text-secColor hover:text-pryColor"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-[#566170] hover:bg-[#EEF1F3] hover:text-[#151A22]"
           >
             <Edit2 size={16} />
           </button>
           <button
             onClick={() => onDelete(row.id)}
-            className="text-red-600 hover:text-red-900"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-red-600 hover:bg-red-50"
           >
             <Trash2 size={16} />
           </button>
@@ -130,50 +131,9 @@ const CouponList: React.FC<CouponListProps> = ({
     },
   ];
 
-  const customStyles = {
-    table: {
-      style: {
-        backgroundColor: "white",
-        borderRadius: "0.5rem",
-        border: "1px solid #e5e7eb",
-      },
-    },
-    headRow: {
-      style: {
-        backgroundColor: "#f9fafb",
-        borderTopLeftRadius: "0.5rem",
-        borderTopRightRadius: "0.5rem",
-        borderBottom: "1px solid #e5e7eb",
-      },
-    },
-    headCells: {
-      style: {
-        fontSize: "0.75rem",
-        fontWeight: "500",
-        color: "#6b7280",
-        padding: "0.75rem 1rem",
-      },
-    },
-    cells: {
-      style: {
-        padding: "1rem",
-      },
-    },
-    rows: {
-      style: {
-        "&:not(:last-of-type)": {
-          borderBottom: "1px solid #e5e7eb",
-        },
-        "&:hover": {
-          backgroundColor: "#f9fafb",
-        },
-      },
-    },
-  };
-
   if (coupons.length === 0) {
     return (
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 text-center">
+      <div className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#F8F7F3] p-10 text-center">
         <p className="text-gray-500">
           No coupons found. Create your first coupon to get started.
         </p>
@@ -182,11 +142,11 @@ const CouponList: React.FC<CouponListProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+    <div className="overflow-hidden rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#F8F7F3]">
       <DataTable
         columns={columns}
         data={coupons}
-        customStyles={customStyles}
+        customStyles={tableCustomStyles}
         pagination
         responsive
         highlightOnHover

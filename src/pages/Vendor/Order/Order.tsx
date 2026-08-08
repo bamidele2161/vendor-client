@@ -11,6 +11,8 @@ import RowActionsMenu from "../../../components/ui/RowActionsMenu";
 import OrderDetailsModal from "../../../components/Order/OrderDetailsModal";
 import type { Order } from "../../../interfaces/Order";
 import UpdateOrderStatusModal from "../../../components/Order/UpdateOrderStatusModal";
+import { Input } from "../../../components/ui/input";
+import { tableCustomStyles } from "../../../util";
 
 // Remove the inline modal block and keep export clean
 function OrderPage() {
@@ -169,29 +171,6 @@ function OrderPage() {
     },
   ];
 
-  const customStyles = {
-    rows: {
-      style: {
-        minHeight: "60px",
-      },
-    },
-    headCells: {
-      style: {
-        paddingLeft: "8px",
-        paddingRight: "8px",
-        fontWeight: "bold",
-        fontSize: "0.9rem",
-        color: "#352F36",
-      },
-    },
-    cells: {
-      style: {
-        paddingLeft: "8px",
-        paddingRight: "8px",
-      },
-    },
-  };
-
   const handleOrderUpdate = async () => {
     if (!selectedOrder) return;
     try {
@@ -207,33 +186,27 @@ function OrderPage() {
       toast.error(error?.data?.message);
     }
   };
-  console.log(data);
-  console.log(selectedOrder, "checking order");
   return (
     <div className="">
       <Navbar title="Order Management" subtitle="Manage your order here" />
-      <div className="flex flex-col w-full">
-        <div className="bg-white p-4 md:p-6 lg:p-10 rounded-lg shadow">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-greyColr mb-4 md:mb-0">
-              Order Overview
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="bg-pryColor-Light p-4 rounded-lg">
+      <div className="mx-auto flex max-w-[1500px] flex-col p-4 md:p-8 lg:p-10">
+        <div>
+          <div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#6F8294]">Fulfilment overview</p><h2 className="font-spaceGrotesk text-2xl font-semibold tracking-[-.03em]">Orders at a glance</h2></div>
+          <div className="mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#151A22]/[.07] lg:grid-cols-4">
+            <div className="bg-[#F8F7F3] p-5 md:p-6">
               <h3 className="text-sm font-medium text-greyColr">
                 Total Orders
               </h3>
-              <div className="text-2xl font-bold text-pryColor mt-2">
+              <div className="mt-3 font-spaceGrotesk text-2xl font-semibold text-[#151A22]">
                 {totalOrders}
               </div>
             </div>
 
-            <div className="bg-secColor-Light p-4 rounded-lg">
+            <div className="bg-[#DCE4E8] p-5 md:p-6">
               <h3 className="text-sm font-medium text-greyColr">
                 Total Revenue
               </h3>
-              <div className="text-2xl font-bold text-secColor mt-2">
+              <div className="mt-3 font-spaceGrotesk text-2xl font-semibold text-[#151A22]">
                 {/* ₦{totalRevenue?.toFixed(2)} */}
 
                 {new Intl.NumberFormat("en-NG", {
@@ -245,29 +218,29 @@ function OrderPage() {
               </div>
             </div>
 
-            <div className="bg-positive-Light p-4 rounded-lg">
+            <div className="bg-[#F8F7F3] p-5 md:p-6">
               <h3 className="text-sm font-medium text-greyColr">
                 Delivered Orders
               </h3>
-              <div className="text-2xl font-bold text-positive mt-2">
+              <div className="mt-3 font-spaceGrotesk text-2xl font-semibold text-[#151A22]">
                 {deliveredOrders}
               </div>
             </div>
 
-            <div className="bg-negative-Light p-4 rounded-lg">
+            <div className="bg-[#F8F7F3] p-5 md:p-6">
               <h3 className="text-sm font-medium text-greyColr">
                 Canceled Orders
               </h3>
-              <div className="text-2xl font-bold text-negative mt-2">
+              <div className="mt-3 font-spaceGrotesk text-2xl font-semibold text-[#151A22]">
                 {canceledOrders}
               </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between mb-6">
+          <div className="mb-4 flex flex-col justify-between gap-3 rounded-[1.25rem] border border-[#151A22]/[.07] bg-[#F8F7F3] p-3 md:flex-row">
             <div className="flex flex-wrap gap-4 mb-4 md:mb-0">
               <div className="w-full md:w-auto">
                 <select
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pryColor"
+                  className="h-11 w-full rounded-xl border border-[#151A22]/10 bg-white px-3 text-sm outline-none focus:border-[#6F8294] focus:ring-4 focus:ring-[#6F8294]/10"
                   value={dateFilter}
                   onChange={(e) => setDateFilter(e.target.value)}
                 >
@@ -279,7 +252,7 @@ function OrderPage() {
 
               <div className="w-full md:w-auto">
                 <select
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pryColor"
+                  className="h-11 w-full rounded-xl border border-[#151A22]/10 bg-white px-3 text-sm outline-none focus:border-[#6F8294] focus:ring-4 focus:ring-[#6F8294]/10"
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
                 >
@@ -294,22 +267,22 @@ function OrderPage() {
             </div>
 
             <div className="w-full md:w-64">
-              <input
+              <Input
                 type="text"
                 placeholder="Search orders..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pryColor"
+                className="h-11"
                 value={searchTerm}
                 onChange={handleSearch}
               />
             </div>
           </div>
 
-          <div className="flex w-full flex-col rounded-md border">
+          <div className="flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#F8F7F3]">
             <DataTable
               columns={columns}
               data={filteredOrders ?? []}
               pagination
-              customStyles={customStyles}
+              customStyles={tableCustomStyles}
               highlightOnHover
               responsive
               sortIcon={<ChevronDown size={16} />}

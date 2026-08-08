@@ -118,7 +118,7 @@ const Transaction = () => {
           href={row.receiptUrl as string}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-1 text-sm text-pryColor hover:text-secColor underline cursor-pointer"
+          className="text-xs font-semibold text-[#151A22] underline decoration-[#6F8294] underline-offset-4 hover:text-[#6F8294]"
         >
           View Receipt
         </a>
@@ -130,12 +130,12 @@ const Transaction = () => {
       selector: (row: PayoutData) => row.status,
       cell: (row: PayoutData) => (
         <span
-          className={`px-2 py-1 rounded-full text-xs ${
+          className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[.08em] ${
             row.status === "PENDING"
-              ? "bg-processing text-white"
+              ? "bg-amber-100 text-amber-800"
               : row.status === "PAID"
-              ? "bg-positive text-white"
-              : "bg-negative text-white"
+              ? "bg-emerald-100 text-emerald-800"
+              : "bg-red-100 text-red-700"
           }`}
         >
           {row.status}
@@ -179,20 +179,16 @@ const Transaction = () => {
         title="Payout Management"
         subtitle="Manage your transactions here"
       />
-      <div className="flex flex-col w-full">
-        <div className="bg-white p-4 md:p-6 lg:p-10 rounded-lg shadow">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-greyColr mb-4 md:mb-0">
-              Payout
-            </h2>
-          </div>
+      <div className="mx-auto flex max-w-[1500px] flex-col p-4 md:p-8 lg:p-10">
+        <div>
+          <div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#6F8294]">Financial overview</p><h2 className="font-spaceGrotesk text-2xl font-semibold tracking-[-.03em]">Payout activity</h2></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="bg-pryColor-Light p-4 rounded-lg">
-              <h3 className="text-sm font-medium text-greyColr">
+          <div className="mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#151A22]/[.07] lg:grid-cols-4">
+            <div className="bg-[#151A22] p-5 text-white md:p-6">
+              <h3 className="text-xs font-medium text-white/55">
                 Total Revenue Value
               </h3>
-              <div className="text-2xl font-bold text-pryColor mt-2">
+              <div className="mt-3 font-spaceGrotesk text-xl font-semibold md:text-2xl">
                 {new Intl.NumberFormat("en-NG", {
                   style: "currency",
                   currency: "NGN",
@@ -202,20 +198,20 @@ const Transaction = () => {
               </div>
             </div>
 
-            <div className="bg-secColor-Light p-4 rounded-lg">
+            <div className="bg-[#DCE4E8] p-5 md:p-6">
               <h3 className="text-sm font-medium text-greyColr">
                 Total Sales Count
               </h3>
-              <div className="text-2xl font-bold text-secColor mt-2">
+              <div className="mt-3 font-spaceGrotesk text-2xl font-semibold text-[#151A22]">
                 {totalSalesCount?.toString()}
               </div>
             </div>
 
-            <div className="bg-positive-Light p-4 rounded-lg">
+            <div className="bg-[#F8F7F3] p-5 md:p-6">
               <h3 className="text-sm font-medium text-greyColr">
                 Payout Completed
               </h3>
-              <div className="text-2xl font-bold text-positive mt-2">
+              <div className="mt-3 font-spaceGrotesk text-xl font-semibold text-[#151A22] md:text-2xl">
                 {new Intl.NumberFormat("en-NG", {
                   style: "currency",
                   currency: "NGN",
@@ -225,11 +221,11 @@ const Transaction = () => {
               </div>
             </div>
 
-            <div className="bg-negative-Light p-4 rounded-lg">
+            <div className="bg-[#F8F7F3] p-5 md:p-6">
               <h3 className="text-sm font-medium text-greyColr">
                 Pending Payouts
               </h3>
-              <div className="text-2xl font-bold text-negative mt-2">
+              <div className="mt-3 font-spaceGrotesk text-xl font-semibold text-[#151A22] md:text-2xl">
                 {new Intl.NumberFormat("en-NG", {
                   style: "currency",
                   currency: "NGN",
@@ -266,7 +262,7 @@ const Transaction = () => {
             </div>
           </div> */}
 
-          <div className="flex w-full flex-col rounded-md border">
+          <div className="flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#F8F7F3]">
             <DataTable
               columns={columns}
               data={payoutData?.data as PayoutData[]}

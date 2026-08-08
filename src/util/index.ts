@@ -642,37 +642,21 @@ export const transactionsData: RowDataProps[] = [
 ];
 
 export const tableCustomStyles = {
+  table: { style: { backgroundColor: "#F8F7F3" } },
+  headRow: { style: { minHeight: "48px", backgroundColor: "#EEF1F3", borderBottom: "1px solid rgba(21,26,34,.08)" } },
   headCells: {
     style: {
-      color: "var(--Grey1)",
-      fontWeight: 600,
-      backgroundColor: "#F6F6F7",
-      fontSize: 14,
-      display: "flex",
-      justifyContent: "center",
+      color: "#566170", fontWeight: 700, backgroundColor: "#EEF1F3", fontSize: "11px",
+      letterSpacing: ".1em", textTransform: "uppercase" as const, padding: "0 16px",
     },
   },
+  rows: { style: { minHeight: "60px", backgroundColor: "#F8F7F3", borderBottom: "1px solid rgba(21,26,34,.07)", "&:hover": { backgroundColor: "#FFFFFF" } } },
   cells: {
     style: {
-      color: "#352F36",
-      fontSize: "14px",
-      fontWeight: "400",
-      display: "flex",
-      verticalAlign: "middle",
-      padding: "30px 10px",
-      justifyContent: "center",
+      color: "#242B35", fontSize: "13px", fontWeight: "500", padding: "12px 16px",
     },
   },
-  columns: {
-    0: {
-      style: {
-        textAlign: "left",
-        border: "solid red 2px !important",
-        display: "flex",
-        justifyContent: "start !important",
-      },
-    },
-  },
+  pagination: { style: { minHeight: "64px", backgroundColor: "#F8F7F3", color: "#566170", borderTop: "1px solid rgba(21,26,34,.07)" } },
 };
 
 export const productCategories = [

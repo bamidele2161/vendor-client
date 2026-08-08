@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { type ImagePreviewerProps } from "../../interfaces/Global";
-import { MdDeleteOutline } from "react-icons/md";
-import { UploadIcon } from "../../assets/svg/Sidebar";
+import { ImagePlus, Trash2 } from "lucide-react";
 
 const MultipleUpload: React.FC<ImagePreviewerProps> = ({
   images,
@@ -34,25 +33,25 @@ const MultipleUpload: React.FC<ImagePreviewerProps> = ({
   }, [images]);
 
   return (
-    <div>
+    <div className="mt-2">
       {images?.length >= 1 && (
         <div className="justify-end flex">
           <button
             type="button"
-            className={`bg-negative text-white p-2 text-sm ${"cursor-pointer"} rounded-full z-100`}
+            className="z-10 mb-2 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-red-50 text-red-600 hover:bg-red-100"
             onClick={() => removeImage(selectedImage)}
           >
-            <MdDeleteOutline />
+            <Trash2 size={16}/>
           </button>
         </div>
       )}
 
       <label
         htmlFor="file-upload"
-        className={`mt-4 flex h-40 w-full relative  flex-col items-center justify-center rounded-lg border border-dashed border-primary`}
+        className="relative mt-2 flex min-h-56 w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-[1.25rem] border border-dashed border-[#6F8294]/50 bg-[#EEF1F3]/70 transition hover:border-[#151A22]/35 hover:bg-[#EEF1F3]"
       >
         <div className="w-[44px] h-[44px] flex justify-center items-center rounded-full">
-          <UploadIcon />
+          <ImagePlus className="text-[#6F8294]" />
         </div>
         <span className="mt-3 text-gray-500">
           {images?.length >= 1 ? (
@@ -61,19 +60,13 @@ const MultipleUpload: React.FC<ImagePreviewerProps> = ({
                 src={
                   images?.length === 1 ? (images[0] as string) : selectedImage
                 }
-                className="w-full h-full absolute top-0 right-0 object-cover"
+                alt="Selected product preview" className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
           ) : (
             <div className="flex justify-center items-center flex-col">
-              <p>
-                <span className="text-primary font-bold text-sm">
-                  {" "}
-                  Click to upload front page
-                </span>{" "}
-                or drag and drop
-              </p>
-              <p className="text-sm">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+              <p className="text-sm font-semibold text-[#151A22]">Choose product imagery</p>
+              <p className="mt-1 text-xs text-[#6F8294]">JPEG or PNG · up to 10MB</p>
             </div>
           )}
         </span>
@@ -85,35 +78,26 @@ const MultipleUpload: React.FC<ImagePreviewerProps> = ({
           onChange={handleFileChange}
         />
       </label>
-      <div className="flex justify-between mt-4">
-        {" "}
-        <p className="items text-[12px]">
-          Recommended image size: 2160 x 1080px
-        </p>
-        <p className="items text-[12px]">Maximum file size: 10MB</p>
-        <p className="items text-[12px]">
-          Supported images files size: JPEG, PNG
-        </p>
-      </div>
+      <p className="mt-3 text-xs leading-5 text-[#6F8294]">Recommended: portrait-oriented, high-resolution product photography. Supported formats: JPEG and PNG.</p>
       {images?.length > 0 && (
-        <div className="flex items-center gap-6">
+        <div className="mt-4 flex items-center gap-3 overflow-x-auto pb-1">
           {images?.map((data: string, index: number) => (
             <div
               key={index}
-              className="relative border-red-500 flex gap-4 cursor-pointer"
+              className="relative flex shrink-0 cursor-pointer gap-4"
               onClick={() => setSelectedImage(data)}
             >
               {" "}
               <img
                 src={data}
-                className={`w-[140px] rounded-md h-[48px] object-cover ${
-                  selectedImage === data && "border-primary border-2"
+                alt={`Product preview ${index + 1}`} className={`h-16 w-16 rounded-xl object-cover ${
+                  selectedImage === data && "ring-2 ring-[#151A22] ring-offset-2"
                 } `}
               />
             </div>
           ))}
           <label
-            className={`first-line:font-bold bg-[#ebf4f3] text-primary border text-[10px] rounded-md py-[15px] px-[16px] font-bold border-dashed border-primary`}
+            className="flex h-16 shrink-0 cursor-pointer items-center rounded-xl border border-dashed border-[#6F8294]/50 bg-[#EEF1F3] px-4 text-xs font-semibold text-[#242B35]"
           >
             + Add New Image
             <input

@@ -10,13 +10,16 @@ import {
   useGetAllVendorProductsQuery,
 } from "../../../service/product";
 
-import { ChevronDown, MoreVertical } from "lucide-react";
+import { ChevronDown, MoreVertical, Plus, Search } from "lucide-react";
 import { useAppSelector } from "../../../hooks";
 import { selectAuth } from "../../../store/slice/authSlice";
 import { toast } from "react-toastify";
 import RowActionsMenu from "../../../components/ui/RowActionsMenu";
 import ProductDetailsModal from "../../../components/Product/ProductDetailsModal";
 import type { Product } from "../../../interfaces/Product";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
+import { tableCustomStyles } from "../../../util";
 
 const ProductPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -107,7 +110,7 @@ const ProductPage = () => {
         <img
           src={row.thumbnails[0]}
           alt="Product Image"
-          className="w-16 h-16 object-cover rounded"
+          className="h-14 w-12 rounded-xl object-cover"
         />
       ),
     },
@@ -139,7 +142,7 @@ const ProductPage = () => {
       name: "Status",
       cell: (row: Product) => (
         <span
-          className={`px-2 py-1 rounded text-sm ${
+          className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[.08em] ${
             row.status === "Approved"
               ? "bg-green-100 text-green-800"
               : "bg-yellow-100 text-yellow-800"
@@ -185,29 +188,6 @@ const ProductPage = () => {
     },
   ];
 
-  const customStyles = {
-    rows: {
-      style: {
-        minHeight: "60px",
-      },
-    },
-    headCells: {
-      style: {
-        paddingLeft: "8px",
-        paddingRight: "8px",
-        fontWeight: "bold",
-        fontSize: "0.9rem",
-        color: "#352F36",
-      },
-    },
-    cells: {
-      style: {
-        paddingLeft: "8px",
-        paddingRight: "8px",
-      },
-    },
-  };
-
   const subcategoryItems = categories?.data
     .flatMap((category: any) => category.subCategories)
     .flatMap((subCategory: any) => subCategory.items)
@@ -216,27 +196,17 @@ const ProductPage = () => {
   return (
     <div className="">
       <Navbar title="Product Management" subtitle="Manage your products here" />
-      <div className="flex flex-col w-full">
-        <div className="flex justify-end px-4 md:px-10">
-          <button
-            className="px-4 bg-pryColor text-white py-3 mt-4 rounded-lg hover:bg-pryColor"
-            onClick={() => navigate("/product-management/add-product")}
-          >
-            + Add Product
-          </button>
-        </div>
+      <div className="mx-auto max-w-[1500px] px-4 py-6 md:px-8 md:py-8 lg:px-10">
+          <div className="w-full">
+            <div className="mb-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div><p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#6F8294]">Live catalogue</p><h2 className="font-spaceGrotesk text-3xl font-semibold tracking-[-.04em]">Your products</h2><p className="mt-1 text-sm text-[#566170]">Review inventory and manage every item in your storefront.</p></div>
+              <Button onClick={() => navigate("/product-management/add-product")}><Plus size={16}/> Add product</Button>
+            </div>
 
-        <div className="flex px-4 py-6 md:px-6 lg:px-10">
-          <div className="bg-white p-6 rounded-lg shadow w-full">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-greyColr mb-4 md:mb-0">
-                Products
-              </h2>
-
-              <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
+              <div className="mb-4 flex w-full flex-col gap-3 rounded-[1.25rem] border border-[#151A22]/[.07] bg-[#F8F7F3] p-3 md:flex-row md:justify-end">
                 <div className="w-full md:w-48">
                   <select
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pryColor"
+                    className="h-12 w-full rounded-xl border border-[#151A22]/10 bg-white px-4 text-sm outline-none focus:border-[#6F8294] focus:ring-4 focus:ring-[#6F8294]/10"
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
                   >
@@ -247,24 +217,22 @@ const ProductPage = () => {
                   </select>
                 </div>
 
-                <div className="w-full md:w-64">
-                  <input
+                <div className="relative w-full md:w-72"><Search className="pointer-events-none absolute left-4 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-[#6F8294]"/>
+                  <Input
                     type="text"
                     placeholder="Search products..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pryColor"
+                    className="pl-10"
                     value={searchTerm}
                     onChange={handleSearch}
                   />
                 </div>
               </div>
-            </div>
-
-            <div className="overflow-x-auto">
+            <div className="overflow-hidden rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#F8F7F3]">
               <DataTable
                 columns={columns}
                 data={filteredProducts as Product[]}
                 pagination
-                customStyles={customStyles}
+                customStyles={tableCustomStyles}
                 highlightOnHover
                 responsive
                 sortIcon={<ChevronDown size={16} />}
@@ -310,7 +278,6 @@ const ProductPage = () => {
               onChangeRejectionReason={(val) => setRejectionReason(val)}
             />
           </div>
-        </div>
       </div>
     </div>
   );

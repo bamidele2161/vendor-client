@@ -2,6 +2,7 @@ import DataTable from "react-data-table-component";
 import { useGetAllOrdersByVendorsQuery } from "../../service/product";
 import { selectAuth } from "../../store/slice/authSlice";
 import { useAppSelector } from "../../hooks";
+import { tableCustomStyles } from "../../util";
 
 const RecentOrders = () => {
   const { userInfo } = useAppSelector(selectAuth);
@@ -42,14 +43,14 @@ const RecentOrders = () => {
       selector: (row: any) => row.status,
       cell: (row: any) => (
         <span
-          className={`px-2 py-1 rounded-full text-xs ${
+          className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[.08em] ${
             row.status === "Paid"
-              ? "bg-processing text-white"
+              ? "bg-amber-100 text-amber-800"
               : row.status === "Shipped"
-              ? "bg-secColor text-white"
+              ? "bg-[#DCE4E8] text-[#242B35]"
               : row.status === "Delivered"
-              ? "bg-positive text-white"
-              : "bg-negative text-white"
+              ? "bg-emerald-100 text-emerald-800"
+              : "bg-red-100 text-red-700"
           }`}
         >
           {row.status}
@@ -59,36 +60,13 @@ const RecentOrders = () => {
     },
   ];
 
-  const customStyles = {
-    rows: {
-      style: {
-        minHeight: "60px",
-      },
-    },
-    headCells: {
-      style: {
-        paddingLeft: "8px",
-        paddingRight: "8px",
-        fontWeight: "bold",
-        fontSize: "0.9rem",
-        color: "#352F36",
-      },
-    },
-    cells: {
-      style: {
-        paddingLeft: "8px",
-        paddingRight: "8px",
-      },
-    },
-  };
-
   return (
-    <div className="p-6 bg-white rounded-2xl shadow-default">
-      <div className="flex w-full flex-col rounded-md border">
+    <div className="overflow-hidden rounded-[1.75rem] border border-[#151A22]/[0.07] bg-[#F8F7F3]">
+      <div className="flex w-full flex-col overflow-hidden">
         <DataTable
           columns={columns}
           data={recentOrders}
-          customStyles={customStyles}
+          customStyles={tableCustomStyles}
           highlightOnHover
           responsive
         />

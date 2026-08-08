@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import FormInput from "../../../components/FormInput";
 import AddPayout from "../../../components/Dashboard/Settings/AddPayout";
 import ResetPassword from "../../../components/Dashboard/Settings/ResetPassword";
+import { Button } from "../../../components/ui/button";
 
 const Settings = () => {
   const { userInfo } = useAppSelector(selectAuth);
@@ -44,48 +45,49 @@ const Settings = () => {
   return (
     <div className="">
       <Navbar title="Settings" subtitle="Manage your profile here" />
-      <div className="bg-gray-50 p-4 md:p-6 lg:p-10 rounded-lg">
+      <div className="mx-auto max-w-[1500px] p-4 md:p-8 lg:p-10">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Store Settings</h1>
-          <p className="text-gray-500">
+          <p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#6F8294]">Workspace preferences</p>
+          <h1 className="font-spaceGrotesk text-3xl font-semibold tracking-[-.04em] text-[#151A22]">Store settings</h1>
+          <p className="mt-1 text-sm text-[#566170]">
             Update and manage your account settings
           </p>
         </div>
 
         {/* Tabs */}
-        <div className="mb-6 border-b border-gray-200">
-          <ul className="flex flex-wrap -mb-px text-sm font-medium">
-            <li className="mr-4">
+        <div className="mb-6 overflow-x-auto rounded-full border border-[#151A22]/[.07] bg-[#F8F7F3] p-1.5">
+          <ul className="flex min-w-max text-sm font-medium">
+            <li>
               <button
                 onClick={() => setActiveTab("personal")}
-                className={`inline-block p-3 ${
+                className={`rounded-full px-5 py-2.5 transition ${
                   activeTab === "personal"
-                    ? "text-pryColor border-b-2 border-pryColor"
-                    : "text-gray-500 hover:text-gray-600"
+                    ? "bg-[#151A22] text-white"
+                    : "text-[#566170] hover:bg-[#EEF1F3] hover:text-[#151A22]"
                 }`}
               >
                 Personal Information
               </button>
             </li>
-            <li className="mr-4">
+            <li>
               <button
                 onClick={() => setActiveTab("pay")}
-                className={`inline-block p-3 ${
+                className={`rounded-full px-5 py-2.5 transition ${
                   activeTab === "pay"
-                    ? "text-pryColor border-b-2 border-pryColor"
-                    : "text-gray-500 hover:text-gray-600"
+                    ? "bg-[#151A22] text-white"
+                    : "text-[#566170] hover:bg-[#EEF1F3] hover:text-[#151A22]"
                 }`}
               >
                 Payout
               </button>
             </li>
-            <li className="mr-4">
+            <li>
               <button
                 onClick={() => setActiveTab("store")}
-                className={`inline-block p-3 ${
+                className={`rounded-full px-5 py-2.5 transition ${
                   activeTab === "store"
-                    ? "text-pryColor border-b-2 border-pryColor"
-                    : "text-gray-500 hover:text-gray-600"
+                    ? "bg-[#151A22] text-white"
+                    : "text-[#566170] hover:bg-[#EEF1F3] hover:text-[#151A22]"
                 }`}
               >
                 Security
@@ -96,35 +98,25 @@ const Settings = () => {
 
         {/* Personal Information Tab Content */}
         {activeTab === "personal" && (
-          <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="rounded-[1.75rem] border border-[#151A22]/[.07] bg-[#F8F7F3] p-5 md:p-8">
             <form onSubmit={handleSubmit}>
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Profile Picture */}
-                <div className="md:col-span-2 flex items-center mb-4">
-                  <div className="w-20 h-20 mr-4 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
-                    <span className="text-3xl text-gray-600">
+                <div className="md:col-span-2 mb-2 flex items-center rounded-[1.25rem] bg-[#DCE4E8] p-4">
+                  <div className="mr-4 flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-[#151A22]">
+                    <span className="font-spaceGrotesk text-2xl text-white">
                       {userInfo?.fullName?.charAt(0)}
                     </span>
                   </div>
                   <div>
-                    <button
-                      type="button"
-                      className="bg-white border border-gray-300 px-4 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-50 mr-2"
-                    >
-                      Change Photo
-                    </button>
-                    <button
-                      type="button"
-                      className="text-red-600 text-sm hover:text-red-800"
-                    >
-                      Remove
-                    </button>
+                    <p className="text-sm font-semibold text-[#151A22]">Profile identity</p><p className="mt-1 text-xs text-[#566170]">Your account details appear across the vendor workspace.</p>
                   </div>
                 </div>
 
                 {/* Full name */}
                 <FormInput
-                  placeholder="Full Name"
+                  label="Full name"
+                  placeholder="Full name"
                   type="text"
                   id={"fullName"}
                   name="fullName"
@@ -137,7 +129,8 @@ const Settings = () => {
                 />
 
                 <FormInput
-                  placeholder="Business Name"
+                  label="Business name"
+                  placeholder="Business name"
                   type="text"
                   id={"businessName"}
                   name="businessName"
@@ -152,7 +145,8 @@ const Settings = () => {
                 />
 
                 <FormInput
-                  placeholder="Email Address"
+                  label="Email address"
+                  placeholder="Email address"
                   type="text"
                   id={"email"}
                   name="email"
@@ -163,6 +157,7 @@ const Settings = () => {
                 />
 
                 <FormInput
+                  label="Phone number"
                   placeholder="Phone number"
                   type="text"
                   id={"phoneNumber"}
@@ -178,7 +173,8 @@ const Settings = () => {
                 />
 
                 <FormInput
-                  placeholder="Phone number"
+                  label="Business address"
+                  placeholder="Business address"
                   type="text"
                   id={"address"}
                   name="address"
@@ -192,12 +188,7 @@ const Settings = () => {
               </div>
               {/* Submit Button */}
               <div className="md:col-span-2 mt-6">
-                <button
-                  type="submit"
-                  className="bg-pryColor text-white px-6 py-3 rounded-md hover:bg-secColor transition-colors"
-                >
-                  Save Changes
-                </button>
+                <Button size="lg" type="submit">Save changes</Button>
               </div>
             </form>
           </div>

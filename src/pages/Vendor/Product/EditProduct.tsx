@@ -22,6 +22,8 @@ import { toast } from "react-toastify";
 import MultiSelectDropdown from "../../../components/FormInput/MultiSelectDropDown";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BackArrowIcon } from "../../../assets/svg/CustomSVGs";
+import { Button } from "../../../components/ui/button";
+import { PackageCheck } from "lucide-react";
 
 const EditProduct: React.FC = () => {
   const [editProduct, { isLoading }] = useEditproductMutation();
@@ -122,19 +124,19 @@ const EditProduct: React.FC = () => {
   return (
     <div className="">
       <Navbar title="Product Management" subtitle="Manage your products here" />
-      <div
+      <div className="mx-auto max-w-[1500px] px-4 py-6 md:px-8 md:py-8 lg:px-10">
+      <button
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 border rounded-lg text-secColor border-secColor w-24 ml-4 md:ml-10 cursor-pointer p-2 mt-4 md:mt-6"
+        className="mb-5 flex items-center gap-2 text-xs font-semibold text-[#566170] hover:text-[#151A22]"
       >
         <BackArrowIcon />
-        Back
-      </div>
-      <div className="flex px-4 py-6 md:px-6 lg:px-10">
-        <div className="container mx-auto p-4 md:p-6 lg:p-10 bg-white rounded-lg shadow-default">
-          <h2 className="text-xl font-semibold mb-4">Edit New Product</h2>
+        Back to products
+      </button>
+        <div className="overflow-hidden rounded-[2rem] border border-[#151A22]/[.07] bg-[#F8F7F3]">
+          <div className="flex justify-between gap-4 bg-[#151A22] p-6 text-white md:items-end md:p-8"><div><p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#AEBCC7]">Catalogue editor</p><h2 className="mt-2 font-spaceGrotesk text-3xl font-semibold tracking-[-.04em]">Edit product</h2><p className="mt-2 text-sm text-white/55">Refine this listing without disrupting its existing storefront data.</p></div><PackageCheck className="hidden text-white/25 md:block" size={46}/></div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <form onSubmit={handleSubmit} className="space-y-8 p-5 md:p-8">
+            <section className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-white p-5 md:p-6"><div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#6F8294]">01 · Essentials</p><h3 className="mt-1 font-spaceGrotesk text-xl font-semibold">Product information</h3></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <FormInput
                 id="name"
                 label="Product Name"
@@ -163,7 +165,7 @@ const EditProduct: React.FC = () => {
                 onBlur={handleBlur}
                 error={touched.gender ? (errors.gender as string) : undefined}
               />
-            </div>
+            </div><div className="mt-5">
 
             <FormInput
               id="description"
@@ -179,7 +181,7 @@ const EditProduct: React.FC = () => {
                 touched.description ? (errors.description as string) : undefined
               }
             />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            </div></section><section className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#EEF1F3] p-5 md:p-6"><div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#6F8294]">02 · Classification</p><h3 className="mt-1 font-spaceGrotesk text-xl font-semibold">Category & variants</h3></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <FormInput
                 id="price"
                 label="Product Price"
@@ -212,8 +214,7 @@ const EditProduct: React.FC = () => {
                   touched.categoryId ? (errors.categoryId as string) : undefined
                 }
               />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            </div><div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
               <MultiSelectDropdown
                 label="Sizes"
                 options={fashionSizes}
@@ -224,20 +225,20 @@ const EditProduct: React.FC = () => {
                 options={VENDOR_COLORS}
                 onChange={(values) => setColors(values as string[])}
               />
-            </div>
+            </div></section>
             {/* <ImageUpload
               setDocument={setMainImage}
               isBase64={true}
               title="Main Image"
             /> */}
-            <div className="flex flex-col">
+            <section className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-white p-5 md:p-6"><div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#6F8294]">03 · Presentation</p><h3 className="mt-1 font-spaceGrotesk text-xl font-semibold">Product imagery</h3></div><div className="flex flex-col">
               <p className="font-medium text-[#15191E] text-sm flex gap-2 items-center">
                 Product Images <span className="text-base text-red-500">*</span>
               </p>
               <MultipleUpload images={thumbnails} setImages={setThumbnails} />
-            </div>
+            </div></section>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <section className="rounded-[1.5rem] border border-[#151A22]/[.07] bg-[#DCE4E8] p-5 md:p-6"><div className="mb-5"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[#566170]">04 · Commerce</p><h3 className="mt-1 font-spaceGrotesk text-xl font-semibold">Inventory & material</h3></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <FormInput
                 id="stock"
                 label="Stock"
@@ -270,20 +271,17 @@ const EditProduct: React.FC = () => {
                   touched.material ? (errors.material as string) : undefined
                 }
               />
-            </div>
+            </div></section>
 
-            <button
+            <Button size="lg"
               type="submit"
-              //   disabled={isLoading}
-              className=" py-2 px-4 bg-pryColor text-white font-semibold rounded-lg hover:bg-secColor transition disabled:bg-gray-300"
+              disabled={isLoading}
             >
-              {" "}
-              {isLoading ? <Spinner /> : "    Edit Product"}
-            </button>
+              {isLoading ? <Spinner /> : "Save product changes"}
+            </Button>
           </form>
         </div>
-      </div>
-    </div>
+      </div></div>
   );
 };
 

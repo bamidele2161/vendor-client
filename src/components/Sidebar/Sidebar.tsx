@@ -22,11 +22,11 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, toggleSidebar }) => {
     <main
       className={`sidebar-container relative h-full flex flex-col transition-all duration-300 ease-in-out ${
         collapsed ? "md:w-20" : "md:w-64"
-      } w-64 bg-gradient-to-b from-pryColor to-[#193c61] text-white rounded-r-2xl shadow-xl`}
+      } w-64 bg-[#151A22] text-white`}
     >
       {/* Desktop-only collapse toggle */}
       <div
-        className="absolute -right-3 top-16 bg-secColor rounded-full p-1 cursor-pointer shadow-md hover:scale-105 transition-transform z-10 hidden md:block"
+        className="absolute -right-3 top-16 rounded-full border border-white/10 bg-[#DCE4E8] p-1 text-[#151A22] shadow-lg cursor-pointer hover:scale-105 transition-transform z-10 hidden md:block"
         onClick={toggleSidebar}
       >
         {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
@@ -39,9 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, toggleSidebar }) => {
           }`}
         >
           <VendorBrandIcon className="w-14" />
-          {!collapsed && (
-            <h1 className="font-bold text-xl text-white">ashobox</h1>
-          )}
+          {!collapsed && <div><h1 className="font-spaceGrotesk font-semibold text-xl tracking-tight text-white">ashobox</h1><p className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white/45">Vendor studio</p></div>}
         </div>
 
         <div
@@ -55,10 +53,10 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, toggleSidebar }) => {
                 <NavLink
                   to={item.url}
                   className={({ isActive }) =>
-                    `flex items-center rounded-xl transition-all duration-300 ease-in-out p-3 hover:bg-white/10 ${
+                    `flex items-center rounded-full transition-all duration-300 ease-in-out px-3 py-2.5 hover:bg-white/10 ${
                       isActive
-                        ? "bg-white text-pryColor font-medium shadow-md"
-                        : "text-white font-normal"
+                        ? "bg-[#DCE4E8] text-[#151A22] font-semibold"
+                        : "text-white/70 font-medium"
                     }`
                   }
                 >
@@ -75,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, toggleSidebar }) => {
                       >
                         <div className="flex-shrink-0">
                           <item.icon
-                            fillColor={isActive ? "#254A76" : "white"}
+                            fillColor={isActive ? "#151A22" : "white"}
                           />
                         </div>
 
@@ -91,7 +89,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, toggleSidebar }) => {
                       </div>
 
                       {!collapsed && isActive && (
-                        <div className="h-1.5 w-1.5 rounded-full bg-secColor"></div>
+                        <div className="h-1.5 w-1.5 rounded-full bg-[#6F8294]"></div>
                       )}
                     </div>
                   )}
@@ -103,7 +101,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, toggleSidebar }) => {
       </div>
 
       <div
-        className="mt-auto p-5 border-t border-white/10 cursor-pointer"
+        className="mt-auto p-5 border-t border-white/10 cursor-pointer text-white/65 hover:text-white transition-colors"
         onClick={() =>
           userInfo?.role === "VENDOR"
             ? LogoutUser(navigate)

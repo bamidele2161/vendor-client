@@ -45,9 +45,9 @@ const SalesDonut = () => {
     });
 
     return [
-      { name: "Shipped", value: statusCounts.shipped, color: "#f59e0b" },
-      { name: "Delivered", value: statusCounts.delivered, color: "#3b82f6" },
-      { name: "Paid", value: statusCounts.paid, color: "#10b981" },
+      { name: "Shipped", value: statusCounts.shipped, color: "#6F8294" },
+      { name: "Delivered", value: statusCounts.delivered, color: "#151A22" },
+      { name: "Paid", value: statusCounts.paid, color: "#25A969" },
     ];
   };
 
@@ -73,7 +73,7 @@ const SalesDonut = () => {
             {formatNumber(data.value)} orders
           </p>
           <p className="text-xs text-gray-500">
-            {((data.value / totalOrders) * 100).toFixed(1)}% of total
+            {totalOrders ? ((data.value / totalOrders) * 100).toFixed(1) : "0.0"}% of total
           </p>
         </div>
       );
@@ -102,10 +102,11 @@ const SalesDonut = () => {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="w-full overflow-hidden rounded-[1.75rem] border border-[#151A22]/[0.07] bg-[#DCE4E8]">
       <div className="p-6">
         <div className="mb-6 flex flex-col justify-start items-start">
-          <h2 className="text-xl font-semibold text-gray-800">Order Status</h2>
+          <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#566170]">Fulfilment mix</p>
+          <h2 className="font-spaceGrotesk text-xl font-semibold tracking-tight text-[#151A22]">Order Status</h2>
           <p className="text-sm text-gray-500">
             Distribution of orders by status
           </p>
