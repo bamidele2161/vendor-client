@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { AlertTriangle, ChevronDown } from "lucide-react";
+import { AlertTriangle, ChevronDown } from "@icons";
 
 // Sample data - in a real app, this would come from your Redux/API
 const products = [

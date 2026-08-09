@@ -1,5 +1,5 @@
 import { type FC, useEffect, useRef, useState } from "react";
-import { Check, ChevronDown, Search } from "lucide-react";
+import { Check, ChevronDown, Search } from "@icons";
 import { Input } from "../ui/input";
 
 type SelectOption = string | number | Record<string, unknown>;

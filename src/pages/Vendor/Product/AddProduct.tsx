@@ -21,7 +21,7 @@ import Spinner from "../../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
 import MultiSelectDropdown from "../../../components/FormInput/MultiSelectDropDown";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, PackagePlus } from "lucide-react";
+import { ArrowLeft, PackagePlus } from "@icons";
 import { Button } from "../../../components/ui/button";
 
 const AddProduct: React.FC = () => {

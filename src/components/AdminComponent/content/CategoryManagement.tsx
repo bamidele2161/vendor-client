@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, Edit, Trash2, ChevronDown, ChevronRight } from "lucide-react";
+import { Plus, Edit, Trash2, ChevronDown, ChevronRight } from "@icons";
 import {
   useAddCategoryMutation,
   useAddSubCategoryMutation,

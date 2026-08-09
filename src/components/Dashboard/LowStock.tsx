@@ -1,4 +1,4 @@
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle } from "@icons";
 
 const lowStockItems = [
   { name: "Leather Boots", stock: 2 },

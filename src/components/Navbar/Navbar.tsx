@@ -2,7 +2,7 @@
 import { useAppSelector } from "../../hooks";
 import { type NavbarProps } from "../../interfaces/Global";
 import { selectAuth } from "../../store/slice/authSlice";
-import { Menu } from "lucide-react";
+import { Menu } from "@icons";
 import { useGetVendorByIdQuery } from "../../service/vendor";
 
 const Navbar: React.FC<NavbarProps> = ({ title, subtitle }) => {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { Ban, CheckCircle, Eye, AlertTriangle } from "lucide-react";
+import { Ban, CheckCircle, Eye, AlertTriangle } from "@icons";
 
 const vendors = [
   {

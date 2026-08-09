@@ -7,7 +7,7 @@ import {
   // MoveDown,
   Image,
   Layout,
-} from "lucide-react";
+} from "@icons";
 import image1 from "../../../assets/home1.jpg";
 import image2 from "../../../assets/home2.jpg";
 import image3 from "../../../assets/home3.jpg";

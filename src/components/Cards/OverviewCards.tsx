@@ -1,4 +1,4 @@
-import { ShoppingBag, WalletCards, Package } from "lucide-react";
+import { ShoppingBag, WalletCards, Package } from "@icons";
 import { Card } from "./Cards";
 
 import {

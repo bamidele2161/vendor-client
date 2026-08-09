@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@icons";
 import { BrandMobileIcon } from "../../assets/svg/Product";
 import fashionImage from "../../assets/home2.jpg";
 

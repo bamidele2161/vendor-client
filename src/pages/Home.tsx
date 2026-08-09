@@ -6,7 +6,7 @@ import {
   PackageCheck,
   ShoppingBag,
   Sparkles,
-} from "lucide-react";
+} from "@icons";
 import { BrandMobileIcon } from "../assets/svg/Product";
 import { Button } from "../components/ui/button";
 import home1 from "../assets/home1.jpg";

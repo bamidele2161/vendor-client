@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { Edit, Truck, XCircle, ChevronDown } from "lucide-react";
+import { Edit, Truck, XCircle, ChevronDown } from "@icons";
 
 const orders = [
   {

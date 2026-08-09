@@ -23,7 +23,7 @@ import MultiSelectDropdown from "../../../components/FormInput/MultiSelectDropDo
 import { useLocation, useNavigate } from "react-router-dom";
 import { BackArrowIcon } from "../../../assets/svg/CustomSVGs";
 import { Button } from "../../../components/ui/button";
-import { PackageCheck } from "lucide-react";
+import { PackageCheck } from "@icons";
 
 const EditProduct: React.FC = () => {
   const [editProduct, { isLoading }] = useEditproductMutation();

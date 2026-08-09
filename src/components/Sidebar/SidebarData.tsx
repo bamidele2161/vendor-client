@@ -10,7 +10,7 @@ import {
   FileText,
   Users,
   Settings,
-} from "lucide-react";
+} from "@icons";
 
 export const SidebarData = [
   {

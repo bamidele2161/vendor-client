@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { Eye, FileDown, ChevronDown, TrendingUp, Edit } from "lucide-react";
+import { Eye, FileDown, ChevronDown, TrendingUp, Edit } from "@icons";
 import { useGetAllOrdersQuery } from "../../../service/product";
 import { toast } from "react-toastify";
 import { useUpdateOrderStatusMutation } from "../../../service/admin";

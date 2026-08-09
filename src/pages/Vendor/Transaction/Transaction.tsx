@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 // import type { ChangeEvent } from "react";
 import Navbar from "../../../components/Navbar/Navbar";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown } from "@icons";
 import { tableCustomStyles } from "../../../util";
 import DataTable from "react-data-table-component";
 import {

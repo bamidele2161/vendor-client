@@ -1,5 +1,5 @@
 import React from "react";
-import { Edit2, Trash2 } from "lucide-react";
+import { Edit2, Trash2 } from "@icons";
 import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "../../util";
 

@@ -1,4 +1,4 @@
-import { Truck, Headphones, Shield } from "lucide-react";
+import { Truck, Headphones, Shield } from "@icons";
 
 const features = [
   {

@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { MapPin } from "lucide-react";
+import { MapPin } from "@icons";
 import Spinner from "../../../components/Spinner/Spinner";
 import FormInput from "../../../components/FormInput";
 import AuthShell from "../../../components/Auth/AuthShell";

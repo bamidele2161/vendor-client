@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { Check, X, Eye, AlertCircle, ChevronDown } from "lucide-react";
+import { Check, X, Eye, AlertCircle, ChevronDown } from "@icons";
 import { useGetAllProductCategoryQuery } from "../../../service/product";
 import { useGetAllProductsQuery } from "../../../service/admin";
 import { toast } from "react-toastify";

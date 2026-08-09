@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { X } from "@icons";
 import { useGlobalHooks } from "../../../hooks/globalHooks";
 import PopUp from "../../PopUps/PopUp";
 import { formatTimestamp } from "../../../util";

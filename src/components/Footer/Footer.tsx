@@ -9,7 +9,7 @@ import {
   MapPin,
   Phone,
   ArrowRight,
-} from "lucide-react";
+} from "@icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";

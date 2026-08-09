@@ -14,7 +14,7 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import { Download, Calendar } from "lucide-react";
+import { Download, Calendar } from "@icons";
 
 const monthlySales = [
   { month: "Jan", sales: 4000, orders: 120 },

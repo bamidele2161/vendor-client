@@ -1,4 +1,4 @@
-import { EyeIcon } from "lucide-react";
+import { EyeIcon } from "@icons";
 import React from "react";
 
 interface ProductInfoProps {

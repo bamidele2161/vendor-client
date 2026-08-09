@@ -1,4 +1,4 @@
-import { Plus, ArrowUpRight } from "lucide-react";
+import { Plus, ArrowUpRight } from "@icons";
 import { useNavigate } from "react-router-dom";
 
 const QuickAction = () => {

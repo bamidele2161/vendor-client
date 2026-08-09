@@ -1,7 +1,7 @@
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { useGetAllOrdersByVendorsQuery } from "../../../service/product";
-import { ChevronDown, MoreVertical } from "lucide-react";
+import { ChevronDown, MoreVertical } from "@icons";
 import Navbar from "../../../components/Navbar/Navbar";
 import { selectAuth } from "../../../store/slice/authSlice";
 import { useAppSelector } from "../../../hooks";

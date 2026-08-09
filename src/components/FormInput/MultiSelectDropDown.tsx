@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Check, ChevronDown, Search, X } from "lucide-react";
+import { Check, ChevronDown, Search, X } from "@icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Plus, X } from "lucide-react";
+import { Search, Plus, X } from "@icons";
 import CouponForm from "../../../components/Vendor/CouponForm";
 import CouponList from "../../../components/Vendor/CouponList";
 

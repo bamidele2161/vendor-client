@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { adminSidebarData, SidebarData } from "./SidebarData";
 import { LogoutIcon } from "../../assets/svg/CustomSVGs";
 import { type SidebarDataProps } from "../../interfaces/Global";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "@icons";
 import { VendorBrandIcon } from "../../assets/svg/Product";
 import { LogoutAdmin, LogoutUser } from "../../util";
 import { useAppSelector } from "../../hooks";

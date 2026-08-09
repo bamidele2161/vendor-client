@@ -10,7 +10,7 @@ import {
   useGetAllVendorProductsQuery,
 } from "../../../service/product";
 
-import { ChevronDown, MoreVertical, Plus, Search } from "lucide-react";
+import { ChevronDown, MoreVertical, Plus, Search } from "@icons";
 import { useAppSelector } from "../../../hooks";
 import { selectAuth } from "../../../store/slice/authSlice";
 import { toast } from "react-toastify";

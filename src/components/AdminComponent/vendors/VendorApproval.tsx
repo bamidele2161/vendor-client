@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { Check, X, Eye } from "lucide-react";
+import { Check, X, Eye } from "@icons";
 import {
   useGetAllVendorsQuery,
   useUpdateVendorMutation,

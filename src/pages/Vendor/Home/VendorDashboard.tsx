@@ -7,7 +7,7 @@ import Navbar from "../../../components/Navbar/Navbar";
 import { useAppSelector } from "../../../hooks";
 import { useGetVendorByIdQuery } from "../../../service/vendor";
 import { selectAuth } from "../../../store/slice/authSlice";
-import { AlertCircle, ArrowUpRight } from "lucide-react";
+import { AlertCircle, ArrowUpRight } from "@icons";
 import { useNavigate } from "react-router-dom";
 
 const VendorDashboard = () => {

@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import {
   Eye,
   // Edit, Ban, Check, Key
-} from "lucide-react";
+} from "@icons";
 import { useGetAllUsersQuery } from "../../../service/auth";
 
 // Sample data - in a real app, this would come from your Redux/API

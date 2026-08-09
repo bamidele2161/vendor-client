@@ -1,5 +1,5 @@
 import type { Order } from "../../interfaces/Order";
-import { X, User, Mail, Phone, MapPin, Receipt, Package2 } from "lucide-react";
+import { X, User, Mail, Phone, MapPin, Receipt, Package2 } from "@icons";
 
 interface OrderDetailsModalProps {
   open: boolean;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { type ImagePreviewerProps } from "../../interfaces/Global";
-import { ImagePlus, Trash2 } from "lucide-react";
+import { ImagePlus, Trash2 } from "@icons";
 
 const MultipleUpload: React.FC<ImagePreviewerProps> = ({
   images,

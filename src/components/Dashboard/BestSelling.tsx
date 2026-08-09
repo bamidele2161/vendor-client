@@ -1,4 +1,4 @@
-import { TrendingUp } from "lucide-react";
+import { TrendingUp } from "@icons";
 
 const bestSellers = [
   { name: "Denim Jacket", sales: 230, totalStock: 300 },
